@@ -14,6 +14,7 @@ import javax.validation.Valid;
 public class Member extends Actor {
 
 	private Collection<Enrolment>	enrolments;
+	private Collection<Request>		requests;
 
 
 	@OneToMany
@@ -24,4 +25,15 @@ public class Member extends Actor {
 	public void setEnrolments(final Collection<Enrolment> enrolments) {
 		this.enrolments = enrolments;
 	}
+
+	@OneToMany(mappedBy = "member")
+	@Valid
+	public Collection<Request> getRequests() {
+		return this.requests;
+	}
+
+	public void setRequests(final Collection<Request> requests) {
+		this.requests = requests;
+	}
+
 }
