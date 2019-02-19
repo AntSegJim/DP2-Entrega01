@@ -19,8 +19,8 @@ public class Enrolment extends DomainEntity {
 	private Member		member;
 	private Brotherhood	brotherhood;
 
+	private Position	position;
 
-	//private Position position;
 
 	@NotNull
 	@Past
@@ -30,17 +30,15 @@ public class Enrolment extends DomainEntity {
 	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
-	/*
-	 * @ManyToOne(optional=true)
-	 * 
-	 * @Valid
-	 * public Position getPosition(){
-	 * return this.position;
-	 * }
-	 * public void setPosition(Position position){
-	 * this.position=position;
-	 * }
-	 */
+
+	@ManyToOne(optional = true)
+	@Valid
+	public Position getPosition() {
+		return this.position;
+	}
+	public void setPosition(final Position position) {
+		this.position = position;
+	}
 
 	@ManyToOne(optional = false)
 	@Valid
