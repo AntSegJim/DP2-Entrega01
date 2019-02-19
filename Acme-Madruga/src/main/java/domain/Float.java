@@ -5,9 +5,9 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -19,8 +19,9 @@ public class Float extends DomainEntity {
 
 	private String				title;
 	private String				description;
-	private Collection<String>	pictures;
+	private Collection<Picture>	pictures;
 	private Procession			procession;
+	private Brotherhood			brotherhood;
 
 
 	@NotBlank
@@ -41,11 +42,12 @@ public class Float extends DomainEntity {
 		this.description = description;
 	}
 
-	@ElementCollection
-	public Collection<String> getPictures() {
+	@OneToMany
+	@Valid
+	public Collection<Picture> getPictures() {
 		return this.pictures;
 	}
-	public void setPictures(final Collection<String> pictures) {
+	public void setPictures(final Collection<Picture> pictures) {
 		this.pictures = pictures;
 	}
 
@@ -56,5 +58,14 @@ public class Float extends DomainEntity {
 	}
 	public void setProcession(final Procession procession) {
 		this.procession = procession;
+	}
+
+	@ManyToOne(optional = false)
+	@Valid
+	public Brotherhood getBrotherhood() {
+		return this.brotherhood;
+	}
+	public void setBrotherhood(final Brotherhood brotherhood) {
+		this.brotherhood = brotherhood;
 	}
 }

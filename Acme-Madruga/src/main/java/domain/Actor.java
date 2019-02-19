@@ -72,11 +72,6 @@ public class Actor extends DomainEntity {
 		this.photo = photo;
 	}
 
-	//	if email has following patterns, the value is well. 
-	//	alias <identifier@domain>  -->  ^[A-z0-9]+\s*[A-z0-9\s]*\s\<[A-z0-9]+\@[A-z0-9]+\.[A-z0-9.]+\>
-	//	identificador@  -->  ^[A-z0-9]+\@
-	//	alias <identifier@>  -->  ^[A-z0-9]+\s*[A-z0-9\s]*\s\<[A-z0-9]+\@\>
-	//@Email
 	@Column(unique = true)
 	@NotNull
 	@NotBlank
