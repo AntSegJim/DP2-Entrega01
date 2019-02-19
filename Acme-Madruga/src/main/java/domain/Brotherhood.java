@@ -37,7 +37,7 @@ public class Brotherhood extends Actor {
 	public Date getEstablishmentDate() {
 		return this.establishmentDate;
 	}
-	public void setEstablishmenteDate(final Date establishmentDate) {
+	public void setEstablishmentDate(final Date establishmentDate) {
 		this.establishmentDate = establishmentDate;
 	}
 

@@ -7,15 +7,21 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Enrolment extends DomainEntity {
 
 	private Date		moment;
+	private Date		endMoment;
+
 	private Member		member;
 	private Brotherhood	brotherhood;
 
@@ -24,11 +30,24 @@ public class Enrolment extends DomainEntity {
 
 	@NotNull
 	@Past
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
 	public void setMoment(final Date moment) {
 		this.moment = moment;
+	}
+
+	@Past
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getEndMoment() {
+		return this.endMoment;
+	}
+
+	public void setEndMoment(final Date endMoment) {
+		this.endMoment = endMoment;
 	}
 
 	@ManyToOne(optional = true)
@@ -40,6 +59,7 @@ public class Enrolment extends DomainEntity {
 		this.position = position;
 	}
 
+	@NotNull
 	@ManyToOne(optional = false)
 	@Valid
 	public Member getMember() {
@@ -49,12 +69,15 @@ public class Enrolment extends DomainEntity {
 		this.member = member;
 	}
 
+	@NotNull
 	@ManyToOne(optional = false)
 	@Valid
-	public Brotherhood getBrotherhooh() {
+	public Brotherhood getBrotherhood() {
 		return this.brotherhood;
 	}
-	public void setBroterhood(final Brotherhood brotherhood) {
+
+	public void setBrotherhood(final Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
 	}
+
 }
