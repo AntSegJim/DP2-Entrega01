@@ -14,11 +14,12 @@ import org.hibernate.validator.constraints.Range;
 @Access(AccessType.PROPERTY)
 public class Request extends DomainEntity {
 
-	private int		status;
-	private Integer	column;
-	private Integer	row;
-	private String	description;
-	private Member	member;
+	private int			status;
+	private Integer		column;
+	private Integer		row;
+	private String		description;
+	private Member		member;
+	private Procession	procession;
 
 
 	@Range(min = 0, max = 2)
@@ -60,4 +61,15 @@ public class Request extends DomainEntity {
 	public void setMember(final Member member) {
 		this.member = member;
 	}
+
+	@ManyToOne(optional = false)
+	@Valid
+	public Procession getProcession() {
+		return this.procession;
+	}
+
+	public void setProcession(final Procession procession) {
+		this.procession = procession;
+	}
+
 }

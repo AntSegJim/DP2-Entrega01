@@ -1,6 +1,7 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -8,6 +9,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -20,12 +22,13 @@ import org.hibernate.validator.constraints.Range;
 @Access(AccessType.PROPERTY)
 public class Procession extends DomainEntity {
 
-	private String		ticker;
-	private Date		moment;
-	private String		description;
-	private String		title;
-	private int			draftMode;
-	private Brotherhood	brotherhood;
+	private String				ticker;
+	private Date				moment;
+	private String				description;
+	private String				title;
+	private int					draftMode;
+	private Collection<Request>	requests;
+	private Brotherhood			brotherhood;
 
 
 	//El pattern hay que cambiarlo
@@ -73,6 +76,16 @@ public class Procession extends DomainEntity {
 	}
 	public void setDraftMode(final int draftMode) {
 		this.draftMode = draftMode;
+	}
+
+	@OneToMany(mappedBy = "procession")
+	@Valid
+	public Collection<Request> getRequest() {
+		return this.requests;
+	}
+
+	public void setRequest(final Collection<Request> requests) {
+		this.requests = requests;
 	}
 
 	@ManyToOne(optional = false)
