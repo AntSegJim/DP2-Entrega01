@@ -24,11 +24,11 @@
 	<form:hidden path="version" />
 
  
- 	<form:label path="picture">
-		<spring:message code="picture.picture" />:
+ 	<form:label path="url">
+		<spring:message code="picture.url" />:
 	</form:label>
-	<form:input path="picture" />
-	<form:errors cssClass="error" path="picture" />
+	<form:input path="url" />
+	<form:errors cssClass="error" path="url" />
 	<br />
 		
 	<input type="submit" name="save" value="<spring:message code="picture.save" />" />
@@ -37,7 +37,7 @@
 	</jstl:if>
 	
 	<input type="button" name="cancel" value="<spring:message code="picture.cancel" />"
-		onclick="javascript: relativeRedir('picture/brotherhood/list.do');" />
+		onclick="javascript: relativeRedir('picture/brotherhood/picturesBrotherhood.do');" />
 	<br />
 </form:form>
 </security:authorize>

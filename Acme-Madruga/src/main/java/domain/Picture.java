@@ -12,16 +12,16 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class Picture extends DomainEntity {
 
-	private String	picture;
+	private String	url;
 
 
 	@URL
 	@NotNull
 	public String getPicture() {
-		return this.picture;
+		return this.url;
 	}
-	public void setPicture(final String picture) {
-		this.picture = picture;
+	public void setPicture(final String url) {
+		this.url = url;
 	}
 
 }

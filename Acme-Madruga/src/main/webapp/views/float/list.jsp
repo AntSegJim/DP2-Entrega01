@@ -23,7 +23,7 @@ requestURI="float/brotherhood/list.do" >
 	<a href="float/brotherhood/show.do?floatId=${row.id}" ><spring:message code="float.show" /></a>
 </display:column>
 <display:column>
-	<a href="picture/brotherhood/list.do?floatId=${row.id}" ><spring:message code="float.pictures.show" /></a>
+	<a href="picture/brotherhood/picturesFloat.do?floatId=${row.id}" ><spring:message code="float.pictures.show" /></a>
 </display:column>
 
 
