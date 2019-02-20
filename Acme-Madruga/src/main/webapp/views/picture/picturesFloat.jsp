@@ -18,11 +18,11 @@
 <security:authorize access="hasRole('BROTHERHOOD')">
 
 <display:table pagesize="5" name="pictures" id="row"
-requestURI="picture/brotherhood/list.do" >
+requestURI="picture/brotherhood/picturesFloat.do" >
 <display:column>
 	<a href="picture/brotherhood/edit.do?pictureId=${row.id}" ><spring:message code="picture.edit" /></a>
 </display:column>
-<display:column property="picture" titleKey="picture.picture"> <img src="${row.picture}" width="130px" height="80px">  </display:column>
+<display:column property="url" titleKey="picture.url"> <img src="${row.url}" width="130px" height="80px">  </display:column>
 </display:table>
 <form action="picture/brotherhood/edit.do">
     <input type="submit" value="<spring:message code="picture.create" />" />
