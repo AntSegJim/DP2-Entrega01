@@ -16,9 +16,13 @@
       
 <tiles-definitions>
 	
-	<definition name="picture/list" extends="master.page">	
+	<definition name="picture/picturesBrotherhood" extends="master.page">	
 		<put-attribute name="title" value="Imagenes de la Hermandad" />
-		<put-attribute name="body" value="/views/picture/list.jsp" />
+		<put-attribute name="body" value="/views/picture/picturesBrotherhood.jsp" />
+	</definition>
+	<definition name="picture/picturesFloat" extends="master.page">	
+		<put-attribute name="title" value="Imagenes del Paso" />
+		<put-attribute name="body" value="/views/picture/picturesFloat.jsp" />
 	</definition>
 	<definition name="picture/edit" extends="master.page">	
 		<put-attribute name="title" value="Editar Imagenes de la Hermandad" />
