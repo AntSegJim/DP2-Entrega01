@@ -29,8 +29,20 @@
 			</list>
 		</property>
 	</bean>
-
+	
 	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount3" class="security.UserAccount">
 		<property name="username" value="brotherhood" />
 		<property name="password" value="44843b89fec33a1c48bbb3967b65abce" />
 		<property name="authorities">
@@ -41,8 +53,20 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="brotherhood1" />
+		<property name="password" value="479e3180a45b21ea8e88beb0c45aa8ed" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="BROTHERHOOD" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
-	<bean id="userAccount3" class="security.UserAccount">
+	<bean id="userAccount5" class="security.UserAccount">
 		<property name="username" value="member" />
 		<property name="password" value="aa08769cdcb26674c6706093503ff0a3" />
 		<property name="authorities">
@@ -54,7 +78,114 @@
 		</property>
 	</bean>
 	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="member1" />
+		<property name="password" value="c7764cfed23c5ca3bb393308a0da2306" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MEMBER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 	<!-- Other domain beans come here -->
+	
+	
+	<!-- ADMINISTRATOR -->
+	
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="Cristian" />
+		<property name="middleName" value="Lorca" />
+		<property name="surname" value="" />
+		<property name="photo" value="https://i.blogs.es/dcc721/url1/450_1000.jpg" />
+		<property name="email" value="cristian@hotmail.com" />
+		<property name="phone" value="+34 620510520" />
+		<property name="address" value="SEVILLA" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+	
+	<bean id="administrator2" class="domain.Administrator">
+		<property name="name" value="Antonio" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Segura" />
+		<property name="photo" value="https://i.blogs.es/dcc721/url1/450_1000.jpg" />
+		<property name="email" value="antonio@hotmail.com" />
+		<property name="phone" value="+34 620510520" />
+		<property name="address" value="SEVILLA" />
+		<property name="userAccount" ref="userAccount2" />
+	</bean>
+	
+	<!-- POSITION -->
+
+	<bean id="position1" class="domain.Position">
+		<property name="name" value="President" />
+		<property name="idioma" value="en" />
+	</bean>	
+
+	<bean id="position2" class="domain.Position">
+		<property name="name" value="Vice-President" />
+		<property name="idioma" value="en" />
+	</bean>	
+
+	<bean id="position3" class="domain.Position">
+		<property name="name" value="Secretary" />
+		<property name="idioma" value="en" />
+	</bean>	
+
+	<bean id="position4" class="domain.Position">
+		<property name="name" value="Treasurer" />
+		<property name="idioma" value="en" />
+	</bean>	
+
+	<bean id="position5" class="domain.Position">
+		<property name="name" value="Historian" />
+		<property name="idioma" value="en" />
+	</bean>	
+
+	<bean id="position6" class="domain.Position">
+		<property name="name" value="Fundraiser" />
+		<property name="idioma" value="en" />
+	</bean>	
+
+	<bean id="position7" class="domain.Position">
+		<property name="name" value="Officer" />
+		<property name="idioma" value="en" />
+	</bean>	
+
+	<bean id="position8" class="domain.Position">
+		<property name="name" value="Presidente" />
+		<property name="idioma" value="es" />
+	</bean>	
+
+	<bean id="position9" class="domain.Position">
+		<property name="name" value="Vicepresidente" />
+		<property name="idioma" value="es" />
+	</bean>	
+
+	<bean id="position10" class="domain.Position">
+		<property name="name" value="Secretario" />
+		<property name="idioma" value="es" />
+	</bean>	
+
+	<bean id="position11" class="domain.Position">
+		<property name="name" value="Tesorero" />
+		<property name="idioma" value="es" />
+	</bean>	
+
+	<bean id="position12" class="domain.Position">
+		<property name="name" value="Historiador" />
+		<property name="idioma" value="es" />
+	</bean>	
+	<bean id="position13" class="domain.Position">
+		<property name="name" value="Promotor" />
+		<property name="idioma" value="es" />
+	</bean>	
+	<bean id="position14" class="domain.Position">
+		<property name="name" value="Vocal" />
+		<property name="idioma" value="es" />
+	</bean>	
 	
 	<!-- Bean picture -->
 	<bean id="picture1" class="domain.Picture">
