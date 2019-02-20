@@ -98,7 +98,7 @@
 	<bean id="administrator1" class="domain.Administrator">
 		<property name="name" value="Cristian" />
 		<property name="middleName" value="Lorca" />
-		<property name="surname" value="" />
+		<property name="surname" value="BRENES" />
 		<property name="photo" value="https://i.blogs.es/dcc721/url1/450_1000.jpg" />
 		<property name="email" value="cristian@hotmail.com" />
 		<property name="phone" value="+34 620510520" />

@@ -15,10 +15,13 @@ import org.hibernate.validator.constraints.Range;
 public class Request extends DomainEntity {
 
 	private int			status;
-	private Integer		column;
+
+	//private Integer	column;
+
 	private Integer		row;
 	private String		description;
 	private Member		member;
+
 	private Procession	procession;
 
 
@@ -30,14 +33,14 @@ public class Request extends DomainEntity {
 		this.status = status;
 	}
 
-	@Min(0)
-	public Integer getColumn() {
-		return this.column;
-	}
-	public void setColumn(final Integer column) {
-		this.column = column;
-	}
-
+	//	@Min(0)
+	//	public Integer getColumn() {
+	//		return this.column;
+	//	}
+	//
+	//	public void setColumn(final Integer column) {
+	//		this.column = column;
+	//	}
 	@Min(0)
 	public Integer getRow() {
 		return this.row;

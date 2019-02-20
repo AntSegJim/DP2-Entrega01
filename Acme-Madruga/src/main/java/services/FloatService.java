@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 import repositories.FloatRepository;
 import security.UserAccount;
 import domain.Brotherhood;
-import domain.Float;
+import domain.Paso;
 import domain.Picture;
 import domain.Procession;
 
@@ -28,8 +28,8 @@ public class FloatService {
 
 
 	//Metodo create
-	public Float create() {
-		final Float paso = new Float();
+	public Paso create() {
+		final Paso paso = new Paso();
 		paso.setTitle("");
 		paso.setDescription("");
 		paso.setPictures(new HashSet<Picture>());
@@ -38,15 +38,15 @@ public class FloatService {
 		return paso;
 	}
 	//Metodo findAll
-	public Collection<Float> finaAll() {
+	public Collection<Paso> finaAll() {
 		return this.FRepo.findAll();
 	}
 	//Metodo findOne
-	public Float findOne(final int floatId) {
+	public Paso findOne(final int floatId) {
 		return this.FRepo.findOne(floatId);
 	}
 	//Metodo save
-	public Float save(final Float paso) {
+	public Paso save(final Paso paso) {
 		//Que la iamgen que se va a guardar no se nulla y la url de la iamgen no sea nula
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
@@ -54,7 +54,7 @@ public class FloatService {
 		return this.FRepo.save(paso);
 	}
 	//Metodo delete
-	public void delete(final Float paso) {
+	public void delete(final Paso paso) {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
 		this.FRepo.delete(paso);

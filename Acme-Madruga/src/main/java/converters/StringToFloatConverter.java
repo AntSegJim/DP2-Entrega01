@@ -8,20 +8,20 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import repositories.FloatRepository;
-import domain.Float;
+import domain.Paso;
 
 @Component
 @Transactional
-public class StringToFloatConverter implements Converter<String, Float> {
+public class StringToFloatConverter implements Converter<String, Paso> {
 
 	@Autowired
 	private FloatRepository	floatRepository;
 
 
 	@Override
-	public Float convert(final String source) {
+	public Paso convert(final String source) {
 
-		Float paso;
+		Paso paso;
 		int id;
 
 		try {

@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Float extends DomainEntity {
+public class Paso extends DomainEntity {
 
 	private String				title;
 	private String				description;
