@@ -29,20 +29,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="admin1" />
-		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-			</list>
-		</property>
-	</bean>
 
-	<bean id="userAccount3" class="security.UserAccount">
+	<bean id="userAccount2" class="security.UserAccount">
 		<property name="username" value="brotherhood" />
 		<property name="password" value="44843b89fec33a1c48bbb3967b65abce" />
 		<property name="authorities">
@@ -53,20 +41,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="userAccount4" class="security.UserAccount">
-		<property name="username" value="brotherhood1" />
-		<property name="password" value="479e3180a45b21ea8e88beb0c45aa8ed" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="BROTHERHOOD" />
-				</bean>
-			</list>
-		</property>
-	</bean>
 
-	<bean id="userAccount5" class="security.UserAccount">
+	<bean id="userAccount3" class="security.UserAccount">
 		<property name="username" value="member" />
 		<property name="password" value="aa08769cdcb26674c6706093503ff0a3" />
 		<property name="authorities">
@@ -78,88 +54,20 @@
 		</property>
 	</bean>
 	
-	<bean id="userAccount6" class="security.UserAccount">
-		<property name="username" value="member1" />
-		<property name="password" value="c7764cfed23c5ca3bb393308a0da2306" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="MEMBER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-	
 	<!-- Other domain beans come here -->
 	
-	<!-- POSITION -->
-	
-	<bean id="position1" class="domain.Position">
-		<property name="name" value="President" />
-		<property name="idioma" value="en" />
+	<!-- Bean picture -->
+	<bean id="picture1" class="domain.Picture">
+		<property name="picture" value="http://www.spaincenter.org/tvi/images/stories/turismo/castilla-mancha/albacete-provincia/hellin/hellin-procesiones-pasos-imagenes-5.jpg"></property>
+	</bean>
+	<bean id="picture2" class="domain.Picture">
+		<property name="picture" value="https://elpais.com/elpais/imagenes/2017/02/08/videos/1486542451_183414_1486542754_noticia_fotograma.jpg"></property>
 	</bean>	
-	
-	<bean id="position2" class="domain.Position">
-		<property name="name" value="Vice-President" />
-		<property name="idioma" value="en" />
+	<bean id="picture3" class="domain.Picture">
+		<property name="picture" value="https://sevilla.abc.es/Media/201305/17/presentacion-rocio-hermandades--644x362.jpg"></property>
 	</bean>	
-	
-	<bean id="position3" class="domain.Position">
-		<property name="name" value="Secretary" />
-		<property name="idioma" value="en" />
-	</bean>	
-	
-	<bean id="position4" class="domain.Position">
-		<property name="name" value="Treasurer" />
-		<property name="idioma" value="en" />
-	</bean>	
-	
-	<bean id="position5" class="domain.Position">
-		<property name="name" value="Historian" />
-		<property name="idioma" value="en" />
-	</bean>	
-	
-	<bean id="position6" class="domain.Position">
-		<property name="name" value="Fundraiser" />
-		<property name="idioma" value="en" />
-	</bean>	
-	
-	<bean id="position7" class="domain.Position">
-		<property name="name" value="Officer" />
-		<property name="idioma" value="en" />
-	</bean>	
-	
-	<bean id="position8" class="domain.Position">
-		<property name="name" value="Presidente" />
-		<property name="idioma" value="es" />
-	</bean>	
-	
-	<bean id="position9" class="domain.Position">
-		<property name="name" value="Vicepresidente" />
-		<property name="idioma" value="es" />
-	</bean>	
-	
-	<bean id="position10" class="domain.Position">
-		<property name="name" value="Secretario" />
-		<property name="idioma" value="es" />
-	</bean>	
-	
-	<bean id="position11" class="domain.Position">
-		<property name="name" value="Tesorero" />
-		<property name="idioma" value="es" />
-	</bean>	
-	
-	<bean id="position12" class="domain.Position">
-		<property name="name" value="Historiador" />
-		<property name="idioma" value="es" />
-	</bean>	
-	<bean id="position13" class="domain.Position">
-		<property name="name" value="Promotor" />
-		<property name="idioma" value="es" />
-	</bean>	
-	<bean id="position14" class="domain.Position">
-		<property name="name" value="Vocal" />
-		<property name="idioma" value="es" />
-	</bean>	
+	<bean id="picture4" class="domain.Picture">
+		<property name="picture" value="https://www.revistaecclesia.com/wp-content/uploads/2017/03/hermandades-semana-santa-orihuela-alicante.jpg"></property>
+	</bean>		
 	
 </beans>

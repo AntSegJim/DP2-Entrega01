@@ -30,7 +30,13 @@
 			</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('CUSTOMER')">
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<li><a href="float/brotherhood/list.do"><spring:message code="master.page.brotherhood.float" /></a></li>
+			<li><a href="picture/brotherhood/list.do"><spring:message code="master.page.brotherhood.picture" /></a></li>
+		</security:authorize>
+		
+		
+		<security:authorize access="hasRole('MEMBER')">
 			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
 				<ul>
 					<li class="arrow"></li>
@@ -42,6 +48,8 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>
+		
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
