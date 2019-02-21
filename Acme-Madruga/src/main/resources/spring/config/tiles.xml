@@ -30,6 +30,8 @@
 		<value>/views/picture/tiles.xml</value>
 		
 		<value>/views/notification/tiles.xml</value>
+		<value>/views/position/tiles.xml</value>
+		
 		
 	</util:list>
 

@@ -30,6 +30,8 @@
 		<value>/views/picture/messages</value>
 		
 		<value>/views/notification/messages</value>
+		<value>/views/position/messages</value>
+		
 		
 	</util:list>
 

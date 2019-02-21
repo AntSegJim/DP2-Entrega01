@@ -28,6 +28,9 @@
 					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>					
 				</ul>
 			</li>
+			
+			<li><a href="position/administrator/list.do"><spring:message	code="master.page.positions" /></a>
+			
 		</security:authorize>
 		
 		<security:authorize access="hasRole('BROTHERHOOD')">

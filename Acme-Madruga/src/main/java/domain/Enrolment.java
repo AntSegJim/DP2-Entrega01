@@ -25,7 +25,7 @@ public class Enrolment extends DomainEntity {
 	private Member		member;
 	private Brotherhood	brotherhood;
 
-	private Position	position;
+	private Posicion	position;
 
 
 	@NotNull
@@ -52,10 +52,10 @@ public class Enrolment extends DomainEntity {
 
 	@ManyToOne(optional = false)
 	@Valid
-	public Position getPosition() {
+	public Posicion getPosition() {
 		return this.position;
 	}
-	public void setPosition(final Position position) {
+	public void setPosition(final Posicion position) {
 		this.position = position;
 	}
 

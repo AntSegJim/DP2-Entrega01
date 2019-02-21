@@ -165,70 +165,70 @@
 	
 	<!-- POSITION -->
 
-	<bean id="position1" class="domain.Position">
+	<bean id="position1" class="domain.Posicion">
 		<property name="name" value="President" />
 		<property name="idioma" value="en" />
 	</bean>	
 
-	<bean id="position2" class="domain.Position">
+	<bean id="position2" class="domain.Posicion">
 		<property name="name" value="Vice-President" />
 		<property name="idioma" value="en" />
 	</bean>	
 
-	<bean id="position3" class="domain.Position">
+	<bean id="position3" class="domain.Posicion">
 		<property name="name" value="Secretary" />
 		<property name="idioma" value="en" />
 	</bean>	
 
-	<bean id="position4" class="domain.Position">
+	<bean id="position4" class="domain.Posicion">
 		<property name="name" value="Treasurer" />
 		<property name="idioma" value="en" />
 	</bean>	
 
-	<bean id="position5" class="domain.Position">
+	<bean id="position5" class="domain.Posicion">
 		<property name="name" value="Historian" />
 		<property name="idioma" value="en" />
 	</bean>	
 
-	<bean id="position6" class="domain.Position">
+	<bean id="position6" class="domain.Posicion">
 		<property name="name" value="Fundraiser" />
 		<property name="idioma" value="en" />
 	</bean>	
 
-	<bean id="position7" class="domain.Position">
+	<bean id="position7" class="domain.Posicion">
 		<property name="name" value="Officer" />
 		<property name="idioma" value="en" />
 	</bean>	
 
-	<bean id="position8" class="domain.Position">
+	<bean id="position8" class="domain.Posicion">
 		<property name="name" value="Presidente" />
 		<property name="idioma" value="es" />
 	</bean>	
 
-	<bean id="position9" class="domain.Position">
+	<bean id="position9" class="domain.Posicion">
 		<property name="name" value="Vicepresidente" />
 		<property name="idioma" value="es" />
 	</bean>	
 
-	<bean id="position10" class="domain.Position">
+	<bean id="position10" class="domain.Posicion">
 		<property name="name" value="Secretario" />
 		<property name="idioma" value="es" />
 	</bean>	
 
-	<bean id="position11" class="domain.Position">
+	<bean id="position11" class="domain.Posicion">
 		<property name="name" value="Tesorero" />
 		<property name="idioma" value="es" />
 	</bean>	
 
-	<bean id="position12" class="domain.Position">
+	<bean id="position12" class="domain.Posicion">
 		<property name="name" value="Historiador" />
 		<property name="idioma" value="es" />
 	</bean>	
-	<bean id="position13" class="domain.Position">
+	<bean id="position13" class="domain.Posicion">
 		<property name="name" value="Promotor" />
 		<property name="idioma" value="es" />
 	</bean>	
-	<bean id="position14" class="domain.Position">
+	<bean id="position14" class="domain.Posicion">
 		<property name="name" value="Vocal" />
 		<property name="idioma" value="es" />
 	</bean>	
