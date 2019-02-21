@@ -16,4 +16,21 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="administrator.action.1" /></p>
+<security:authorize access="hasRole('ADMIN')">
+
+<display:table pagesize="5" name="positions" id="row"
+requestURI="position/administrator/list.do" >
+
+<display:column property="name" titleKey="position.name" />
+<display:column property="idioma" titleKey="position.language" />
+
+<display:column>
+	<a href="position/administor/edit.do?positionId=${row.id}"><spring:message code="position.edit" /></a>
+</display:column>
+
+</display:table>
+
+<input type="button" name="cancel" value="<spring:message code="position.create" />"
+			onclick="javascript: relativeRedir('position/administrator/create.do');" />
+
+</security:authorize>
