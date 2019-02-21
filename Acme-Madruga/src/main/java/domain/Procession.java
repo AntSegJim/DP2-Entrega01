@@ -31,8 +31,7 @@ public class Procession extends DomainEntity {
 	private Brotherhood			brotherhood;
 
 
-	//El pattern hay que cambiarlo
-	@Pattern(regexp = "^[0-9]{6}\\-[A-z0-9]{6}$")
+	@Pattern(regexp = "^[0-9]{6}\\-[A-Z]{5}$")
 	@Column(unique = true)
 	@NotNull
 	@NotBlank
