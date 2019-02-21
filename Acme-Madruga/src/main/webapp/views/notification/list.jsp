@@ -33,5 +33,7 @@ requestURI="notification/actor/list.do" >
 </security:authorize>
 
 <security:authorize access="hasRole('ADMIN')">
-	<a href="notification/actor/create.do"><spring:message code="notification.create" /></a>
+	<input type="button" name="cancel" value="<spring:message code="notification.create" />"
+			onclick="javascript: relativeRedir('notification/actor/create.do');" />
+
 </security:authorize>

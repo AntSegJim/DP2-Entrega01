@@ -11,13 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import security.UserAccount;
-import services.ActorService;
-import services.MailboxService;
 import services.NotificationService;
-import domain.Actor;
-import domain.Mailbox;
 import domain.Notification;
 
 @Controller
@@ -26,12 +20,6 @@ public class NotificationActorController extends AbstractController {
 
 	@Autowired
 	private NotificationService	notificationService;
-
-	@Autowired
-	private MailboxService		mailboxService;
-
-	@Autowired
-	private ActorService		actorService;
 
 
 	public NotificationActorController() {
@@ -43,10 +31,7 @@ public class NotificationActorController extends AbstractController {
 		final ModelAndView result;
 		final Collection<Notification> notifications;
 
-		final UserAccount user = LoginService.getPrincipal();
-		final Actor a = this.actorService.getActorByUserAccount(user.getId());
-		final Mailbox mb = this.mailboxService.getMailboxByActor(a.getId());
-		notifications = this.notificationService.notificationByMailBox(mb.getId());
+		notifications = this.notificationService.findAll();
 		Assert.notNull(notifications);
 
 		result = new ModelAndView("notification/list");
@@ -54,7 +39,6 @@ public class NotificationActorController extends AbstractController {
 		return result;
 
 	}
-
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView showNotification(@RequestParam final Integer notificationId) {
 		final ModelAndView result;

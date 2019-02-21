@@ -21,10 +21,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Brotherhood extends Actor {
 
-	private String					title;
-	private Date					establishmentDate;
-	private Collection<Picture>		pictures;
-	private Collection<Enrolment>	enrolments;
+	private String				title;
+	private Date				establishmentDate;
+	private Collection<Picture>	pictures;
 
 
 	@NotNull
@@ -56,12 +55,4 @@ public class Brotherhood extends Actor {
 		this.pictures = pictures;
 	}
 
-	@OneToMany
-	@Valid
-	public Collection<Enrolment> getEnrolments() {
-		return this.enrolments;
-	}
-	public void setEnrolments(final Collection<Enrolment> enrolments) {
-		this.enrolments = enrolments;
-	}
 }

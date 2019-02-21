@@ -21,5 +21,9 @@
 <b><spring:message code="notification.subject" /> : </b> <jstl:out value="${notification.subject}"></jstl:out> <br/>
 <b><spring:message code="notification.body" /> : </b> <jstl:out value="${notification.body}"></jstl:out>
 
+<br/>
+<br/>
+<input type="button" name="cancel" value="<spring:message code="notification.cancel" />"
+			onclick="javascript: relativeRedir('notification/actor/list.do');" />
 
 </security:authorize>

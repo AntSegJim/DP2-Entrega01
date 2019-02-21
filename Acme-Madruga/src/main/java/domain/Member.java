@@ -13,18 +13,8 @@ import javax.validation.Valid;
 @Access(AccessType.PROPERTY)
 public class Member extends Actor {
 
-	private Collection<Enrolment>	enrolments;
-	private Collection<Request>		requests;
+	private Collection<Request>	requests;
 
-
-	@OneToMany
-	@Valid
-	public Collection<Enrolment> getEnrolments() {
-		return this.enrolments;
-	}
-	public void setEnrolments(final Collection<Enrolment> enrolments) {
-		this.enrolments = enrolments;
-	}
 
 	@OneToMany(mappedBy = "member")
 	@Valid
