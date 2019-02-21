@@ -27,6 +27,12 @@ requestURI="notification/actor/list.do" >
 
 <display:column property="subject" titleKey="notification.subject" />
 
+<security:authorize access="hasRole('ADMIN')">
+
+	<display:column>
+		<a href="notification/actor/edit.do?notificationId=${row.id}"><spring:message code="notification.edit" /></a>
+	</display:column>
+</security:authorize>
 
 </display:table>
 

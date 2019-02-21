@@ -53,7 +53,8 @@
 		
 		<security:intercept-url pattern="/notification/actor/list.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/notification/actor/show.do" access="isAuthenticated()" />
-		 <security:intercept-url pattern="/notification/actor/create.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/notification/actor/create.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/notification/actor/edit.do" access="hasRole('ADMIN')" />
 		 
 		
 	

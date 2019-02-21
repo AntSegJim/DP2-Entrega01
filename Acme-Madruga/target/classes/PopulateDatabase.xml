@@ -200,27 +200,7 @@
 	<bean id="picture4" class="domain.Picture">
 		<property name="picture" value="https://www.revistaecclesia.com/wp-content/uploads/2017/03/hermandades-semana-santa-orihuela-alicante.jpg"></property>
 	</bean>	
-	
-	<!-- MAILBOX -->
-	
-	<bean id="mailbox1" class="domain.Mailbox">
-		<property name="actor" ref="administrator1" />
-		<property name="notifications">
-			<list>
-				<ref bean="notification1" />
-			</list>
-		</property>
-	</bean>	
-	
-	
-	<bean id="mailbox2" class="domain.Mailbox">
-		<property name="actor" ref="administrator2" />
-		<property name="notifications">
-			<list>
-				<ref bean="notification1" />
-			</list>
-		</property>
-	</bean>
+
 	
 	<!-- NOTIFICATION -->
 	
