@@ -68,4 +68,18 @@ public class NotificationActorController extends AbstractController {
 		return result;
 
 	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView createNotification() {
+		final ModelAndView result;
+		final Notification notification;
+
+		notification = this.notificationService.create();
+		Assert.notNull(notification);
+
+		result = new ModelAndView("notification/edit");
+		result.addObject("notification", notification);
+		return result;
+
+	}
 }
