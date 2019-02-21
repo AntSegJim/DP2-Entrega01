@@ -119,9 +119,18 @@
 	
 	<!-- Brotherhood -->
 	<bean id="brotherhood1" class="domain.Brotherhood">
+	
+		<property name="name" value="Jesus" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Elias" />
+		<property name="photo" value="https://i.blogs.es/dcc721/url1/450_1000.jpg" />
+		<property name="email" value="jesus@hotmail.com" />
+		<property name="phone" value="+34 620510520" />
+		<property name="address" value="SEVILLA" />
+		
 		<property name="title" value="Santa María Magdalena" />
 		<property name="establishmentDate" value="01/02/2019 23:59" />
-			<property name="picture">
+			<property name="pictures">
 			<list>
 				<ref bean="picture1" />
 				<ref bean="picture2" />
@@ -132,9 +141,18 @@
 	</bean>
 	
 	<bean id="brotherhood2" class="domain.Brotherhood">
+		
+		<property name="name" value="Raul" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Rodriguez" />
+		<property name="photo" value="https://i.blogs.es/dcc721/url1/450_1000.jpg" />
+		<property name="email" value="raul@hotmail.com" />
+		<property name="phone" value="+34 620510520" />
+		<property name="address" value="SEVILLA" />
+		
 		<property name="title" value="San Gil" />
 		<property name="establishmentDate" value="01/02/2019 23:59" />
-			<property name="picture">
+			<property name="pictures">
 			<list>
 				<ref bean="picture3" />
 				<ref bean="picture4" />
@@ -246,7 +264,7 @@
 
 	<bean id="customizableSystem1" class="domain.CustomizableSystem">
 
-		<property name="name" value="Ejemplo" />
+		<property name="nameSystem" value="Ejemplo" />
 		<property name="banner" value="https://www.banner.es" />
 		<property name="messageWelcomePage" value="Mensaje  de bienvenido" />
 		<property name="telephoneCode" value="jhhdgiuuskhhgwdkhg" />
