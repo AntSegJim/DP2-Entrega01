@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -10,9 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.NotificationRepository;
-import security.LoginService;
-import security.UserAccount;
-import domain.Administrator;
+import domain.Actor;
+import domain.Mailbox;
 import domain.Notification;
 
 @Service
@@ -25,11 +25,13 @@ public class NotificationService {
 	@Autowired
 	private ActorService			actorService;
 
+	@Autowired
+	private MailboxService			mailboxService;
+
 
 	public Notification create() {
 
 		final Notification notification = new Notification();
-		notification.setAdministrator(new Administrator());
 		notification.setSubject("");
 		notification.setBody("");
 
@@ -48,11 +50,6 @@ public class NotificationService {
 	public Notification save(final Notification n) {
 		Notification res;
 
-		final UserAccount user = LoginService.getPrincipal();
-		final Administrator a = (Administrator) this.actorService.getActorByUserAccount(user.getId());
-		n.setAdministrator(a);
-
-		Assert.notNull(n.getAdministrator() != null, "Debe tener un administrador asignado");
 		Assert.notNull(n.getBody() != null && n.getBody() != "", "No debe tener un cuerpo vacio");
 		Assert.notNull(n.getSubject() != null && n.getSubject() != "", "No debe tener un subject vacio");
 
@@ -60,5 +57,19 @@ public class NotificationService {
 
 		return res;
 
+	}
+
+	//Enviar la notificacion
+	public void sendNotification(final Notification n) {
+		final List<Actor> actors = this.actorService.findAll();
+
+		for (int i = 0; i < actors.size(); i++) {
+			final Mailbox m = this.mailboxService.getMailboxByActor(actors.get(i).getId());
+			m.getNotifications().add(n);
+		}
+	}
+
+	public Collection<Notification> notificationByMailBox(final Integer id) {
+		return this.notificationRepository.notificationsById(id);
 	}
 }

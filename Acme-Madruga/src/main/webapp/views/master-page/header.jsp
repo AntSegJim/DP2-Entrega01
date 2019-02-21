@@ -53,6 +53,8 @@
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
+			<li><a href="/notification/actor/list.do"><spring:message	code="master.page.notification" /></a>
+		
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
@@ -66,6 +68,7 @@
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>
+			
 		</security:authorize>
 	</ul>
 </div>

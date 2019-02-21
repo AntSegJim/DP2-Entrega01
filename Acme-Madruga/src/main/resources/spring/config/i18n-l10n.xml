@@ -28,6 +28,9 @@
 		<value>/views/profile/messages</value>
 		<value>/views/float/messages</value>
 		<value>/views/picture/messages</value>
+		
+		<value>/views/notification/messages</value>
+		
 	</util:list>
 
 </beans>

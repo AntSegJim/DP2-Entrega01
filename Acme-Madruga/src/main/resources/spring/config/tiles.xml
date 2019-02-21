@@ -28,6 +28,9 @@
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/float/tiles.xml</value>
 		<value>/views/picture/tiles.xml</value>
+		
+		<value>/views/notification/tiles.xml</value>
+		
 	</util:list>
 
 </beans>
