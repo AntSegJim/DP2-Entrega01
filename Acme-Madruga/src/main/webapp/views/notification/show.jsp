@@ -18,7 +18,8 @@
 
 <security:authorize access="isAuthenticated()">
 
-<p>Hola</p>
+<b><spring:message code="notification.subject" /> : </b> <jstl:out value="${notification.subject}"></jstl:out> <br/>
+<b><spring:message code="notification.body" /> : </b> <jstl:out value="${notification.body}"></jstl:out>
 
 
 </security:authorize>
