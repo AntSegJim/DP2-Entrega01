@@ -59,4 +59,9 @@ public class FloatService {
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
 		this.FRepo.delete(paso);
 	}
+
+	//Metodo que devuelve las floats(pasos) de una brotherhood
+	public Collection<Paso> getFloatsByBrotherhood(final Integer brotherhoodId) {
+		return this.FRepo.getFlotasByBrotherhood(brotherhoodId);
+	}
 }
