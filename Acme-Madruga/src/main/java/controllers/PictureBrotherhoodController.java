@@ -12,9 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import security.UserAccount;
-import services.ActorService;
+import services.BrotherhoodService;
 import services.FloatService;
 import services.PictureService;
+import domain.Brotherhood;
 import domain.Paso;
 import domain.Picture;
 
@@ -23,15 +24,12 @@ import domain.Picture;
 public class PictureBrotherhoodController extends AbstractController {
 
 	@Autowired
-	private PictureService	pictureService;
+	private PictureService		pictureService;
 	@Autowired
-	private ActorService	actorService;
+	private FloatService		floatService;
 	@Autowired
-	private FloatService	floatService;
+	private BrotherhoodService	brotherhoodService;
 
-
-	//@Autowired
-	//private BrotherhoodService brotherhoodService;
 
 	//Imagenes de una Brotherhood(Hermandad)
 	@RequestMapping(value = "/picturesBrotherhood", method = RequestMethod.GET)
@@ -39,12 +37,12 @@ public class PictureBrotherhoodController extends AbstractController {
 		final ModelAndView result;
 		final Collection<Picture> pictures;
 		final UserAccount user = LoginService.getPrincipal();
-		//Brotherhood br= this.brotherhoodService.getActorByUserAccount(user.getId());
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 
-		//pictures = br.getPictures();
+		pictures = br.getPictures();
 
 		result = new ModelAndView("picture/picturesBrotherhood");
-		//result.addObject("pictures", pictures);
+		result.addObject("pictures", pictures);
 
 		return result;
 	}
@@ -60,6 +58,20 @@ public class PictureBrotherhoodController extends AbstractController {
 
 		result = new ModelAndView("picture/picturesFloat");
 		result.addObject("pictures", pictures);
+
+		return result;
+	}
+
+	//Creacion de una imagen tanto para brotherhood como para float ya que es la 
+	//misma jsp para ambos
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView createPictureBrotherhoodFloat() {
+		ModelAndView result;
+		Picture picture;
+
+		picture = this.pictureService.create();
+		result = new ModelAndView("picture/editPicture");
+		result.addObject("picture", picture);
 
 		return result;
 	}
