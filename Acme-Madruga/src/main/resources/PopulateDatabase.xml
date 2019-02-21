@@ -117,6 +117,34 @@
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
 	
+	<!-- Brotherhood -->
+	<bean id="brotherhood1" class="domain.Brotherhood">
+		<property name="title" value="Santa María Magdalena" />
+		<property name="establishmentDate" value="01/02/2019 23:59" />
+			<property name="picture">
+			<list>
+				<ref bean="picture1" />
+				<ref bean="picture2" />
+			</list>
+		</property>
+		
+		<property name="userAccount" ref="userAccount3" />
+	</bean>
+	
+	<bean id="brotherhood2" class="domain.Brotherhood">
+		<property name="title" value="San Gil" />
+		<property name="establishmentDate" value="01/02/2019 23:59" />
+			<property name="picture">
+			<list>
+				<ref bean="picture3" />
+				<ref bean="picture4" />
+			</list>
+		</property>
+		
+		<property name="userAccount" ref="userAccount4" />
+	</bean>
+	
+	
 	<!-- POSITION -->
 
 	<bean id="position1" class="domain.Position">
@@ -212,6 +240,18 @@
 	<bean id="notification2" class="domain.Notification">
 		<property name="subject" value="Actualización del sistema" />
 		<property name="body" value="Update2" />
+	</bean>
+	
+	<!-- CustomizableSystem -->
+
+	<bean id="customizableSystem1" class="domain.CustomizableSystem">
+
+		<property name="name" value="Ejemplo" />
+		<property name="banner" value="https://www.banner.es" />
+		<property name="messageWelcomePage" value="Mensaje  de bienvenido" />
+		<property name="telephoneCode" value="jhhdgiuuskhhgwdkhg" />
+
+
 	</bean>
 	
 		
