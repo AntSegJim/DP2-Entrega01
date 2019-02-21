@@ -18,16 +18,7 @@
 
 <security:authorize access="isAuthenticated()">
 
-<display:table pagesize="5" name="notifications" id="row"
-requestURI="notification/actor/list.do" >
+<p>Hola</p>
 
-<display:column>
-	<a href="notification/actor/show.do?notificationId=${row.id}"><spring:message code="notification.moreDetails" /></a>
-</display:column>
-
-<display:column property="subject" titleKey="notification.subject" />
-
-
-</display:table>
 
 </security:authorize>

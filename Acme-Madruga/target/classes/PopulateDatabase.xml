@@ -207,6 +207,7 @@
 		<property name="actor" ref="administrator1" />
 		<property name="notifications">
 			<list>
+				<ref bean="notification1" />
 			</list>
 		</property>
 	</bean>	
