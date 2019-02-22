@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -36,6 +37,7 @@ public class Request extends DomainEntity {
 		this.status = status;
 	}
 
+	@NotNull
 	@Min(0)
 	public Integer getColumn() {
 		return this.column;
@@ -44,6 +46,7 @@ public class Request extends DomainEntity {
 	public void setColumn(final Integer column) {
 		this.column = column;
 	}
+	@NotNull
 	@Min(0)
 	public Integer getRow() {
 		return this.row;

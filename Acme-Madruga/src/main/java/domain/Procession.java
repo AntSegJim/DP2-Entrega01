@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -17,11 +19,13 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Procession extends DomainEntity {
 
+	private int[][]				position;
 	private String				ticker;
 	private Date				moment;
 	private String				description;
@@ -41,9 +45,10 @@ public class Procession extends DomainEntity {
 	public void setTicker(final String ticker) {
 		this.ticker = ticker;
 	}
-
-	@Past
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@Past
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -79,11 +84,11 @@ public class Procession extends DomainEntity {
 
 	@OneToMany(mappedBy = "procession")
 	@Valid
-	public Collection<Request> getRequest() {
+	public Collection<Request> getRequests() {
 		return this.requests;
 	}
 
-	public void setRequest(final Collection<Request> requests) {
+	public void setRequests(final Collection<Request> requests) {
 		this.requests = requests;
 	}
 
@@ -94,6 +99,14 @@ public class Procession extends DomainEntity {
 	}
 	public void setBrotherhood(final Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
+	}
+
+	public int[][] getPosition() {
+		return this.position;
+	}
+
+	public void setPosition(final int[][] position) {
+		this.position = position;
 	}
 
 }
