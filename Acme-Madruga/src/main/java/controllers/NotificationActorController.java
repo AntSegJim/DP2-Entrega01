@@ -64,7 +64,7 @@ public class NotificationActorController extends AbstractController {
 		notification = this.notificationService.create();
 		Assert.notNull(notification);
 
-		result = new ModelAndView("notification/create");
+		result = new ModelAndView("notification/edit");
 		result.addObject("notification", notification);
 		return result;
 
