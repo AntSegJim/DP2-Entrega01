@@ -272,6 +272,33 @@
 
 	</bean>
 	
+	<!-- Float -->
+	<bean id="float1" class="domain.Paso">
+		<property name="title" value="Gran Poder" />
+		<property name="description" value="Paso de la hermandad del Gran Poder" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture1" />
+				<ref bean="picture2" />
+			</list>
+		</property>
+		<property name="brotherhood" ref="brotherhood1" />
+		<property name="procession" ref="" />
+	</bean>
+	
+	<bean id="float2" class="domain.Paso">
+		<property name="title" value="Las Siete caidas" />
+		<property name="description" value="Paso de la hermandad de las Sieta Caidas" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture3" />
+				<ref bean="picture4" />
+			</list>
+		</property>
+		<property name="brotherhood" ref="brotherhood2" />
+		<property name="procession" ref="" />
+	</bean>
+	
 		
 	
 </beans>
