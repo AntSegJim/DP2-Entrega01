@@ -52,7 +52,11 @@
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>
-		
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="member/create.do"><spring:message code="master.page.member.register" /></a></li>
+					<li><a href="brotherhood/create.do"><spring:message code="master.page.brotherhood.register" /></a></li>
+				</ul>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">

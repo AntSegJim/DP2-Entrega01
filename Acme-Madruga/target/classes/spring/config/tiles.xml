@@ -32,6 +32,8 @@
 		<value>/views/notification/tiles.xml</value>
 		<value>/views/position/tiles.xml</value>
 		
+		<value>/views/member/tiles.xml</value>
+		
 		
 	</util:list>
 
