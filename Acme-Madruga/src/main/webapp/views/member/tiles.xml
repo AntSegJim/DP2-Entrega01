@@ -18,6 +18,6 @@
 
 	<definition name="member/create" extends="master.page">	
 		<put-attribute name="title" value="Member: Create new member" />
-		<put-attribute name="body" value="/views/sponsor/edit.jsp" />
+		<put-attribute name="body" value="/views/member/edit.jsp" />
 	</definition>
 </tiles-definitions>
