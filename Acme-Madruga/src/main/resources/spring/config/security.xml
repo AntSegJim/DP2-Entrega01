@@ -57,6 +57,8 @@
 		<security:intercept-url pattern="/notification/actor/edit.do" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/position/administrator/list.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/position/administrator/create.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/position/administrator/edit.do" access="hasRole('ADMIN')" />
 		
 		 
 		<security:intercept-url pattern="/member/create.do" access="isAnonymous()" />

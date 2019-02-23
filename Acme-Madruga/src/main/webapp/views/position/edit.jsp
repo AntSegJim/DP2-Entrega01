@@ -16,21 +16,22 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+
 <security:authorize access="hasRole('ADMIN')">
 
-<display:table pagesize="5" name="positions" id="row"
-requestURI="position/administrator/list.do" >
+<form:form action="position/administrator/edit.do" modelAttribute="position">
 
-<display:column property="name" titleKey="position.name" />
-<display:column property="idioma" titleKey="position.language" />
+<acme:textbox code="position.name" path="name"/>
+<acme:textbox code="position.language" path="idioma"/>
 
-<display:column>
-	<a href="position/administrator/edit.do?positionId=${row.id}"><spring:message code="position.edit" /></a>
-</display:column>
+<br/>
+<input type="submit" name="save" 
+	value="<spring:message code="position.save" />" />
+	
 
-</display:table>
-
-<input type="button" name="cancel" value="<spring:message code="position.create" />"
-			onclick="javascript: relativeRedir('position/administrator/create.do');" />
-
+<input type="button" name="cancel" value="<spring:message code="position.cancel" />"
+			onclick="javascript: relativeRedir('position/administrator/list.do');" />
+</form:form>
 </security:authorize>
+

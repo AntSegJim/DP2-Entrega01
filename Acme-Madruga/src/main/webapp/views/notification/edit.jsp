@@ -27,7 +27,7 @@
 </jstl:if>
 
 
-<acme:textarea code="notification.subject" path="subject"/>
+<acme:textbox code="notification.subject" path="subject"/>
 <acme:textarea code="notification.body" path="body"/>
 
 <br/>
