@@ -116,4 +116,7 @@ public class MemberService {
 		return res;
 	}
 
+	public Member getMemberByUserAccount(final int userAccountId) {
+		return this.memberRepo.getMemberByUserAccount(userAccountId);
+	}
 }

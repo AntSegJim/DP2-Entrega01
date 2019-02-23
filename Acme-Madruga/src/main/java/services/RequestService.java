@@ -23,6 +23,8 @@ public class RequestService {
 	private RequestRepository	requestRepository;
 	@Autowired
 	private ProcessionService	processionService;
+	@Autowired
+	private MemberService		memberService;
 
 
 	public Request create() {
@@ -47,7 +49,7 @@ public class RequestService {
 		final Request savedRequest;
 		if (request.getId() == 0) {
 			final int userAccountId = LoginService.getPrincipal().getId();
-			final Member member = this.requestRepository.getMemberByUserAccount(userAccountId);
+			final Member member = this.memberService.getMemberByUserAccount(userAccountId);
 			Assert.isTrue(member.getId() == request.getMember().getId());
 			Assert.isTrue(request.getStatus() == 1, "RequestService. No valid new request. Status must be 1.");
 			final Procession procession = this.processionService.findOne(request.getProcession().getId());

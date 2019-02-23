@@ -23,6 +23,8 @@ public class ProcessionService {
 
 	@Autowired
 	private ProcessionRepository	processionRepository;
+	@Autowired
+	private BrotherhoodService		brotherhoodService;
 
 
 	public Procession create() {
@@ -54,7 +56,7 @@ public class ProcessionService {
 		Assert.isTrue(procession.getDescription() != null && procession.getDescription() != "", "You need to provied a drescription.");
 		Assert.isTrue(procession.getTitle() != null && procession.getTitle() != "", "You need to provied a title.");
 		Assert.isTrue(procession.getDraftMode() == 0 || procession.getDraftMode() == 1, "Draft Mode only can be 0 or 1.");
-		Assert.isTrue(procession.getBrotherhood().equals(this.processionRepository.getBrotherhoodByUserAccount(LoginService.getPrincipal().getId())), "Bad brother");
+		Assert.isTrue(procession.getBrotherhood().equals(this.brotherhoodService.brotherhoodUserAccount(LoginService.getPrincipal().getId())), "Bad brother");
 
 		savedProcession = this.processionRepository.save(procession);
 		return savedProcession;
