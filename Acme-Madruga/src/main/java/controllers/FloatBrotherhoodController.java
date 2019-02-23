@@ -98,7 +98,7 @@ public class FloatBrotherhoodController extends AbstractController {
 	}
 
 	//Borrado de un float(paso)
-	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Paso paso, final BindingResult binding) {
 		ModelAndView result;
 		try {

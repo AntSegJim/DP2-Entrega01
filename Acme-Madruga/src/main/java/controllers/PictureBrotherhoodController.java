@@ -74,7 +74,7 @@ public class PictureBrotherhoodController extends AbstractController {
 		Picture picture;
 
 		picture = this.pictureService.create();
-		result = new ModelAndView("picture/editPicture");
+		result = new ModelAndView("picture/edit");
 		result.addObject("picture", picture);
 
 		return result;
@@ -98,7 +98,7 @@ public class PictureBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		if (!binding.hasErrors()) {
 			this.pictureService.save(picture);
-			result = new ModelAndView("redirect:.do");
+			result = new ModelAndView("redirect:picturesFloat.do");
 		} else {
 
 			result = new ModelAndView("picture/edit");
@@ -113,7 +113,7 @@ public class PictureBrotherhoodController extends AbstractController {
 
 		if (!binding.hasErrors()) {
 			this.pictureService.delete(picture);
-			result = new ModelAndView("redirect:.do");
+			result = new ModelAndView("redirect:picturesFloat.do");
 		} else {
 			result = new ModelAndView("picture/edit");
 			result.addObject("picture", picture);
