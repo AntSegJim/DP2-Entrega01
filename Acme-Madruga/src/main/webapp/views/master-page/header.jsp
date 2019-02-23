@@ -40,7 +40,9 @@
 		
 		
 		<security:authorize access="hasRole('MEMBER')">
-			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
+			<li><a href="enrolment/member/list.do"><spring:message code="master.page.enrolment" /></a></li>
+		
+			<li><a class="fNiv"><spring:message	code="master.page.member" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>

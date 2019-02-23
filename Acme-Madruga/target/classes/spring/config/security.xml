@@ -59,7 +59,11 @@
 		<security:intercept-url pattern="/position/administrator/list.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/position/administrator/create.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/position/administrator/edit.do" access="hasRole('ADMIN')" />
-		
+			
+		<security:intercept-url pattern="/enrolment/member/list.do" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/enrolment/member/create.do" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/enrolment/member/edit.do" access="hasRole('MEMBER')" />
+		 
 		 
 		<security:intercept-url pattern="/member/create.do" access="isAnonymous()" />
 	

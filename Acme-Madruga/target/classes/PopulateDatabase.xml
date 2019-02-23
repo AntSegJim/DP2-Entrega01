@@ -167,70 +167,70 @@
 
 	<bean id="position1" class="domain.Posicion">
 		<property name="name" value="President" />
-		<property name="idioma" value="English" />
+		<property name="idioma" value="en" />
 	</bean>	
 
 	<bean id="position2" class="domain.Posicion">
 		<property name="name" value="Vice-President" />
-		<property name="idioma" value="English" />
+		<property name="idioma" value="en" />
 	</bean>	
 
 	<bean id="position3" class="domain.Posicion">
 		<property name="name" value="Secretary" />
-		<property name="idioma" value="English" />
+		<property name="idioma" value="en" />
 	</bean>	
 
 	<bean id="position4" class="domain.Posicion">
 		<property name="name" value="Treasurer" />
-		<property name="idioma" value="English" />
+		<property name="idioma" value="en" />
 	</bean>	
 
 	<bean id="position5" class="domain.Posicion">
 		<property name="name" value="Historian" />
-		<property name="idioma" value="English" />
+		<property name="idioma" value="en" />
 	</bean>	
 
 	<bean id="position6" class="domain.Posicion">
 		<property name="name" value="Fundraiser" />
-		<property name="idioma" value="English" />
+		<property name="idioma" value="en" />
 	</bean>	
 
 	<bean id="position7" class="domain.Posicion">
 		<property name="name" value="Officer" />
-		<property name="idioma" value="English" />
+		<property name="idioma" value="en" />
 	</bean>	
 
 	<bean id="position8" class="domain.Posicion">
 		<property name="name" value="Presidente" />
-		<property name="idioma" value="Spanish" />
+		<property name="idioma" value="es" />
 	</bean>	
 
 	<bean id="position9" class="domain.Posicion">
 		<property name="name" value="Vicepresidente" />
-		<property name="idioma" value="Spanish" />
+		<property name="idioma" value="es" />
 	</bean>	
 
 	<bean id="position10" class="domain.Posicion">
 		<property name="name" value="Secretario" />
-		<property name="idioma" value="Spanish" />
+		<property name="idioma" value="es" />
 	</bean>	
 
 	<bean id="position11" class="domain.Posicion">
 		<property name="name" value="Tesorero" />
-		<property name="idioma" value="Spanish" />
+		<property name="idioma" value="es" />
 	</bean>	
 
 	<bean id="position12" class="domain.Posicion">
 		<property name="name" value="Historiador" />
-		<property name="idioma" value="Spanish" />
+		<property name="idioma" value="es" />
 	</bean>	
 	<bean id="position13" class="domain.Posicion">
 		<property name="name" value="Promotor" />
-		<property name="idioma" value="Spanish" />
+		<property name="idioma" value="es" />
 	</bean>	
 	<bean id="position14" class="domain.Posicion">
 		<property name="name" value="Vocal" />
-		<property name="idioma" value="Spanish" />
+		<property name="idioma" value="es" />
 	</bean>	
 	
 	<!-- Bean picture -->
@@ -299,6 +299,35 @@
 		<property name="procession"> <null/></property>
 	</bean>
 	
+	
+	<!-- Member -->
+	<bean id="member1" class="domain.Member">
 		
+		<property name="name" value="Raul" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Rodriguez" />
+		<property name="photo" value="https://i.blogs.es/dcc721/url1/450_1000.jpg" />
+		<property name="email" value="raul@hotmail.com" />
+		<property name="phone" value="+34 620510520" />
+		<property name="address" value="SEVILLA" />
+		<property name="requests">
+			<list>
+	
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount5" />
+	</bean>	
+	
+	<!-- Enrolment -->
+	<bean id="enrolment1" class="domain.Enrolment">
+		
+		<property name="moment" value="01/02/2019 23:51" />
+		<property name="endMoment" value="01/02/2019 23:59" />
+		<property name="status" value="0" />
+		<property name="member" ref="member1" />
+		<property name="brotherhood" ref="brotherhood1" />
+		<property name="position" ref="position1" />
+		
+	</bean>	
 	
 </beans>

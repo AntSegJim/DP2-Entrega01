@@ -50,6 +50,10 @@ public class PositionService {
 
 	}
 
+	public Collection<Posicion> getPositions(final String language) {
+		return this.positionRepository.getPositions(language);
+	}
+
 	//	public void delete(final Posicion p) {
 	//
 	//		this.positionRepository.delete(p);

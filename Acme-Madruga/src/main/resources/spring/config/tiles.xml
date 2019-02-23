@@ -30,7 +30,9 @@
 		<value>/views/picture/tiles.xml</value>
 		
 		<value>/views/notification/tiles.xml</value>
-		<value>/views/position/tiles.xml</value>
+		<value>/views/position/tiles.xml</value>	
+		<value>/views/enrolment/tiles.xml</value>		
+			
 		
 		<value>/views/member/tiles.xml</value>
 		

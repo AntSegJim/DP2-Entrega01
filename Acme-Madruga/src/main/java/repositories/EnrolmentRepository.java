@@ -1,10 +1,16 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import domain.Enrolment;
 
 public interface EnrolmentRepository extends JpaRepository<Enrolment, Integer> {
+
+	@Query("select e from Enrolment e where e.member.id = ?1")
+	public Collection<Enrolment> enrolmentByMember(Integer id);
 
 }

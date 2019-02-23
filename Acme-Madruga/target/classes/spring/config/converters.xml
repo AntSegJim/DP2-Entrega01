@@ -28,6 +28,11 @@
 		<bean class="converters.StringToProcessionConverter" />
 		<bean class="converters.MemberToStringConverter" />
 		<bean class="converters.StringToMemberConverter" />
+		<bean class="converters.BrotherhoodToStringConverter" />
+		<bean class="converters.StringToBrotherhoodConverter" />
+		<bean class="converters.PositionToStringConverter" />
+		<bean class="converters.StringToPositionConverter" />
+		
 		
 	</util:list>
 	
