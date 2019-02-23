@@ -283,7 +283,7 @@
 			</list>
 		</property>
 		<property name="brotherhood" ref="brotherhood1" />
-		<property name="procession" ref="" />
+		<property name="procession"> <null/></property>
 	</bean>
 	
 	<bean id="float2" class="domain.Paso">
@@ -296,7 +296,7 @@
 			</list>
 		</property>
 		<property name="brotherhood" ref="brotherhood2" />
-		<property name="procession" ref="" />
+		<property name="procession"> <null/></property>
 	</bean>
 	
 		
