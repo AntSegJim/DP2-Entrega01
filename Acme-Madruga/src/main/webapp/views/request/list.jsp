@@ -34,4 +34,7 @@ requestURI="request/member/list.do" >
 
 </display:table>
 
+<input type="button" name="create" value="<spring:message code="request.create" />"
+			onclick="javascript: relativeRedir('request/member/create.do');" />
+
 </security:authorize>
