@@ -16,12 +16,12 @@ import org.hibernate.validator.constraints.Range;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {
-	"column", "row"
+	"columna", "row"
 }))
 public class Request extends DomainEntity {
 
 	private int			status;
-	private Integer		column;
+	private Integer		columna;
 	private Integer		row;
 	private String		description;
 	private Member		member;
@@ -39,12 +39,12 @@ public class Request extends DomainEntity {
 
 	@NotNull
 	@Min(0)
-	public Integer getColumn() {
-		return this.column;
+	public Integer getColumna() {
+		return this.columna;
 	}
 
-	public void setColumn(final Integer column) {
-		this.column = column;
+	public void setColumna(final Integer column) {
+		this.columna = column;
 	}
 	@NotNull
 	@Min(0)

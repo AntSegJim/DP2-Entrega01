@@ -27,7 +27,7 @@ public class RequestService {
 
 	public Request create() {
 		final Request request = new Request();
-		request.setColumn(0);
+		request.setColumna(0);
 		request.setRow(0);
 		request.setDescription("");
 		request.setStatus(1);
@@ -57,7 +57,7 @@ public class RequestService {
 				for (int j = 0; j < position[0].length; j++)
 					if (position[i][j] == 0) {
 						request.setRow(i);
-						request.setColumn(j);
+						request.setColumna(j);
 						break;
 					}
 		} else {
@@ -70,13 +70,13 @@ public class RequestService {
 				Assert.isTrue(request.getDescription() != null && !(request.getDescription() == ""), "RequestService. You need to write a description to rejected request.");
 			try {
 				final int[][] position = request.getProcession().getPosition();
-				Assert.isTrue(position[request.getRow()][request.getColumn()] == 0);
+				Assert.isTrue(position[request.getRow()][request.getColumna()] == 0);
 			} catch (final Exception e) {
-				request.setColumn(oldRequest.getColumn());
+				request.setColumna(oldRequest.getColumna());
 				request.setRow(oldRequest.getRow());
 			}
 		}
-		Assert.isTrue(request.getColumn() >= 0 && request.getColumn() != null && request.getRow() >= 0 && request.getRow() != null, "RequestService. No valid request. Column or Row must be a integer bigger than -1");
+		Assert.isTrue(request.getColumna() >= 0 && request.getColumna() != null && request.getRow() >= 0 && request.getRow() != null, "RequestService. No valid request. Column or Row must be a integer bigger than -1");
 		Assert.isTrue(request.getProcession() != null, "RequestService. You need to provied a procession in the request.");
 		Assert.isTrue(request.getMember() != null, "RequestService. You need to provied a member in the request.");
 		savedRequest = this.requestRepository.save(request);
