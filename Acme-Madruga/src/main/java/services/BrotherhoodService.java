@@ -125,4 +125,8 @@ public class BrotherhoodService {
 		return this.brotherhoodRepo.brotherhoodUserAccount(id);
 	}
 
+	public Collection<Brotherhood> getBrotherhoodsByMember(final Integer memberId) {
+		return this.brotherhoodRepo.getBrotherhoodsByMember(memberId);
+	}
+
 }

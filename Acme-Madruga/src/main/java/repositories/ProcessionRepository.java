@@ -13,4 +13,7 @@ public interface ProcessionRepository extends JpaRepository<Procession, Integer>
 	//Sepodria mejorar poniendo where p.ticker=?1 y el parametro String ticker
 	@Query("select p.ticker from Procession p")
 	public Collection<String> getAllTickers();
+
+	@Query("select p.ticker from Procession p")
+	public Collection<Procession> getProcessions();
 }
