@@ -323,8 +323,8 @@
 	</bean>
 	
 	
-	<!-- Member -->
-	<bean id="member1" class="domain.Member">
+	<!-- Member --> 
+<!--  	<bean id="member1" class="domain.Member">
 		
 		<property name="name" value="Raul" />
 		<property name="middleName" value="" />
@@ -339,7 +339,7 @@
 			</list>
 		</property>
 		<property name="userAccount" ref="userAccount5" />
-	</bean>	
+	</bean>	-->
 	
 	<!-- Enrolment -->
 	<bean id="enrolment1" class="domain.Enrolment">
