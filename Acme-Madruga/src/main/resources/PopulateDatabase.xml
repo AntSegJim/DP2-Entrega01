@@ -162,6 +162,29 @@
 		<property name="userAccount" ref="userAccount4" />
 	</bean>
 	
+	<!-- MEMBER -->
+	<!-- Brotherhood -->
+	<bean id="member1" class="domain.Member">
+		<property name="name" value="Antonio" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Seguras" />
+		<property name="photo" value="https://estaticos.muyinteresante.es/media/cache/760x570_thumb/uploads/images/article/5c6e8bb85cafe8069d0ddcc5/ia-duerme_0.jpg" />
+		<property name="email" value="antoniosegura@hotmail.com" />
+		<property name="phone" value="+34 629910520" />
+		<property name="address" value="ARAHAL" />	
+		<property name="userAccount" ref="userAccount5" />
+	</bean>
+	
+	<bean id="member2" class="domain.Member">
+		<property name="name" value="Antonio2" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Segura2" />
+		<property name="photo" value="https://estaticos.muyinteresante.es/media/cache/760x570_thumb/uploads/images/article/5c6e8bb85cafe8069d0ddcc5/ia-duerme_0.jpg" />
+		<property name="email" value="antoniosegura2@hotmail.com" />
+		<property name="phone" value="+34 699910520" />
+		<property name="address" value="ARAHAL" />
+		<property name="userAccount" ref="userAccount6" />
+	</bean>
 	
 	<!-- POSITION -->
 

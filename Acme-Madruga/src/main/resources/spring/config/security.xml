@@ -64,6 +64,12 @@
 		<security:intercept-url pattern="/enrolment/member/create.do" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/enrolment/member/edit.do" access="hasRole('MEMBER')" />
 		 
+		
+		<security:intercept-url pattern="/request/member/**" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/request/member/list.do" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/request/member/create.do" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/request/member/save.do" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/request/member/delete.do" access="hasRole('MEMBER')" /> 
 		 
 		<security:intercept-url pattern="/member/create.do" access="isAnonymous()" />
 	

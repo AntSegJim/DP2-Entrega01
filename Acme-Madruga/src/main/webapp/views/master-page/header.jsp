@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="images/logo.png" alt="Acme Madruga Co., Inc." /></a>
+	<a href="#"><img src="images/images.jpeg" alt="Acme Madruga Co., Inc." /></a>
 </div>
 
 <div>
@@ -49,6 +49,7 @@
 					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>					
 				</ul>
 			</li>
+			<li><a class="fNiv" href="request/member/list.do"><spring:message code="master.page.member.request" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
