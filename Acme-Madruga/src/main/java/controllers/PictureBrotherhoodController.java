@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -81,17 +80,17 @@ public class PictureBrotherhoodController extends AbstractController {
 	}
 
 	//Edicion de una imagne tanto de un float(paso) como de una brotherhood(hermandad)
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView editPicture(@RequestParam final int pictureId) {
-		ModelAndView result;
-		Picture picture;
-
-		picture = this.pictureService.findOne(pictureId);
-		Assert.notNull(picture);
-		result = new ModelAndView("picture/edit");
-		result.addObject("picture", picture);
-		return result;
-	}
+	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	//	public ModelAndView editPicture(@RequestParam final int pictureId) {
+	//		ModelAndView result;
+	//		Picture picture;
+	//
+	//		picture = this.pictureService.findOne(pictureId);
+	//		Assert.notNull(picture);
+	//		result = new ModelAndView("picture/edit");
+	//		result.addObject("picture", picture);
+	//		return result;
+	//	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Picture picture, final BindingResult binding) {
