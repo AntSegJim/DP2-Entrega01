@@ -8,6 +8,6 @@ import domain.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 
-	@Query("select m from Member m where m.user_account.id = ?1")
+	@Query("select m from Member m where m.userAccount.id = ?1")
 	public Member getMemberByUserAccount(int userAccountId);
 }
