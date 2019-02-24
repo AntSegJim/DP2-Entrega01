@@ -66,8 +66,8 @@
 		 
 		<security:intercept-url pattern="/enrolment/brotherhood/list.do" access="hasRole('BROTHERHOOD')" />
 		
-		
 		<security:intercept-url pattern="/request/member/**" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/procession/member/list.do" access="hasRole('MEMBER')" />
 		 
 		<security:intercept-url pattern="/member/create.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/member/action-2.do" access="isAnonymous()" />
