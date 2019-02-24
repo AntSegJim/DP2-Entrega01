@@ -44,6 +44,7 @@
 	<spring:message code="float.procession" />:
 	</form:label>
 	<form:select id="procession" path="procession">
+		<form:option value="0" label="----" />	
 		<form:options items="${processions}" itemValue="id" itemLabel="title" />
 	</form:select>
 	<form:errors cssClass="error" path="procession" />

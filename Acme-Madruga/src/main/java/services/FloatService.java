@@ -52,7 +52,6 @@ public class FloatService {
 	}
 	//Metodo save
 	public Paso save(final Paso paso) {
-		//Que la iamgen que se va a guardar no se nulla y la url de la iamgen no sea nula
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
 		Assert.isTrue(paso != null && paso.getTitle() != null && paso.getTitle() != "" && paso.getDescription() != null && paso.getDescription() != "" && paso.getBrotherhood() != null);
