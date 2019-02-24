@@ -26,7 +26,7 @@ public class PictureService {
 	//Metodo create
 	public Picture create() {
 		final Picture pic = new Picture();
-		pic.setPicture("");
+		pic.setUrl("");
 		return pic;
 	}
 	//Metodo findAll
@@ -42,7 +42,7 @@ public class PictureService {
 		//Que la iamgen que se va a guardar no se nulla y la url de la iamgen no sea nula
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
-		Assert.isTrue(picture != null && picture.getPicture() != null);
+		Assert.isTrue(picture != null && picture.getUrl() != null);
 		return this.PRepo.save(picture);
 	}
 	//Metodo delete
