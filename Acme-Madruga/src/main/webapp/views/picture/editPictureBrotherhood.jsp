@@ -18,7 +18,7 @@
 <body>
 
 <security:authorize access="hasRole('BROTHERHOOD')">
-<form:form action="picture/brotherhood/edit.do" modelAttribute="picture">
+<form:form action="picture/brotherhood/editPictureBrotherhood.do" modelAttribute="picture">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />

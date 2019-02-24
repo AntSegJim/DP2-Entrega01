@@ -24,10 +24,22 @@
 		<put-attribute name="title" value="Imagenes del Paso" />
 		<put-attribute name="body" value="/views/picture/picturesFloat.jsp" />
 	</definition>
-	<definition name="picture/edit" extends="master.page">	
+	<definition name="picture/editPictureBrotherhood" extends="master.page">	
 		<put-attribute name="title" value="Editar Imagenes de la Hermandad" />
-		<put-attribute name="body" value="/views/picture/edit.jsp" />
+		<put-attribute name="body" value="/views/picture/editPictureBrotherhood.jsp" />
 	</definition>	
+	<definition name="picture/editPictureFloat" extends="master.page">	
+		<put-attribute name="title" value="Editar Imagenes del paso" />
+		<put-attribute name="body" value="/views/picture/editPictureFloat.jsp" />
+	</definition>
+	<definition name="picture/createPictureBrotherhood" extends="master.page">	
+		<put-attribute name="title" value="Crear Imagen de la Hermandad" />
+		<put-attribute name="body" value="/views/picture/editPictureBrotherhood.jsp" />
+	</definition>	
+	<definition name="picture/createPictureFloat" extends="master.page">	
+		<put-attribute name="title" value="Crear Imagen del paso" />
+		<put-attribute name="body" value="/views/picture/editPictureFloat.jsp" />
+	</definition>
 	
 	
 	

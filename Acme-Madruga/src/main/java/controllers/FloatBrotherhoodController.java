@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -71,17 +70,17 @@ public class FloatBrotherhoodController extends AbstractController {
 	}
 
 	//Editado de un float(paso)
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView editFloat(@RequestParam final int floatId) {
-		ModelAndView result;
-		Paso paso;
-
-		paso = this.floatService.findOne(floatId);
-		Assert.notNull(paso);
-		result = new ModelAndView("float/edit");
-		result.addObject("float", paso);
-		return result;
-	}
+	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	//	public ModelAndView editFloat(@RequestParam final int floatId) {
+	//		ModelAndView result;
+	//		Paso paso;
+	//
+	//		paso = this.floatService.findOne(floatId);
+	//		Assert.notNull(paso);
+	//		result = new ModelAndView("float/edit");
+	//		result.addObject("float", paso);
+	//		return result;
+	//	}
 
 	//Guardado de un float(paso)
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")

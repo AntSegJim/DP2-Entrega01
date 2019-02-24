@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,56 +66,111 @@ public class PictureBrotherhoodController extends AbstractController {
 		return result;
 	}
 
-	//Creacion de una imagen tanto para brotherhood como para float ya que es la 
-	//misma jsp para ambos
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView createPictureBrotherhoodFloat() {
+	//Creacion de una imagen para la hermandad
+	@RequestMapping(value = "/createPictureBrotherhood", method = RequestMethod.GET)
+	public ModelAndView createPictureBrotherhood() {
 		ModelAndView result;
 		Picture picture;
 
 		picture = this.pictureService.create();
-		result = new ModelAndView("picture/edit");
+		result = new ModelAndView("picture/editPictureBrotherhood");
 		result.addObject("picture", picture);
 
 		return result;
 	}
 
-	//Edicion de una imagne tanto de un float(paso) como de una brotherhood(hermandad)
-	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	//	public ModelAndView editPicture(@RequestParam final int pictureId) {
-	//		ModelAndView result;
-	//		Picture picture;
-	//
-	//		picture = this.pictureService.findOne(pictureId);
-	//		Assert.notNull(picture);
-	//		result = new ModelAndView("picture/edit");
-	//		result.addObject("picture", picture);
-	//		return result;
-	//	}
+	//Edicion de una imagne de una brotherhood(hermandad)
+	@RequestMapping(value = "/editPictureBrotherhood", method = RequestMethod.GET)
+	public ModelAndView editPictureBrotherhood(@RequestParam final int pictureId) {
+		ModelAndView result;
+		Picture picture;
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Picture picture, final BindingResult binding) {
+		picture = this.pictureService.findOne(pictureId);
+		Assert.notNull(picture);
+		result = new ModelAndView("picture/editPictureBrotherhood");
+		result.addObject("picture", picture);
+		return result;
+	}
+
+	@RequestMapping(value = "/editPictureBrotherhood", method = RequestMethod.POST, params = "save")
+	public ModelAndView savePictureBrotherhood(@Valid final Picture picture, final BindingResult binding) {
+		ModelAndView result;
+		if (!binding.hasErrors()) {
+			this.pictureService.save(picture);
+			result = new ModelAndView("redirect:picturesBrotherhood.do");
+		} else {
+
+			result = new ModelAndView("picture/editPictureBrotherhood");
+			result.addObject("picture", picture);
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/editPictureBrotherhood", method = RequestMethod.POST, params = "delete")
+	public ModelAndView deletePictureBrotherhood(final Picture picture, final BindingResult binding) {
+		ModelAndView result;
+
+		if (!binding.hasErrors()) {
+			this.pictureService.delete(picture);
+			result = new ModelAndView("redirect:picturesBrotherhood.do");
+		} else {
+			result = new ModelAndView("picture/editPictureBrotherhood");
+			result.addObject("picture", picture);
+		}
+
+		return result;
+
+	}
+
+	//Creacion de una imagen para la hermandad
+	@RequestMapping(value = "/createPictureFloat", method = RequestMethod.GET)
+	public ModelAndView createPictureFloat() {
+		ModelAndView result;
+		Picture picture;
+
+		picture = this.pictureService.create();
+		result = new ModelAndView("picture/editPictureFloat");
+		result.addObject("picture", picture);
+
+		return result;
+	}
+
+	//Edicion de una imagne de un float(paso)
+	@RequestMapping(value = "/editPictureFloat", method = RequestMethod.GET)
+	public ModelAndView editPictureFloat(@RequestParam final int pictureId) {
+		ModelAndView result;
+		Picture picture;
+
+		picture = this.pictureService.findOne(pictureId);
+		Assert.notNull(picture);
+		result = new ModelAndView("picture/editPictureFloat");
+		result.addObject("picture", picture);
+		return result;
+	}
+
+	@RequestMapping(value = "/editPictureFloat", method = RequestMethod.POST, params = "save")
+	public ModelAndView savePictureFloat(@Valid final Picture picture, final BindingResult binding) {
 		ModelAndView result;
 		if (!binding.hasErrors()) {
 			this.pictureService.save(picture);
 			result = new ModelAndView("redirect:picturesFloat.do");
 		} else {
 
-			result = new ModelAndView("picture/edit");
+			result = new ModelAndView("picture/editPictureFloat");
 			result.addObject("picture", picture);
 		}
 		return result;
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Picture picture, final BindingResult binding) {
+	@RequestMapping(value = "/editPictureFloat", method = RequestMethod.POST, params = "delete")
+	public ModelAndView deletePictureFloat(final Picture picture, final BindingResult binding) {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
 			this.pictureService.delete(picture);
 			result = new ModelAndView("redirect:picturesFloat.do");
 		} else {
-			result = new ModelAndView("picture/edit");
+			result = new ModelAndView("picture/editPictureFloat");
 			result.addObject("picture", picture);
 		}
 
