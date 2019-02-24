@@ -16,9 +16,9 @@ import org.springframework.util.Assert;
 
 import repositories.MemberRepository;
 import security.Authority;
-import security.LoginService;
 import security.UserAccount;
 import domain.Member;
+import domain.Request;
 
 @Service
 @Transactional
@@ -41,6 +41,7 @@ public class MemberService {
 		res.setPhone("");
 		res.setPhoto("");
 		res.setSurname("");
+		res.setRequests(new HashSet<Request>());
 
 		//PREGUNTAR
 		final UserAccount user = new UserAccount();
@@ -68,11 +69,8 @@ public class MemberService {
 	//Guardar
 	public Member save(final Member r) {
 
-		final UserAccount userLoged = LoginService.getPrincipal();
-		Assert.isTrue(userLoged.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"), "Comprobar que hay brotherhood conectado");
-
 		Member res = null;
-		Assert.isTrue(r.getRequests() != null, "MemberService.save -> requests invalid");
+		//Assert.isTrue(r.getRequests() != null, "MemberService.save -> requests invalid");
 		Assert.isTrue(r != null && r.getName() != null && r.getSurname() != null && r.getName() != "" && r.getSurname() != "" && r.getUserAccount() != null && r.getEmail() != null && r.getEmail() != "", "MemberService.save -> Name or Surname invalid");
 
 		final String regexEmail1 = "[^@]+@[^@]+\\.[a-zA-Z]{2,}";
