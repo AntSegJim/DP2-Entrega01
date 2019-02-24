@@ -21,12 +21,17 @@ public class PictureService {
 	private PictureRepository	PRepo;
 	@Autowired
 	private ActorService		actorS;
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
 
+
+	//@Autowired
+	//private FloatService		floatService;
 
 	//Metodo create
 	public Picture create() {
 		final Picture pic = new Picture();
-		pic.setPicture("");
+		pic.setUrl("");
 		return pic;
 	}
 	//Metodo findAll
@@ -42,14 +47,22 @@ public class PictureService {
 		//Que la iamgen que se va a guardar no se nulla y la url de la iamgen no sea nula
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
-		Assert.isTrue(picture != null && picture.getPicture() != null);
+		Assert.isTrue(picture != null && picture.getUrl() != null);
+		//		final Picture picSave = this.PRepo.save(picture);
+		//		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+		//		br.getPictures().add(picSave);
 		return this.PRepo.save(picture);
+		//return picSave;
 	}
 	//Metodo delete
 	public void delete(final Picture picture) {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
 		this.PRepo.delete(picture);
+	}
+
+	public Collection<Picture> getPicturesFloatByBrotherhood(final Integer id) {
+		return this.PRepo.getPicturesFloatByBrotherhood(id);
 	}
 
 }

@@ -18,7 +18,7 @@
 <body>
 
 <security:authorize access="hasRole('BROTHERHOOD')">
-<form:form action="picture/brotherhood/edit.do" modelAttribute="picture">
+<form:form action="picture/brotherhood/editPictureBrotherhood.do" modelAttribute="picture">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -32,7 +32,7 @@
 	<br />
 		
 	<input type="submit" name="save" value="<spring:message code="picture.save" />" />
-	<jstl:if test="${float.id ne 0 }">
+	<jstl:if test="${picture.id ne 0 }">
 		<input type="submit" name="delete" value="<spring:message code="picture.delete" />"/>
 	</jstl:if>
 	

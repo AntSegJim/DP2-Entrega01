@@ -24,8 +24,20 @@
 		<put-attribute name="title" value="Float Pictures" />
 		<put-attribute name="body" value="/views/picture/picturesFloat.jsp" />
 	</definition>
-	<definition name="picture/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit Picture" />
-		<put-attribute name="body" value="/views/picture/edit.jsp" />
+	<definition name="picture/editPictureBrotherhood" extends="master.page">	
+		<put-attribute name="title" value="Edit picture brotherhood" />
+		<put-attribute name="body" value="/views/picture/editPictureBrotherhood.jsp" />
 	</definition>	
+	<definition name="picture/editPictureFloat" extends="master.page">	
+		<put-attribute name="title" value="Edit picture float" />
+		<put-attribute name="body" value="/views/picture/editPictureFloat.jsp" />
+	</definition>	
+	<definition name="picture/createPictureBrotherhood" extends="master.page">	
+		<put-attribute name="title" value="Create picture brotherhood" />
+		<put-attribute name="body" value="/views/picture/editPictureBrotherhood.jsp" />
+	</definition>	
+	<definition name="picture/createPictureFloat" extends="master.page">	
+		<put-attribute name="title" value="Create picture float" />
+		<put-attribute name="body" value="/views/picture/editPictureFloat.jsp" />
+	</definition>
 </tiles-definitions>

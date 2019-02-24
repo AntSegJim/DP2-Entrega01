@@ -15,7 +15,7 @@ requestURI="float/brotherhood/list.do" >
 <display:column>
 	<a href="float/brotherhood/edit.do?floatId=${row.id}" ><spring:message code="float.edit" /></a>
 </display:column>
-<display:column property="title" titleKey="float.tile"/>
+<display:column property="title" titleKey="float.title"/>
 <display:column property="description" titleKey="float.description" />
 <display:column property="brotherhood.id" titleKey="float.brotherhood" />
 <display:column property="procession.id" titleKey="float.procession" />
@@ -28,7 +28,7 @@ requestURI="float/brotherhood/list.do" >
 
 
 </display:table>
-<form action="float/brotherhood/edit.do">
+<form action="float/brotherhood/create.do">
     <input type="submit" value="<spring:message code="float.create" />" />
 </form>
 

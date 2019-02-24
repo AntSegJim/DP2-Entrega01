@@ -32,6 +32,12 @@
 		<bean class="converters.StringToBrotherhoodConverter" />
 		<bean class="converters.PositionToStringConverter" />
 		<bean class="converters.StringToPositionConverter" />
+		<bean class="converters.StringToActorConverter" />
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToPictureConverter" />
+		<bean class="converters.PictureToStringConverter" />
+		<bean class="converters.StringToFloatConverter" />
+		<bean class="converters.FloatToStringConverter" />
 		
 		
 	</util:list>

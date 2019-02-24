@@ -17,10 +17,10 @@ public class Picture extends DomainEntity {
 
 	@URL
 	@NotNull
-	public String getPicture() {
+	public String getUrl() {
 		return this.url;
 	}
-	public void setPicture(final String url) {
+	public void setUrl(final String url) {
 		this.url = url;
 	}
 

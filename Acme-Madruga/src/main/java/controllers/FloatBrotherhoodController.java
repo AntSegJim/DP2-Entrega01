@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,8 +18,10 @@ import security.LoginService;
 import security.UserAccount;
 import services.BrotherhoodService;
 import services.FloatService;
+import services.ProcessionService;
 import domain.Brotherhood;
 import domain.Paso;
+import domain.Procession;
 
 @Controller
 @RequestMapping("/float/brotherhood")
@@ -28,6 +31,8 @@ public class FloatBrotherhoodController extends AbstractController {
 	private FloatService		floatService;
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+	@Autowired
+	private ProcessionService	processionService;
 
 
 	//Listado de Floats(Pasos)
@@ -52,35 +57,45 @@ public class FloatBrotherhoodController extends AbstractController {
 		Paso paso;
 		paso = this.floatService.findOne(floatId);
 		result = new ModelAndView("float/show");
-		result.addObject("float", paso);
+		result.addObject("paso", paso);
 		return result;
 	}
 
 	//Creado de un float(paso)
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createFloat() {
 		final ModelAndView result;
 		final Paso paso;
+		Collection<Procession> processions;
+		final UserAccount user = LoginService.getPrincipal();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+		processions = this.processionService.getProcessionByBrotherhood(br.getId());
 
 		paso = this.floatService.create();
 
 		result = new ModelAndView("float/edit");
-		result.addObject("float", paso);
+		result.addObject("paso", paso);
+		result.addObject("processions", processions);
 		return result;
 	}
 
-	//	//Editado de un float(paso)
-	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	//	public ModelAndView editFloat(@RequestParam final int floatId) {
-	//		ModelAndView result;
-	//		Paso paso;
-	//
-	//		paso = this.floatService.findOne(floatId);
-	//		Assert.notNull(paso);
-	//		result = new ModelAndView("float/edit");
-	//		result.addObject("float", paso);
-	//		return result;
-	//	}
+	//Editado de un float(paso)
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView editFloat(@RequestParam final int floatId) {
+		ModelAndView result;
+		Paso paso;
+		Collection<Procession> processions;
+		final UserAccount user = LoginService.getPrincipal();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+		processions = this.processionService.getProcessionByBrotherhood(br.getId());
+
+		paso = this.floatService.findOne(floatId);
+		Assert.notNull(paso);
+		result = new ModelAndView("float/edit");
+		result.addObject("paso", paso);
+		result.addObject("processions", processions);
+		return result;
+	}
 
 	//Guardado de un float(paso)
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
@@ -90,8 +105,13 @@ public class FloatBrotherhoodController extends AbstractController {
 			this.floatService.save(paso);
 			result = new ModelAndView("redirect:list.do");
 		} else {
+			Collection<Procession> processions;
+			final UserAccount user = LoginService.getPrincipal();
+			final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+			processions = this.processionService.getProcessionByBrotherhood(br.getId());
 			result = new ModelAndView("float/edit");
-			result.addObject("float", paso);
+			result.addObject("paso", paso);
+			result.addObject("processions", processions);
 		}
 		return result;
 	}
@@ -104,8 +124,13 @@ public class FloatBrotherhoodController extends AbstractController {
 			this.floatService.delete(paso);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
+			Collection<Procession> processions;
+			final UserAccount user = LoginService.getPrincipal();
+			final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+			processions = this.processionService.getProcessionByBrotherhood(br.getId());
 			result = new ModelAndView("float/edit");
-			result.addObject("float", paso);
+			result.addObject("paso", paso);
+			result.addObject("processions", processions);
 		}
 		return result;
 

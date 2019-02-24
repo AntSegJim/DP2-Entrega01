@@ -18,12 +18,11 @@
 <body>
 
 <security:authorize access="hasRole('BROTHERHOOD')">
-<form:form action="float/brotherhood/edit.do" modelAttribute="float">
+<form:form action="float/brotherhood/edit.do" modelAttribute="paso">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="pictures" />
-	<form:hidden path="procession" />
 	<form:hidden path="brotherhood" />
 
  
@@ -40,9 +39,20 @@
 	<form:input path="description" />
 	<form:errors cssClass="error" path="description" />
 	<br />
+	
+	<form:label path="procession">
+	<spring:message code="float.procession" />:
+	</form:label>
+	<form:select id="procession" path="procession">
+		<form:option value="0" label="----" />	
+		<form:options items="${processions}" itemValue="id" itemLabel="title" />
+	</form:select>
+	<form:errors cssClass="error" path="procession" />
+	<br />
+	
 		
 	<input type="submit" name="save" value="<spring:message code="float.save" />" />
-	<jstl:if test="${float.id ne 0 }">
+	<jstl:if test="${paso.id ne 0 }">
 		<input type="submit" name="delete" value="<spring:message code="float.delete" />"/>
 	</jstl:if>
 	

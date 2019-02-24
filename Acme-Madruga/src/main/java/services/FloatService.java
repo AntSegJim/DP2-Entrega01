@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.FloatRepository;
+import security.LoginService;
 import security.UserAccount;
 import domain.Brotherhood;
 import domain.Paso;
@@ -22,18 +23,22 @@ import domain.Procession;
 public class FloatService {
 
 	@Autowired
-	private FloatRepository	FRepo;
+	private FloatRepository		FRepo;
 	@Autowired
-	private ActorService	actorS;
+	private ActorService		actorS;
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
 
 
 	//Metodo create
 	public Paso create() {
 		final Paso paso = new Paso();
+		final UserAccount user = LoginService.getPrincipal();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		paso.setTitle("");
 		paso.setDescription("");
 		paso.setPictures(new HashSet<Picture>());
-		paso.setBrotherhood(new Brotherhood());
+		paso.setBrotherhood(br);
 		paso.setProcession(new Procession());
 		return paso;
 	}
@@ -47,7 +52,6 @@ public class FloatService {
 	}
 	//Metodo save
 	public Paso save(final Paso paso) {
-		//Que la iamgen que se va a guardar no se nulla y la url de la iamgen no sea nula
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
 		Assert.isTrue(paso != null && paso.getTitle() != null && paso.getTitle() != "" && paso.getDescription() != null && paso.getDescription() != "" && paso.getBrotherhood() != null);
