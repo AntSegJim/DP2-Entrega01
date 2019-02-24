@@ -27,6 +27,7 @@
 <form:hidden path="endMoment"/>
 <form:hidden path="status"/>
 <form:hidden path="member"/>
+<form:hidden path="isOut"/>
 
 
 

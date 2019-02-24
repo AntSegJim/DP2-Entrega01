@@ -23,6 +23,7 @@ public class Enrolment extends DomainEntity {
 	private Date		moment;
 	private Date		endMoment;
 	private int			status;
+	private int			isOut;
 
 	private Member		member;
 	private Brotherhood	brotherhood;
@@ -58,6 +59,15 @@ public class Enrolment extends DomainEntity {
 
 	public void setStatus(final Integer status) {
 		this.status = status;
+	}
+
+	@Range(min = 0, max = 1)
+	public int getIsOut() {
+		return this.isOut;
+	}
+
+	public void setIsOut(final int isOut) {
+		this.isOut = isOut;
 	}
 	@ManyToOne(optional = false)
 	@Valid

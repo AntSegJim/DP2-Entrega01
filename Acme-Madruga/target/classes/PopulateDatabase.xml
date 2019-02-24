@@ -346,7 +346,8 @@
 		
 		<property name="moment" value="01/02/2019 23:51" />
 		<property name="endMoment" value="01/02/2019 23:59" />
-		<property name="status" value="0" />
+		<property name="status" value="1" />
+		<property name="isOut" value="0" />
 		<property name="member" ref="member1" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="position" ref="position1" />

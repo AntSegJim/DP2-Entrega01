@@ -42,6 +42,7 @@ public class EnrolmentService {
 		enrolment.setMoment(new Date());
 		enrolment.setBrotherhood(null);
 		enrolment.setStatus(0);
+		enrolment.setIsOut(0);
 		final UserAccount user = LoginService.getPrincipal();
 		final Actor a = this.actorService.getActorByUserAccount(user.getId());
 		enrolment.setMember((Member) a);
@@ -73,6 +74,7 @@ public class EnrolmentService {
 		Assert.isTrue(enrolment.getMember() != null, "Enrolment.service: Member no puede ser null");
 		Assert.isTrue(enrolment.getPosition() != null, "Enrolment.service: Position no puede ser null");
 		Assert.isTrue(enrolment.getStatus() >= 0 && enrolment.getStatus() <= 2, "Enrolment.service: Status debe tener un valor entre 0 y 2");
+		Assert.isTrue(enrolment.getIsOut() >= 0 && enrolment.getIsOut() <= 1, "Enrolment.service: Is out debe tener un valor entre 0 y 2");
 
 		res = this.enrolmentRepository.save(enrolment);
 		return res;
@@ -97,5 +99,14 @@ public class EnrolmentService {
 	public Collection<Enrolment> enrolmentByMember(final Integer id) {
 		return this.enrolmentRepository.enrolmentByMember(id);
 	}
+
+	public Collection<Enrolment> enrolmentByBrotherhood(final Integer id) {
+		return this.enrolmentRepository.enrolmentByBrotherhood(id);
+	}
+
+	//	public void delete(final Enrolment enrolment) {
+	//		if (enrolment.getStatus() == 2)
+	//			this.enrolmentRepository.delete(enrolment);
+	//	}
 
 }

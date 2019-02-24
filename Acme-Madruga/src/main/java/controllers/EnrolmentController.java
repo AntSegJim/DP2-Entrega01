@@ -26,8 +26,8 @@ import domain.Enrolment;
 import domain.Posicion;
 
 @Controller
-@RequestMapping("/enrolment/member")
-public class EnrolmentMemberController {
+@RequestMapping("/enrolment")
+public class EnrolmentController {
 
 	@Autowired
 	private EnrolmentService	enrolmentService;
@@ -42,7 +42,7 @@ public class EnrolmentMemberController {
 	private BrotherhoodService	brotherhoodService;
 
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
 	public ModelAndView listEnrolment() {
 		final ModelAndView result;
 		final Collection<Enrolment> enrolments;
@@ -55,11 +55,12 @@ public class EnrolmentMemberController {
 
 		result = new ModelAndView("enrolment/list");
 		result.addObject("enrolments", enrolments);
+		result.addObject("language", LocaleContextHolder.getLocale().getLanguage());
 		return result;
 
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/create", method = RequestMethod.GET)
 	public ModelAndView createEnrolment() {
 		final ModelAndView result;
 		Collection<Posicion> positions;
@@ -81,7 +82,7 @@ public class EnrolmentMemberController {
 
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/member/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView editEnrolment(@Valid final Enrolment enrolment, final BindingResult binding) {
 		ModelAndView result;
 		//Enrolment enrolment;
@@ -105,4 +106,22 @@ public class EnrolmentMemberController {
 		return result;
 	}
 
+	//BROTHERHOOD
+	@RequestMapping(value = "/brotherhood/list", method = RequestMethod.GET)
+	public ModelAndView listBrotherhood() {
+		final ModelAndView result;
+		final Collection<Enrolment> enrolments;
+
+		final UserAccount user = LoginService.getPrincipal();
+		final Actor a = this.actorService.getActorByUserAccount(user.getId());
+
+		enrolments = this.enrolmentService.enrolmentByBrotherhood(a.getId());
+		Assert.notNull(enrolments);
+
+		result = new ModelAndView("enrolment/list");
+		result.addObject("enrolments", enrolments);
+		result.addObject("language", LocaleContextHolder.getLocale().getLanguage());
+		return result;
+
+	}
 }
