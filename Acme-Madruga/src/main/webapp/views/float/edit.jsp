@@ -24,6 +24,7 @@
 	<form:hidden path="version" />
 	<form:hidden path="pictures" />
 	<form:hidden path="procession" />
+	<form:hidden path="brotherhood" />
 
  
  	<form:label path="title">
@@ -40,14 +41,6 @@
 	<form:errors cssClass="error" path="description" />
 	<br />
 	
-	<form:label path="brotherhood">
-	<spring:message code="float.brotherhood" />:
-	</form:label>
-	<form:select id="brotherhood" path="brotherhood">
-		<form:options items="${brotherhoods}" itemValue="id" itemLabel="title" />
-	</form:select>
-	<form:errors cssClass="error" path="brotherhood" />
-	<br />
 		
 	<input type="submit" name="save" value="<spring:message code="float.save" />" />
 	<jstl:if test="${paso.id ne 0 }">

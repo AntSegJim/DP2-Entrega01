@@ -84,7 +84,7 @@ public class FloatBrotherhoodController extends AbstractController {
 		paso = this.floatService.findOne(floatId);
 		Assert.notNull(paso);
 		result = new ModelAndView("float/edit");
-		result.addObject("float", paso);
+		result.addObject("paso", paso);
 		result.addObject("brotherhoods", brotherhoods);
 		return result;
 	}
