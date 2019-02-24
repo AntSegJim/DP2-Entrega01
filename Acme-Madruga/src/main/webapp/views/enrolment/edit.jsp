@@ -47,6 +47,12 @@
 <form:hidden path="position"/>
 <form:hidden path="brotherhood"/>
 
+<b><spring:message code="enrolment.moment" /></b>: <jstl:out value="${enrolment.moment}" ></jstl:out><br/>
+<b><spring:message code="enrolment.position" /></b>: <jstl:out value="${enrolment.position.name}"></jstl:out><br/>
+<b><spring:message code="enrolment.brotherhood" /></b>: <jstl:out value="${enrolment.brotherhood.title}"></jstl:out><br/>
+
+<br/>
+
 <form:label path="isOut"><spring:message code="enrolment.isOut" />:</form:label>
 <jstl:if test="${enrolment.isOut eq 0 }">
 

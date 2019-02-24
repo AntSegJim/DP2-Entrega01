@@ -53,7 +53,7 @@ requestURI="enrolment/member/list.do" >
 </display:column>
 
 <display:column>
-	<jstl:if test="${row.status eq 1 }">
+	<jstl:if test="${row.status eq 1 or row.status eq 0}">
 		<a href="enrolment/member/edit.do?idEnrolment=${row.id}"><spring:message code="enrolment.edit" /></a>
 	</jstl:if>
 </display:column>
