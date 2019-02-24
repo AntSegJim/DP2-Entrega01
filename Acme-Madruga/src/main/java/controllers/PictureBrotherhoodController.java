@@ -97,6 +97,7 @@ public class PictureBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		if (!binding.hasErrors()) {
 			this.pictureService.save(picture);
+
 			result = new ModelAndView("redirect:picturesBrotherhood.do");
 		} else {
 			result = new ModelAndView("picture/editPictureBrotherhood");
@@ -148,13 +149,12 @@ public class PictureBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/editPictureFloat", method = RequestMethod.POST, params = "save")
-	public ModelAndView savePictureFloat(@Valid final Picture picture, final BindingResult binding) {
+	public ModelAndView savePictureFloat(@Valid final Picture picture, final BindingResult binding, @RequestParam final int floatId) {
 		ModelAndView result;
 		if (!binding.hasErrors()) {
 			this.pictureService.save(picture);
-			result = new ModelAndView("redirect:picturesFloat.do");
+			result = new ModelAndView("redirect:picturesFloat.do?floatId=" + this.floatService.findOne(floatId).getId());
 		} else {
-
 			result = new ModelAndView("picture/editPictureFloat");
 			result.addObject("picture", picture);
 		}

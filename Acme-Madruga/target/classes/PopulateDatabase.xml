@@ -267,7 +267,19 @@
 	</bean>	
 	<bean id="picture4" class="domain.Picture">
 		<property name="url" value="https://www.revistaecclesia.com/wp-content/uploads/2017/03/hermandades-semana-santa-orihuela-alicante.jpg"></property>
-	</bean>	
+	</bean>
+	<bean id="picture5" class="domain.Picture">
+		<property name="url" value="https://www.lavanguardia.com/r/GODO/LV/p5/WebSite/2018/03/20/Recortada/img_jespinosa_20150329-125501_imagenes_lv_propias_jespinosa_3palma-k9gF-U441744397759U9B-992x558@LaVanguardia-Web.jpg"></property>
+	</bean>
+	<bean id="picture6" class="domain.Picture">
+		<property name="url" value="https://www.abc.es/media/espana/2016/10/17/domigno-ramos-kYrF--620x349@abc.jpg"></property>
+	</bean>
+	<bean id="picture7" class="domain.Picture">
+		<property name="url" value="https://www.abc.es/media/espana/2016/10/17/domigno-ramos-kYrF--620x349@abc.jpg"></property>
+	</bean>
+	<bean id="picture8" class="domain.Picture">
+		<property name="url" value="https://www.abc.es/media/espana/2016/10/17/domigno-ramos-kYrF--620x349@abc.jpg"></property>
+	</bean>				
 
 	
 	<!-- NOTIFICATION -->
@@ -300,8 +312,8 @@
 		<property name="description" value="Paso de la hermandad del Gran Poder" />
 		<property name="pictures">
 			<list>
-				<ref bean="picture1" />
-				<ref bean="picture2" />
+				<ref bean="picture5" />
+				<ref bean="picture6" />
 			</list>
 		</property>
 		<property name="brotherhood" ref="brotherhood1" />
@@ -313,8 +325,8 @@
 		<property name="description" value="Paso de la hermandad de las Sieta Caidas" />
 		<property name="pictures">
 			<list>
-				<ref bean="picture3" />
-				<ref bean="picture4" />
+				<ref bean="picture7" />
+				<ref bean="picture8" />
 			</list>
 		</property>
 		<property name="brotherhood" ref="brotherhood2" />
