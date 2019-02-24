@@ -17,10 +17,6 @@ public interface ProcessionRepository extends JpaRepository<Procession, Integer>
 	@Query("select p.ticker from Procession p")
 	public Collection<Procession> getProcessions();
 
-	//Raul: Necesito saber las procession de una brotherhood dada
-	@Query("select p from Procession p where p.brotherhood=?1")
-	public Collection<Procession> getProcessionsByBrotherhood(Integer id);
-
 	//Antonio:No borreis este metodo. La de arriba esta mal
 	@Query("select p from Procession p where p.brotherhood.id = ?1")
 	public Collection<Procession> getAllProcessionsByBrotherhood(int brotherhoodId);
