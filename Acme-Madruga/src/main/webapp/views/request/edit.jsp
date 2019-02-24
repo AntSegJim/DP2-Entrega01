@@ -21,10 +21,9 @@
 <security:authorize access="hasRole('MEMBER')">
 <spring:message code="request.brotherhood"/>
 <select id="select-prueba" name="brotherhoodId">
-	<option value="0">---</option>
-	<option value="2">1</option>
+	<option value="-1">---</option>
     <jstl:forEach var="item" items="${brotherhoods}">		
-		<option value="${item.id}">{item.title}</option>
+		<option value="${item.id}">${item.title}</option>
     </jstl:forEach>
 </select>
 

@@ -3,8 +3,11 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,4 +58,21 @@ public class RequestMemberController extends AbstractController {
 		result.addObject("brotherhoods", brotherhoods);
 		return result;
 	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView edit(@Valid final Request newRequest, final BindingResult binding) {
+		final ModelAndView result;
+
+		if (!binding.hasErrors()) {
+			this.requestService.save(newRequest);
+			result = new ModelAndView("redirect:list.do");
+		} else {
+			result = new ModelAndView("request/edit");
+			result.addObject("request", newRequest);
+		}
+
+		return result;
+
+	}
+
 }
