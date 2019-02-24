@@ -18,8 +18,10 @@ import security.LoginService;
 import security.UserAccount;
 import services.BrotherhoodService;
 import services.FloatService;
+import services.ProcessionService;
 import domain.Brotherhood;
 import domain.Paso;
+import domain.Procession;
 
 @Controller
 @RequestMapping("/float/brotherhood")
@@ -29,6 +31,8 @@ public class FloatBrotherhoodController extends AbstractController {
 	private FloatService		floatService;
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+	@Autowired
+	private ProcessionService	processionService;
 
 
 	//Listado de Floats(Pasos)
@@ -62,14 +66,16 @@ public class FloatBrotherhoodController extends AbstractController {
 	public ModelAndView createFloat() {
 		final ModelAndView result;
 		final Paso paso;
-		Collection<Brotherhood> brotherhoods;
-		brotherhoods = this.brotherhoodService.findAll();
+		Collection<Procession> processions;
+		final UserAccount user = LoginService.getPrincipal();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+		processions = this.processionService.getProcessionByBrotherhood(br.getId());
 
 		paso = this.floatService.create();
 
 		result = new ModelAndView("float/edit");
 		result.addObject("paso", paso);
-		result.addObject("brotherhoods", brotherhoods);
+		result.addObject("processions", processions);
 		return result;
 	}
 
@@ -78,14 +84,16 @@ public class FloatBrotherhoodController extends AbstractController {
 	public ModelAndView editFloat(@RequestParam final int floatId) {
 		ModelAndView result;
 		Paso paso;
-		Collection<Brotherhood> brotherhoods;
-		brotherhoods = this.brotherhoodService.findAll();
+		Collection<Procession> processions;
+		final UserAccount user = LoginService.getPrincipal();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+		processions = this.processionService.getProcessionByBrotherhood(br.getId());
 
 		paso = this.floatService.findOne(floatId);
 		Assert.notNull(paso);
 		result = new ModelAndView("float/edit");
 		result.addObject("paso", paso);
-		result.addObject("brotherhoods", brotherhoods);
+		result.addObject("processions", processions);
 		return result;
 	}
 
@@ -97,11 +105,13 @@ public class FloatBrotherhoodController extends AbstractController {
 			this.floatService.save(paso);
 			result = new ModelAndView("redirect:list.do");
 		} else {
-			Collection<Brotherhood> brotherhoods;
-			brotherhoods = this.brotherhoodService.findAll();
+			Collection<Procession> processions;
+			final UserAccount user = LoginService.getPrincipal();
+			final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+			processions = this.processionService.getProcessionByBrotherhood(br.getId());
 			result = new ModelAndView("float/edit");
 			result.addObject("paso", paso);
-			result.addObject("brotherhoods", brotherhoods);
+			result.addObject("processions", processions);
 		}
 		return result;
 	}
@@ -114,11 +124,13 @@ public class FloatBrotherhoodController extends AbstractController {
 			this.floatService.delete(paso);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			Collection<Brotherhood> brotherhoods;
-			brotherhoods = this.brotherhoodService.findAll();
+			Collection<Procession> processions;
+			final UserAccount user = LoginService.getPrincipal();
+			final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+			processions = this.processionService.getProcessionByBrotherhood(br.getId());
 			result = new ModelAndView("float/edit");
 			result.addObject("paso", paso);
-			result.addObject("brotherhoods", brotherhoods);
+			result.addObject("processions", processions);
 		}
 		return result;
 

@@ -23,7 +23,6 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="pictures" />
-	<form:hidden path="procession" />
 	<form:hidden path="brotherhood" />
 
  
@@ -39,6 +38,15 @@
 	</form:label>
 	<form:input path="description" />
 	<form:errors cssClass="error" path="description" />
+	<br />
+	
+	<form:label path="procession">
+	<spring:message code="float.procession" />:
+	</form:label>
+	<form:select id="procession" path="procession">
+		<form:options items="${processions}" itemValue="id" itemLabel="title" />
+	</form:select>
+	<form:errors cssClass="error" path="procession" />
 	<br />
 	
 		
