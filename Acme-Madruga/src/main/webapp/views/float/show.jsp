@@ -22,15 +22,16 @@
 <p><spring:message code="float.show.title"/></p>
 <fieldset>
 <legend><spring:message code="float.datas" /></legend>
-<spring:message code="float.title" /> ${float.title} <br/>
-<spring:message code="float.description" /> ${float.description} <br/>
-<spring:message code="float.brotherhood" /> ${float.brotherhood.title} <br/>
-<spring:message code="float.procession" /> ${float.procession.title} <br/>
+<spring:message code="float.title" />: ${paso.title} <br/>
+<spring:message code="float.description" />: ${paso.description} <br/>
+<spring:message code="float.brotherhood" />: ${paso.brotherhood.title} <br/>
+<spring:message code="float.procession" />: ${paso.procession.title} <br/>
 </fieldset>
 <br />
+
 <p><spring:message code="float.show.pictures"/></p>
-<c:forEach items="${float.pictures}" var="item">
-	<img src="${item}"><br/>
+<c:forEach items="${paso.pictures}" var="item">
+	<img src="${item.url}"><br/>
 	<br />
 </c:forEach>
 </security:authorize>

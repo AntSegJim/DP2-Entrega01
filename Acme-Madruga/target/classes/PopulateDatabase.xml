@@ -258,16 +258,16 @@
 	
 	<!-- Bean picture -->
 	<bean id="picture1" class="domain.Picture">
-		<property name="picture" value="http://www.spaincenter.org/tvi/images/stories/turismo/castilla-mancha/albacete-provincia/hellin/hellin-procesiones-pasos-imagenes-5.jpg"></property>
+		<property name="url" value="http://www.spaincenter.org/tvi/images/stories/turismo/castilla-mancha/albacete-provincia/hellin/hellin-procesiones-pasos-imagenes-5.jpg"></property>
 	</bean>
 	<bean id="picture2" class="domain.Picture">
-		<property name="picture" value="https://elpais.com/elpais/imagenes/2017/02/08/videos/1486542451_183414_1486542754_noticia_fotograma.jpg"></property>
+		<property name="url" value="https://elpais.com/elpais/imagenes/2017/02/08/videos/1486542451_183414_1486542754_noticia_fotograma.jpg"></property>
 	</bean>	
 	<bean id="picture3" class="domain.Picture">
-		<property name="picture" value="https://sevilla.abc.es/Media/201305/17/presentacion-rocio-hermandades--644x362.jpg"></property>
+		<property name="url" value="https://sevilla.abc.es/Media/201305/17/presentacion-rocio-hermandades--644x362.jpg"></property>
 	</bean>	
 	<bean id="picture4" class="domain.Picture">
-		<property name="picture" value="https://www.revistaecclesia.com/wp-content/uploads/2017/03/hermandades-semana-santa-orihuela-alicante.jpg"></property>
+		<property name="url" value="https://www.revistaecclesia.com/wp-content/uploads/2017/03/hermandades-semana-santa-orihuela-alicante.jpg"></property>
 	</bean>	
 
 	

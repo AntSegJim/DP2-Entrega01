@@ -32,7 +32,7 @@
 	<br />
 		
 	<input type="submit" name="save" value="<spring:message code="picture.save" />" />
-	<jstl:if test="${float.id ne 0 }">
+	<jstl:if test="${picture.id ne 0 }">
 		<input type="submit" name="delete" value="<spring:message code="picture.delete" />"/>
 	</jstl:if>
 	
