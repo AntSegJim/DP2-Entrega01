@@ -58,7 +58,7 @@ public class FloatBrotherhoodController extends AbstractController {
 	}
 
 	//Creado de un float(paso)
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createFloat() {
 		final ModelAndView result;
 		final Paso paso;
@@ -74,7 +74,7 @@ public class FloatBrotherhoodController extends AbstractController {
 	}
 
 	//Editado de un float(paso)
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView editFloat(@RequestParam final int floatId) {
 		ModelAndView result;
 		Paso paso;
