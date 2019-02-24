@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -78,6 +79,20 @@ public class EnrolmentController {
 		result.addObject("enrolment", enrolment);
 		result.addObject("positions", positions);
 		result.addObject("brotherhoods", brotherhoods);
+		return result;
+
+	}
+
+	@RequestMapping(value = "/member/edit", method = RequestMethod.GET)
+	public ModelAndView editEnrolment(@RequestParam final Integer idEnrolment) {
+		final ModelAndView result;
+		final Enrolment enrolment;
+
+		enrolment = this.enrolmentService.findOne(idEnrolment);
+		Assert.notNull(enrolment);
+
+		result = new ModelAndView("enrolment/edit");
+		result.addObject("enrolment", enrolment);
 		return result;
 
 	}

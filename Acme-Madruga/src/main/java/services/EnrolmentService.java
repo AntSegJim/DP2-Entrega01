@@ -70,16 +70,21 @@ public class EnrolmentService {
 			enrolment.setMoment(new Date());
 		}
 
+		if (enrolment.getIsOut() == 1) {
+			enrolment.setStatus(3);
+			enrolment.setEndMoment(new Date());
+			Assert.isTrue(enrolment.getIsOut() == 1, "Enrolment.service: Estas fuera de la hermandad");
+		}
+
 		Assert.isTrue(enrolment.getBrotherhood() != null, "Enrolment.service: Brotherhood no puede ser null");
 		Assert.isTrue(enrolment.getMember() != null, "Enrolment.service: Member no puede ser null");
 		Assert.isTrue(enrolment.getPosition() != null, "Enrolment.service: Position no puede ser null");
-		Assert.isTrue(enrolment.getStatus() >= 0 && enrolment.getStatus() <= 2, "Enrolment.service: Status debe tener un valor entre 0 y 2");
+		Assert.isTrue(enrolment.getStatus() >= 0 && enrolment.getStatus() <= 3, "Enrolment.service: Status debe tener un valor entre 0 y 2");
 		Assert.isTrue(enrolment.getIsOut() >= 0 && enrolment.getIsOut() <= 1, "Enrolment.service: Is out debe tener un valor entre 0 y 2");
 
 		res = this.enrolmentRepository.save(enrolment);
 		return res;
 	}
-
 	//RECONSTRUCT
 	public Enrolment reconstruct(final EnrolmentMember enrolmentForm, final BindingResult binding) {
 		Enrolment res;
