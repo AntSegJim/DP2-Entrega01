@@ -17,6 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<security:authorize access="hasRole('MEMBER')">
 
 <form:form action="enrolment/member/edit.do" modelAttribute="enrolment">
 
@@ -76,3 +77,5 @@
 <input type="submit" name="save" 
 	value="<spring:message code="enrolment.save" />" />
 </form:form>
+
+</security:authorize>
