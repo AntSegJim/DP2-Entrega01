@@ -13,6 +13,6 @@ import domain.Picture;
 public interface PictureRepository extends JpaRepository<Picture, Integer> {
 
 	//Devolver todas las imaganes de todos los pasos de una hermandad
-	@Query("select p.pictures from Paso p where p.brotherhood=?1")
+	@Query("select p.pictures from Paso p where p.brotherhood.id=?1")
 	public Collection<Picture> getPicturesFloatByBrotherhood(Integer id);
 }
