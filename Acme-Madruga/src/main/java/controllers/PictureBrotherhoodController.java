@@ -99,7 +99,6 @@ public class PictureBrotherhoodController extends AbstractController {
 			this.pictureService.save(picture);
 			result = new ModelAndView("redirect:picturesBrotherhood.do");
 		} else {
-
 			result = new ModelAndView("picture/editPictureBrotherhood");
 			result.addObject("picture", picture);
 		}

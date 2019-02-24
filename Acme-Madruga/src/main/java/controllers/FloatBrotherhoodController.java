@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,26 +62,32 @@ public class FloatBrotherhoodController extends AbstractController {
 	public ModelAndView createFloat() {
 		final ModelAndView result;
 		final Paso paso;
+		Collection<Brotherhood> brotherhoods;
+		brotherhoods = this.brotherhoodService.findAll();
 
 		paso = this.floatService.create();
 
 		result = new ModelAndView("float/edit");
 		result.addObject("paso", paso);
+		result.addObject("brotherhoods", brotherhoods);
 		return result;
 	}
 
 	//Editado de un float(paso)
-	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	//	public ModelAndView editFloat(@RequestParam final int floatId) {
-	//		ModelAndView result;
-	//		Paso paso;
-	//
-	//		paso = this.floatService.findOne(floatId);
-	//		Assert.notNull(paso);
-	//		result = new ModelAndView("float/edit");
-	//		result.addObject("float", paso);
-	//		return result;
-	//	}
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView editFloat(@RequestParam final int floatId) {
+		ModelAndView result;
+		Paso paso;
+		Collection<Brotherhood> brotherhoods;
+		brotherhoods = this.brotherhoodService.findAll();
+
+		paso = this.floatService.findOne(floatId);
+		Assert.notNull(paso);
+		result = new ModelAndView("float/edit");
+		result.addObject("float", paso);
+		result.addObject("brotherhoods", brotherhoods);
+		return result;
+	}
 
 	//Guardado de un float(paso)
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
@@ -90,8 +97,11 @@ public class FloatBrotherhoodController extends AbstractController {
 			this.floatService.save(paso);
 			result = new ModelAndView("redirect:list.do");
 		} else {
+			Collection<Brotherhood> brotherhoods;
+			brotherhoods = this.brotherhoodService.findAll();
 			result = new ModelAndView("float/edit");
 			result.addObject("paso", paso);
+			result.addObject("brotherhoods", brotherhoods);
 		}
 		return result;
 	}
@@ -104,8 +114,11 @@ public class FloatBrotherhoodController extends AbstractController {
 			this.floatService.delete(paso);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
+			Collection<Brotherhood> brotherhoods;
+			brotherhoods = this.brotherhoodService.findAll();
 			result = new ModelAndView("float/edit");
 			result.addObject("paso", paso);
+			result.addObject("brotherhoods", brotherhoods);
 		}
 		return result;
 

@@ -28,7 +28,7 @@ requestURI="float/brotherhood/list.do" >
 
 
 </display:table>
-<form action="float/brotherhood/edit.do">
+<form action="float/brotherhood/create.do">
     <input type="submit" value="<spring:message code="float.create" />" />
 </form>
 
