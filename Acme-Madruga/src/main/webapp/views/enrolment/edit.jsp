@@ -21,6 +21,10 @@
 
 <form:form action="enrolment/member/edit.do" modelAttribute="enrolment">
 
+<jstl:if test="${not empty exception}">
+		<p style="color:red"> <spring:message code="enrolment.error" /> </p>
+</jstl:if>
+
 <jstl:if test="${enrolment.id eq 0 }">
 <form:hidden path="id"/>
 <form:hidden path="version"/>

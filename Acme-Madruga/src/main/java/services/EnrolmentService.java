@@ -68,20 +68,29 @@ public class EnrolmentService {
 		if (enrolment.getId() == 0) {
 			enrolment.setMember((Member) a);
 			enrolment.setMoment(new Date());
+		} else {
+
+			if (user.getAuthorities().iterator().next().getAuthority().equals("MEMBER")) {
+				final Enrolment old = this.enrolmentRepository.findOne(enrolment.getId());
+
+				Assert.isTrue(old.getBrotherhood() == enrolment.getBrotherhood());
+				Assert.isTrue(old.getPosition() == enrolment.getPosition());
+				Assert.isTrue(old.getStatus() == enrolment.getStatus());
+				Assert.isTrue(old.getMember() == enrolment.getMember());
+			}
+
+			if (enrolment.getIsOut() == 1) {
+				enrolment.setStatus(3);
+				enrolment.setEndMoment(new Date());
+				Assert.isTrue(enrolment.getIsOut() == 1, "Enrolment.service: Estas fuera de la hermandad");
+			}
+
+			Assert.isTrue(enrolment.getBrotherhood() != null, "Enrolment.service: Brotherhood no puede ser null");
+			Assert.isTrue(enrolment.getMember() != null, "Enrolment.service: Member no puede ser null");
+			Assert.isTrue(enrolment.getPosition() != null, "Enrolment.service: Position no puede ser null");
+			Assert.isTrue(enrolment.getStatus() >= 0 && enrolment.getStatus() <= 3, "Enrolment.service: Status debe tener un valor entre 0 y 2");
+			Assert.isTrue(enrolment.getIsOut() >= 0 && enrolment.getIsOut() <= 1, "Enrolment.service: Is out debe tener un valor entre 0 y 2");
 		}
-
-		if (enrolment.getIsOut() == 1) {
-			enrolment.setStatus(3);
-			enrolment.setEndMoment(new Date());
-			Assert.isTrue(enrolment.getIsOut() == 1, "Enrolment.service: Estas fuera de la hermandad");
-		}
-
-		Assert.isTrue(enrolment.getBrotherhood() != null, "Enrolment.service: Brotherhood no puede ser null");
-		Assert.isTrue(enrolment.getMember() != null, "Enrolment.service: Member no puede ser null");
-		Assert.isTrue(enrolment.getPosition() != null, "Enrolment.service: Position no puede ser null");
-		Assert.isTrue(enrolment.getStatus() >= 0 && enrolment.getStatus() <= 3, "Enrolment.service: Status debe tener un valor entre 0 y 2");
-		Assert.isTrue(enrolment.getIsOut() >= 0 && enrolment.getIsOut() <= 1, "Enrolment.service: Is out debe tener un valor entre 0 y 2");
-
 		res = this.enrolmentRepository.save(enrolment);
 		return res;
 	}

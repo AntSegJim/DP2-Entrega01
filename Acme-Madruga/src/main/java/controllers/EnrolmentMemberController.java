@@ -28,7 +28,7 @@ import domain.Posicion;
 
 @Controller
 @RequestMapping("/enrolment")
-public class EnrolmentController {
+public class EnrolmentMemberController {
 
 	@Autowired
 	private EnrolmentService	enrolmentService;
@@ -104,10 +104,21 @@ public class EnrolmentController {
 
 		//enrolment = this.enrolmentService.reconstruct(enrolmentMember, binding);
 
-		if (!binding.hasErrors()) {
-			this.enrolmentService.save(enrolment);
-			result = new ModelAndView("redirect:list.do");
-		} else {
+		try {
+			if (!binding.hasErrors()) {
+				this.enrolmentService.save(enrolment);
+				result = new ModelAndView("redirect:list.do");
+			} else {
+				final String language = LocaleContextHolder.getLocale().getLanguage();
+
+				final Collection<Posicion> positions = this.positionService.getPositions(language);
+				final Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+				result = new ModelAndView("enrolment/edit");
+				result.addObject("enrolment", enrolment);
+				result.addObject("positions", positions);
+				result.addObject("brotherhoods", brotherhoods);
+			}
+		} catch (final Exception e) {
 			final String language = LocaleContextHolder.getLocale().getLanguage();
 
 			final Collection<Posicion> positions = this.positionService.getPositions(language);
@@ -116,27 +127,10 @@ public class EnrolmentController {
 			result.addObject("enrolment", enrolment);
 			result.addObject("positions", positions);
 			result.addObject("brotherhoods", brotherhoods);
+			result.addObject("exception", e);
 		}
 
 		return result;
 	}
 
-	//BROTHERHOOD
-	@RequestMapping(value = "/brotherhood/list", method = RequestMethod.GET)
-	public ModelAndView listBrotherhood() {
-		final ModelAndView result;
-		final Collection<Enrolment> enrolments;
-
-		final UserAccount user = LoginService.getPrincipal();
-		final Actor a = this.actorService.getActorByUserAccount(user.getId());
-
-		enrolments = this.enrolmentService.enrolmentByBrotherhood(a.getId());
-		Assert.notNull(enrolments);
-
-		result = new ModelAndView("enrolment/list");
-		result.addObject("enrolments", enrolments);
-		result.addObject("language", LocaleContextHolder.getLocale().getLanguage());
-		return result;
-
-	}
 }
