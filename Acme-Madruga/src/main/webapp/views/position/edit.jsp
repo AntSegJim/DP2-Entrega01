@@ -22,6 +22,14 @@
 
 <form:form action="position/administrator/edit.do" modelAttribute="position">
 
+<jstl:if test="${not empty exception}">
+		<p style="color:red"> <spring:message code="position.error" /> </p>
+</jstl:if>
+
+<form:hidden path="id"/>
+<form:hidden path="version"/>
+
+
 <acme:textbox code="position.name" path="name"/>
 <acme:textbox code="position.language" path="idioma"/>
 
@@ -29,6 +37,10 @@
 <input type="submit" name="save" 
 	value="<spring:message code="position.save" />" />
 	
+<jstl:if test="${position.id ne 0 }">
+<input type="submit" name="delete" 
+	value="<spring:message code="position.delete" />" />
+</jstl:if>
 
 <input type="button" name="cancel" value="<spring:message code="position.cancel" />"
 			onclick="javascript: relativeRedir('position/administrator/list.do');" />

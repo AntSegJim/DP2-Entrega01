@@ -92,4 +92,21 @@ public class PosicionAdministratorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView deleteControlCheck(final Posicion position, final BindingResult binding) {
+		ModelAndView result;
+
+		try {
+			this.posicionService.delete(position);
+			result = new ModelAndView("redirect:list.do");
+
+		} catch (final Exception e) {
+			result = new ModelAndView("position/edit");
+			result.addObject("position", position);
+			result.addObject("exception", e);
+
+		}
+		return result;
+	}
+
 }

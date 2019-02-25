@@ -26,6 +26,8 @@
 		<p style="color:red"> <spring:message code="notification.error" /> </p>
 </jstl:if>
 
+<form:hidden path="id"/>
+<form:hidden path="version"/>
 
 <acme:textbox code="notification.subject" path="subject"/>
 <acme:textarea code="notification.body" path="body"/>

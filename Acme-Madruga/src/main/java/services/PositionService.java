@@ -54,10 +54,15 @@ public class PositionService {
 		return this.positionRepository.getPositions(language);
 	}
 
-	//	public void delete(final Posicion p) {
-	//
-	//		this.positionRepository.delete(p);
-	//
-	//	}
+	public Collection<String> getUsedNames() {
+		return this.positionRepository.getUsedNames();
+	}
 
+	public void delete(final Posicion p) {
+
+		final Collection<String> usedNames = this.getUsedNames();
+		Assert.isTrue(!usedNames.contains(p.getName()));
+		this.positionRepository.delete(p);
+
+	}
 }
