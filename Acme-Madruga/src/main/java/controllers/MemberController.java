@@ -33,7 +33,7 @@ public class MemberController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Member member, final BindingResult binding) {
+	public ModelAndView edit(@Valid final Member member, final BindingResult binding) {
 		ModelAndView result;
 		try {
 			if (!binding.hasErrors()) {

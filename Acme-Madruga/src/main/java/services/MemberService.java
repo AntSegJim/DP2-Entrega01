@@ -68,9 +68,7 @@ public class MemberService {
 
 	//Guardar
 	public Member save(final Member r) {
-
 		Member res = null;
-		//Assert.isTrue(r.getRequests() != null, "MemberService.save -> requests invalid");
 		Assert.isTrue(r != null && r.getName() != null && r.getSurname() != null && r.getName() != "" && r.getSurname() != "" && r.getUserAccount() != null && r.getEmail() != null && r.getEmail() != "", "MemberService.save -> Name or Surname invalid");
 
 		final String regexEmail1 = "[^@]+@[^@]+\\.[a-zA-Z]{2,}";
