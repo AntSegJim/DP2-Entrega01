@@ -79,6 +79,16 @@ public class EnrolmentService {
 				Assert.isTrue(old.getMember() == enrolment.getMember());
 			}
 
+			if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD")) {
+				final Enrolment old = this.enrolmentRepository.findOne(enrolment.getId());
+
+				Assert.isTrue(old.getBrotherhood() == enrolment.getBrotherhood());
+				Assert.isTrue(old.getPosition() == enrolment.getPosition());
+				Assert.isTrue(old.getMember() == enrolment.getMember());
+				Assert.isTrue(old.getIsOut() == enrolment.getIsOut());
+
+			}
+
 			if (enrolment.getIsOut() == 1) {
 				enrolment.setStatus(2);
 				enrolment.setEndMoment(new Date());

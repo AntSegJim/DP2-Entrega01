@@ -69,13 +69,21 @@ public class EnrolmentBrotherhoodController {
 	public ModelAndView editEnrolment(@Valid final Enrolment enrolment, final BindingResult binding) {
 		ModelAndView result;
 
-		if (!binding.hasErrors()) {
-			this.enrolmentService.save(enrolment);
-			result = new ModelAndView("redirect:list.do");
-		} else {
+		try {
+			if (!binding.hasErrors()) {
+				this.enrolmentService.save(enrolment);
+				result = new ModelAndView("redirect:list.do");
+			} else {
+
+				result = new ModelAndView("enrolment/edit");
+				result.addObject("enrolment", enrolment);
+			}
+
+		} catch (final Exception e) {
 
 			result = new ModelAndView("enrolment/edit");
 			result.addObject("enrolment", enrolment);
+			result.addObject("exception", e);
 		}
 
 		return result;
