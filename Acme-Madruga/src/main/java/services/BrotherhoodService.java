@@ -106,7 +106,7 @@ public class BrotherhoodService {
 			final String regexTelefono = "^\\+[1-9][0-9]{0,2}\\ \\([1-9][0-9]{0,2}\\)\\ [0-9]{4,}$|^\\+[1-9][0-9]{0,2}\\ [0-9]{4,}$|^[0-9]{4,}$";
 			final Pattern patternTelefono = Pattern.compile(regexTelefono);
 			final Matcher matcherTelefono = patternTelefono.matcher(r.getPhone());
-			Assert.isTrue(matcherTelefono.find() == true, "BrotherhoodService.save -> Telefono no valido");
+			//Assert.isTrue(matcherTelefono.find() == true, "BrotherhoodService.save -> Telefono no valido");
 		}
 
 		//NUEVO
