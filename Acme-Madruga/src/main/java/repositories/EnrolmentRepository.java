@@ -13,6 +13,6 @@ public interface EnrolmentRepository extends JpaRepository<Enrolment, Integer> {
 	@Query("select e from Enrolment e where e.member.id = ?1")
 	public Collection<Enrolment> enrolmentByMember(Integer id);
 
-	@Query("select e from Enrolment e where e.brotherhood.id = ?1 and (e.status=0 or e.status=1) ")
+	@Query("select e from Enrolment e where e.brotherhood.id = ?1 and (e.status=0) ")
 	public Collection<Enrolment> enrolmentByBrotherhood(Integer id);
 }

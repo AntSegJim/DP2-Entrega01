@@ -43,10 +43,6 @@ requestURI="enrolment/member/list.do" >
 </jstl:if>
 
 <jstl:if test="${row.status eq 2 }">
-	<spring:message code="enrolment.status.rejected" />
-</jstl:if>
-
-<jstl:if test="${row.status eq 3 }">
 	<spring:message code="enrolment.status.cancel" />
 </jstl:if>
 
@@ -95,6 +91,12 @@ requestURI="enrolment/brotherhood/list.do" >
 	<spring:message code="enrolment.status.rejected" />
 </jstl:if>
 
+</display:column>
+
+<display:column>
+	<jstl:if test="${row.status eq 0}">
+		<a href="enrolment/brotherhood/edit.do?idEnrolment=${row.id}"><spring:message code="enrolment.edit" /></a>
+	</jstl:if>
 </display:column>
 
 </display:table>

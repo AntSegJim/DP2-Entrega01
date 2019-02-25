@@ -3,12 +3,16 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -45,5 +49,35 @@ public class EnrolmentBrotherhoodController {
 		result.addObject("language", LocaleContextHolder.getLocale().getLanguage());
 		return result;
 
+	}
+
+	@RequestMapping(value = "/brotherhood/edit", method = RequestMethod.GET)
+	public ModelAndView editEnrolment(@RequestParam final Integer idEnrolment) {
+		final ModelAndView result;
+		final Enrolment enrolment;
+
+		enrolment = this.enrolmentService.findOne(idEnrolment);
+		Assert.notNull(enrolment);
+
+		result = new ModelAndView("enrolment/edit");
+		result.addObject("enrolment", enrolment);
+		return result;
+
+	}
+
+	@RequestMapping(value = "/brotherhood/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView editEnrolment(@Valid final Enrolment enrolment, final BindingResult binding) {
+		ModelAndView result;
+
+		if (!binding.hasErrors()) {
+			this.enrolmentService.save(enrolment);
+			result = new ModelAndView("redirect:list.do");
+		} else {
+
+			result = new ModelAndView("enrolment/edit");
+			result.addObject("enrolment", enrolment);
+		}
+
+		return result;
 	}
 }

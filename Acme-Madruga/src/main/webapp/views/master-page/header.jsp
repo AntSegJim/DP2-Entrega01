@@ -35,7 +35,7 @@
 		
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a href="float/brotherhood/list.do"><spring:message code="master.page.brotherhood.float" /></a></li>
-			<li><a href="enrolment/brotherhood/list.do"><spring:message code="master.page.enrolment" /></a></li>
+			<li><a href="enrolment/brotherhood/list.do"><spring:message code="master.page.brotherhood.enrolment" /></a></li>
 			<li><a href="procession/brotherhood/list.do"><spring:message code="master.page.processions" /></a></li>			
 			<li><a href="picture/brotherhood/picturesBrotherhood.do"><spring:message code="master.page.brotherhood.picture" /></a></li>
 		</security:authorize>

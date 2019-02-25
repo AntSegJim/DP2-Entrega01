@@ -83,3 +83,43 @@
 </form:form>
 
 </security:authorize>
+
+<security:authorize access="hasRole('BROTHERHOOD')">
+
+<form:form action="enrolment/brotherhood/edit.do" modelAttribute="enrolment">
+
+<jstl:if test="${not empty exception}">
+		<p style="color:red"> <spring:message code="enrolment.error" /> </p>
+</jstl:if>
+<form:hidden path="id"/>
+<form:hidden path="version"/>
+
+<form:hidden path="moment"/>
+<form:hidden path="endMoment"/>
+<form:hidden path="isOut"/>
+<form:hidden path="member"/>
+<form:hidden path="position"/>
+<form:hidden path="brotherhood"/>
+
+<b><spring:message code="enrolment.moment" /></b>: <jstl:out value="${enrolment.moment}" ></jstl:out><br/>
+<b><spring:message code="enrolment.position" /></b>: <jstl:out value="${enrolment.position.name}"></jstl:out><br/>
+<b><spring:message code="enrolment.brotherhood" /></b>: <jstl:out value="${enrolment.brotherhood.title}"></jstl:out><br/>
+
+<br/>
+
+<form:label path="status"><spring:message code="enrolment.status" />:</form:label>
+
+	<form:select path="status">
+		<form:option value="0" label="Pending" />	
+		<form:option value="1" label="Accepted" />	
+		<form:option value="2" label="Rejected" />	
+	</form:select>
+	<form:errors path="status"/>
+
+
+
+<br/>
+<input type="submit" name="save" 
+	value="<spring:message code="enrolment.save" />" />
+</form:form>
+</security:authorize>
