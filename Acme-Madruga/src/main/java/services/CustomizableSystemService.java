@@ -28,6 +28,7 @@ public class CustomizableSystemService {
 		res.setNameSystem("");
 		res.setBanner("");
 		res.setMessageWelcomePage("");
+		res.setSpanishMessageWelcomePage("");
 		res.setTelephoneCode("");
 
 		return res;
@@ -46,8 +47,17 @@ public class CustomizableSystemService {
 		final UserAccount user = this.actorService.getActorLogged().getUserAccount();
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("ADMIN"));
 		Assert.isTrue(customizableSystem.getBanner() != null && customizableSystem.getBanner() != "" && customizableSystem.getMessageWelcomePage() != null && customizableSystem.getMessageWelcomePage() != "" && customizableSystem.getNameSystem() != null
-			&& customizableSystem.getNameSystem() != "" && customizableSystem.getTelephoneCode() != null & customizableSystem.getTelephoneCode() != "");
+			&& customizableSystem.getNameSystem() != "" && customizableSystem.getTelephoneCode() != null & customizableSystem.getTelephoneCode() != "" && customizableSystem.getMessageWelcomePage() != null
+			&& customizableSystem.getSpanishMessageWelcomePage() != "" && customizableSystem.getSpanishMessageWelcomePage() != null);
 		return this.customizableSystemRepository.save(customizableSystem);
+	}
+
+	public String getWelcomeMessage() {
+		return this.customizableSystemRepository.getWelcomeMessage();
+	}
+
+	public String getSpanishWelcomeMessage() {
+		return this.customizableSystemRepository.getSpanishWelcomeMessage();
 	}
 
 }

@@ -16,19 +16,18 @@ public class CustomizableSystem extends DomainEntity {
 	private String	nameSystem;
 	private String	banner;
 	private String	messageWelcomePage;
+	private String	spanishMessageWelcomePage;
 
 	private String	telephoneCode;
-
 
 
 	@NotNull
 	@NotBlank
 	public String getNameSystem() {
-		return nameSystem;
+		return this.nameSystem;
 	}
 
-	
-	public void setNameSystem(String nameSystem) {
+	public void setNameSystem(final String nameSystem) {
 		this.nameSystem = nameSystem;
 	}
 
@@ -53,7 +52,15 @@ public class CustomizableSystem extends DomainEntity {
 		this.messageWelcomePage = messageWelcomePage;
 	}
 
-	
+	@NotBlank
+	@NotNull
+	public String getSpanishMessageWelcomePage() {
+		return this.spanishMessageWelcomePage;
+	}
+
+	public void setSpanishMessageWelcomePage(final String spanishMessageWelcomePage) {
+		this.spanishMessageWelcomePage = spanishMessageWelcomePage;
+	}
 
 	@NotBlank
 	@NotNull
