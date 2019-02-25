@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="images/images.jpeg" alt="Acme Madruga Co., Inc." /></a>
+	<a href="#"><img src="images/portada.png" alt="Acme Madruga Co., Inc." /></a>
 </div>
 
 <div>
