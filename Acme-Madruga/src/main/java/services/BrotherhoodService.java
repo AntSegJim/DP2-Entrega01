@@ -17,7 +17,6 @@ import org.springframework.util.Assert;
 
 import repositories.BrotherhoodRepository;
 import security.Authority;
-import security.LoginService;
 import security.UserAccount;
 import domain.Brotherhood;
 import domain.Picture;
@@ -74,8 +73,8 @@ public class BrotherhoodService {
 	//updating
 	public Brotherhood save(final Brotherhood r) {
 
-		final UserAccount userLoged = LoginService.getPrincipal();
-		Assert.isTrue(userLoged.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"), "Comprobar que hay brotherhood conectado");
+		//final UserAccount userLoged = LoginService.getPrincipal();
+		//Assert.isTrue(userLoged.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"), "Comprobar que hay brotherhood conectado");
 
 		Brotherhood res = null;
 		Assert.isTrue(r.getTitle() != null && r.getTitle() != "" && r.getEstablishmentDate() != null, "BrotherService.save -> Tilte or EstablishmentDate invalid");
