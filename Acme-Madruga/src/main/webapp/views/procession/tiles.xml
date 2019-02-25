@@ -16,13 +16,13 @@
        
 <tiles-definitions>
 
-	<definition name="request/list" extends="master.page">	
-		<put-attribute name="title" value="Request: List" />
-		<put-attribute name="body" value="/views/request/list.jsp" />
+	<definition name="procession/list" extends="master.page">	
+		<put-attribute name="title" value="list processions" />
+		<put-attribute name="body" value="/views/procession/list.jsp" />
 	</definition>
 	
-	<definition name="request/edit" extends="master.page">	
-		<put-attribute name="title" value="create request" />
-		<put-attribute name="body" value="/views/request/edit.jsp" />
+	<definition name="procession/edit" extends="master.page">	
+		<put-attribute name="title" value="create procession" />
+		<put-attribute name="body" value="/views/procession/edit.jsp" />
 	</definition>
 </tiles-definitions>
