@@ -38,6 +38,7 @@
 		<value>/views/request/messages</value>
 		
 		<value>/views/member/messages</value>
+		<value>/views/brotherhood/messages</value>
 		
 		
 	</util:list>

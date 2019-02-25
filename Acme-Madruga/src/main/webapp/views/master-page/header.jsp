@@ -59,6 +59,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="member/create.do"><spring:message code="master.page.member.register" /></a></li>
+					<li><a href="brotherhood/create.do"><spring:message code="master.page.brotherhood.register" /></a></li>
 				</ul>
 		</security:authorize>
 		

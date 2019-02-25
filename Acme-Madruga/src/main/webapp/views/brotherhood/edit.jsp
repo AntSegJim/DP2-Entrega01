@@ -22,8 +22,8 @@
 </jstl:if>
 	<form:hidden path="id"/>
 	<form:hidden path="version" />
-	<form:hidden path="requests" />
 	<form:hidden path="userAccount.authorities" />
+	<form:hidden path="pictures" />
 	
 	<fieldset>
 	<legend><spring:message code="administrator.personalDatas" /></legend>
@@ -70,18 +70,13 @@
 	 <legend><spring:message code="brotherhood.Data" /></legend>
 	<form:label path="title"><spring:message code="brotherhood.title" /></form:label>
 	<form:input path="title" />
-	<form:errors cssClass="error" path="brotherhood.title" />
+	<form:errors cssClass="error" path="title" />
 	
 	<form:label path="establishmentDate" ><spring:message code="brotherhood.establishmentDate" /></form:label>
 	<form:input path="establishmentDate" />
-	<form:errors cssClass="error" path="brotherhood.establishmentDate" />
-	
-	<form:label path="pictures" ><spring:message code="brotherhood.pictures" /></form:label>
-	<form:input path="pictures" />
-	<form:errors cssClass="error" path="brotherhood.pictures" />
-	</fieldset>
+	<form:errors cssClass="error" path="establishmentDate" />
 	<br />
-	
+	</fieldset>
 	<fieldset>
 	 <legend><spring:message code="administrator.userAccount" /></legend>
 	<form:label path="userAccount.username"><spring:message code="administrator.username" /></form:label>

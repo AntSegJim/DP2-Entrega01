@@ -20,6 +20,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Brotherhood;
+import domain.Picture;
 
 @Service
 @Transactional
@@ -39,7 +40,7 @@ public class BrotherhoodService {
 
 		res.setTitle("");
 		res.setEstablishmentDate(new Date());
-		res.setPictures(null);
+		res.setPictures(new HashSet<Picture>());
 		res.setAddress("");
 		res.setEmail("");
 		res.setName("");
