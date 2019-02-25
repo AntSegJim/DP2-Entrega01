@@ -17,7 +17,6 @@ import services.ProcessionService;
 import domain.Procession;
 
 @Controller
-//@RestController()
 @RequestMapping("/procession/member")
 public class ProcessionMemberController extends AbstractController {
 

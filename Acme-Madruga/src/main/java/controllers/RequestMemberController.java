@@ -68,6 +68,10 @@ public class RequestMemberController extends AbstractController {
 			result = new ModelAndView("redirect:list.do");
 		} else {
 			result = new ModelAndView("request/edit");
+			final int userAccountId = LoginService.getPrincipal().getId();
+			final Member member = this.memberService.getMemberByUserAccount(userAccountId);
+			final Collection<Brotherhood> brotherhoods = this.brotherhoodService.getBrotherhoodsByMember(member.getId());
+			result.addObject("brotherhoods", brotherhoods);
 			result.addObject("request", newRequest);
 		}
 

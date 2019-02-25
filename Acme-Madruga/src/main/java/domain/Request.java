@@ -29,6 +29,7 @@ public class Request extends DomainEntity {
 	private Procession	procession;
 
 
+	@NotNull
 	@Range(min = 0, max = 2)
 	public int getStatus() {
 		return this.status;
@@ -63,6 +64,7 @@ public class Request extends DomainEntity {
 	}
 
 	@ManyToOne(optional = false)
+	@NotNull
 	@Valid
 	public Member getMember() {
 		return this.member;
@@ -72,6 +74,7 @@ public class Request extends DomainEntity {
 	}
 
 	@ManyToOne(optional = false)
+	@NotNull
 	@Valid
 	public Procession getProcession() {
 		return this.procession;

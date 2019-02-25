@@ -28,7 +28,8 @@
 </select>
 
 <form:form action=" request/member/edit.do" modelAttribute="request">
-
+<form:hidden path="id"/>
+<form:hidden path="version"/>
 <acme:textbox code="request.status" path="status"/>
 <acme:textbox code="request.description" path="description"/>
 <acme:textbox code="request.columna" path="columna"/>

@@ -35,7 +35,8 @@ public class RequestService {
 		request.setStatus(1);
 		final Procession procession = new Procession();
 		request.setProcession(procession);
-		final Member member = new Member();
+		final int userAccountId = LoginService.getPrincipal().getId();
+		final Member member = this.memberService.getMemberByUserAccount(userAccountId);
 		request.setMember(member);
 		return request;
 	}
