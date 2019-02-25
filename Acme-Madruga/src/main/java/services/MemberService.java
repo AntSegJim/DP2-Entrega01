@@ -25,10 +25,13 @@ import domain.Request;
 public class MemberService {
 
 	@Autowired
-	private MemberRepository	memberRepo;
+	private MemberRepository			memberRepo;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService				actorService;
+
+	@Autowired
+	private CustomizableSystemService	customizableService;
 
 
 	//Crear nuevo member
@@ -38,7 +41,8 @@ public class MemberService {
 		res.setEmail("");
 		res.setName("");
 		res.setMiddleName("");
-		res.setPhone("");
+		final String telephoneCode = this.customizableService.getTelephoneCode();
+		res.setPhone(telephoneCode + " ");
 		res.setPhoto("");
 		res.setSurname("");
 		res.setRequests(new HashSet<Request>());
@@ -55,7 +59,6 @@ public class MemberService {
 
 		return res;
 	}
-
 	//Todos los member
 	public Collection<Member> findAll() {
 		return this.memberRepo.findAll();

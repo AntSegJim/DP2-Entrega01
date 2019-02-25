@@ -16,4 +16,7 @@ public interface CustomizableSystemRepository extends JpaRepository<Customizable
 	@Query("select c.spanishMessageWelcomePage from CustomizableSystem c")
 	public String getSpanishWelcomeMessage();
 
+	@Query("select c.telephoneCode from CustomizableSystem c")
+	public String getTelephoneCode();
+
 }

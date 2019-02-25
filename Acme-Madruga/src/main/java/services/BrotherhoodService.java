@@ -26,10 +26,13 @@ import domain.Picture;
 public class BrotherhoodService {
 
 	@Autowired
-	private BrotherhoodRepository	brotherhoodRepo;
+	private BrotherhoodRepository		brotherhoodRepo;
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService				actorService;
+
+	@Autowired
+	private CustomizableSystemService	customizableService;
 
 
 	//Metodos CRUD
@@ -44,7 +47,8 @@ public class BrotherhoodService {
 		res.setEmail("");
 		res.setName("");
 		res.setMiddleName("");
-		res.setPhone("");
+		final String telephoneCode = this.customizableService.getTelephoneCode();
+		res.setPhone(telephoneCode + " ");
 		res.setPhoto("");
 		res.setSurname("");
 

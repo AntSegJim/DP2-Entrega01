@@ -60,4 +60,8 @@ public class CustomizableSystemService {
 		return this.customizableSystemRepository.getSpanishWelcomeMessage();
 	}
 
+	public String getTelephoneCode() {
+		return this.customizableSystemRepository.getTelephoneCode();
+	}
+
 }
