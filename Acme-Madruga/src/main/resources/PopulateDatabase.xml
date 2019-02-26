@@ -378,7 +378,20 @@
 		<property name="description" value="Procesion de Arahal" />
 		<property name="title" value="Procesion de la Esperanza" />
 		<property name="draftMode" value="1" />
-		<property name="brotherhood" ref="brotherhood1" />		
+		<property name="brotherhood" ref="brotherhood1" />
+		<property name="brotherhood" ref="brotherhood1" />	
+		<property name="positionsRow">
+			<list>
+				<value>12</value>
+				<value>0</value>
+			</list>
+		</property>
+		<property name="positionsColumn">
+			<list>
+				<value>12</value>
+				<value>0</value>
+			</list>
+		</property>	
 	</bean>	
 	
 	<bean id="procession2" class="domain.Procession">
@@ -387,7 +400,20 @@
 		<property name="description" value="Procesion de Arahal 2" />
 		<property name="title" value="Procesion de la Esperanza 2" />
 		<property name="draftMode" value="1" />
-		<property name="brotherhood" ref="brotherhood1" />		
+		<property name="brotherhood" ref="brotherhood1" />
+		<property name="brotherhood" ref="brotherhood1" />	
+		<property name="positionsRow">
+			<list>
+				<value>1</value>
+				<value>0</value>
+			</list>
+		</property>
+		<property name="positionsColumn">
+			<list>
+				<value>12</value>
+				<value>0</value>
+			</list>
+		</property>	
 	</bean>	
 	
 	<bean id="procession3" class="domain.Procession">
@@ -396,7 +422,20 @@
 		<property name="description" value="Procesion de Arahal" />
 		<property name="title" value="Procesion de la Esperanza" />
 		<property name="draftMode" value="1" />
-		<property name="brotherhood" ref="brotherhood2" />		
+		<property name="brotherhood" ref="brotherhood2" />
+		<property name="brotherhood" ref="brotherhood1" />	
+		<property name="positionsRow">
+			<list>
+				<value>1</value>
+				<value>0</value>
+			</list>
+		</property>
+		<property name="positionsColumn">
+			<list>
+				<value>1</value>
+				<value>0</value>
+			</list>
+		</property>
 	</bean>	
 	
 	
