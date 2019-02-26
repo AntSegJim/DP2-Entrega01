@@ -32,8 +32,8 @@
 <acme:textbox code="procession.moment" path="moment"/>
 <spring:message code="procession.draftMode"/>
 <form:select path="draftMode">
-		<form:option value="1" label="Yes" />	
-		<form:option value="0" label="No" />	
+		<form:option value="1" ><spring:message code="procession.draftMode.Yes"/></form:option>	
+		<form:option value="0"><spring:message code="procession.draftMode.No"/></form:option>	
 	</form:select>
 	<form:errors path="draftMode"/>
 <br/>

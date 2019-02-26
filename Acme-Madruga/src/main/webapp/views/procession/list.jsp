@@ -25,8 +25,10 @@ requestURI="procession/brotherhood/list.do" >
 <display:column property="moment" titleKey="procession.moment" />
 <display:column property="description" titleKey="procession.description" />
 <display:column property="title" titleKey="procession.title" />
-<display:column property="draftMode" titleKey="procession.draftMode" />
 
+<jstl:if test="${not empty exception}">
+		<p style="color:red;font-weight: bold;"> <spring:message code="procession.error.foreignKey" /> </p>
+</jstl:if>
 <display:column>
 	<a href="procession/brotherhood/show.do?processionId=${row.id}"><spring:message code="procession.show" /></a>
 </display:column>

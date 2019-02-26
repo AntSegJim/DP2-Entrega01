@@ -55,14 +55,14 @@ public class ProcessionService {
 
 	public Procession save(final Procession procession) {
 		final Procession savedProcession;
-		if (procession.getId() == 0)
+		if (procession.getId() == 0) {
 			Assert.isTrue(procession.getPositionsColumn().isEmpty() && procession.getPositionsRow().isEmpty());
-		else {
-			final Procession oldProcession = this.processionRepository.findOne(procession.getId());
-			Assert.isTrue(oldProcession.getDraftMode() == 1);
+			Assert.isTrue(!this.processionRepository.getAllTickers().contains(procession.getTicker()), "Used ticker");
+		} else {
+			final Collection<Procession> allMyProcession = this.processionRepository.getAllProcessionsByBrotherhood(this.brotherhoodService.brotherhoodUserAccount(LoginService.getPrincipal().getId()).getId());
+			Assert.isTrue(allMyProcession.contains(procession));
 		}
 		Assert.isTrue(procession.getTicker() != null && procession.getTicker() != "", "No valid procession. Ticker must'nt be blank or null");
-		Assert.isTrue(!this.processionRepository.getAllTickers().contains(procession.getTicker()), "Used ticker");
 		Assert.isTrue(procession.getDescription() != null && procession.getDescription() != "", "You need to provied a drescription.");
 		Assert.isTrue(procession.getTitle() != null && procession.getTitle() != "", "You need to provied a title.");
 		Assert.isTrue(procession.getDraftMode() == 0 || procession.getDraftMode() == 1, "Draft Mode only can be 0 or 1.");
@@ -121,11 +121,19 @@ public class ProcessionService {
 			return res;
 		} else {
 			res = this.processionRepository.findOne(procession.getId());
-			final Procession p = res;
+			final Procession p = new Procession();
+			p.setId(res.getId());
+			p.setVersion(res.getVersion());
+			p.setTicker(res.getTicker());
+			p.setTitle(procession.getTitle());
+			p.setMoment(procession.getMoment());
 			p.setDescription(procession.getDescription());
 			p.setDraftMode(procession.getDraftMode());
-			p.setMoment(procession.getMoment());
-			p.setTitle(procession.getTitle());
+			p.setPositionsRow(res.getPositionsRow());
+			p.setPositionsColumn(res.getPositionsColumn());
+			p.setRequests(res.getRequests());
+			p.setBrotherhood(res.getBrotherhood());
+
 			this.validator.validate(p, binding);
 			return p;
 		}
