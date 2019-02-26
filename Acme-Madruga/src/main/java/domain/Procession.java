@@ -3,10 +3,12 @@ package domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,7 +26,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Procession extends DomainEntity {
 
-	private int[][]				position;
+	private List<Integer>		positionsRow;
+	private List<Integer>		positionsColumn;
 	private String				ticker;
 	private Date				moment;
 	private String				description;
@@ -99,13 +102,21 @@ public class Procession extends DomainEntity {
 	public void setBrotherhood(final Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
 	}
-
-	public int[][] getPosition() {
-		return this.position;
+	@ElementCollection
+	public List<Integer> getPositionsRow() {
+		return this.positionsRow;
 	}
 
-	public void setPosition(final int[][] position) {
-		this.position = position;
+	public void setPositionsRow(final List<Integer> positionsRow) {
+		this.positionsRow = positionsRow;
+	}
+	@ElementCollection
+	public List<Integer> getPositionsColumn() {
+		return this.positionsColumn;
+	}
+
+	public void setPositionsColumn(final List<Integer> positionsColumn) {
+		this.positionsColumn = positionsColumn;
 	}
 
 }

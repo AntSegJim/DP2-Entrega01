@@ -18,29 +18,34 @@
 
 <security:authorize access="hasRole('BROTHERHOOD')">
 
-<display:table pagesize="5" name="requests" id="row"
+<display:table pagesize="5" name="processions" id="row"
 requestURI="procession/brotherhood/list.do" >
 
 <display:column property="ticker" titleKey="procession.ticker" />
-<display:column property="momemt" titleKey="procession.moment" />
+<display:column property="moment" titleKey="procession.moment" />
 <display:column property="description" titleKey="procession.description" />
 <display:column property="title" titleKey="procession.title" />
-<display:column property="drafMode" titleKey="procession.draftMode" />
-<display:column property="position" titleKey="procession.position" />
+<display:column property="draftMode" titleKey="procession.draftMode" />
 
 <display:column>
 	<a href="procession/brotherhood/show.do?processionId=${row.id}"><spring:message code="procession.show" /></a>
 </display:column>
-<display:column>
-	<a href="procession/brotherhood/edit.do?processionId=${row.id}"><spring:message code="procession.edit" /></a>
-</display:column>
-<display:column>
-	<a href="procession/brotherhood/delete.do?processionId=${row.id}"><spring:message code="procession.delete" /></a>
-</display:column>
+<jstl:if test="${row.draftMode eq 1 }">
+	<display:column>
+		<a href="procession/brotherhood/edit.do?processionId=${row.id}"><spring:message code="procession.edit" /></a>
+	</display:column>
+	<display:column>
+		<a href="procession/brotherhood/delete.do?processionId=${row.id}"><spring:message code="procession.delete" /></a>
+	</display:column>
+</jstl:if>
+<jstl:if test="${row.draftMode eq 0 }">
+	<display:column>-</display:column>
+	<display:column>-</display:column>
+</jstl:if>
 
 </display:table>
 
-<input type="button" name="create" value="<spring:message code="request.create" />"
+<input type="button" name="create" value="<spring:message code="procession.create" />"
 			onclick="javascript: relativeRedir('procession/brotherhood/create.do');" />
 
 </security:authorize>

@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -55,14 +56,18 @@ public class RequestService {
 			Assert.isTrue(request.getStatus() == 1, "RequestService. No valid new request. Status must be 1.");
 			final Procession procession = this.processionService.findOne(request.getProcession().getId());
 			Assert.notNull(procession, "RequestService. Procession no valid.");
-			final int[][] position = procession.getPosition();
-			for (int i = 0; i < position.length; i++)
-				for (int j = 0; j < position[0].length; j++)
-					if (position[i][j] == 0) {
-						request.setRow(i);
-						request.setColumna(j);
-						break;
-					}
+			Integer recomendar = 0;
+			final List<Integer> filas = procession.getPositionsRow();
+			final List<Integer> columnas = procession.getPositionsColumn();
+			for (int xy = 0; xy < filas.size(); xy++) {
+				if (recomendar < filas.get(xy))
+					recomendar = filas.get(xy);
+				if (recomendar < columnas.get(xy))
+					recomendar = columnas.get(xy);
+			}
+			request.setRow(recomendar + 1);
+			request.setColumna(recomendar + 1);
+
 		} else {
 			final Request oldRequest = this.requestRepository.findOne(request.getId());
 			Assert.isTrue(oldRequest.getStatus() == 1, "RequestService. You can only update request with status 1.");
@@ -71,13 +76,14 @@ public class RequestService {
 			Assert.isTrue(request.getMember() == request.getMember(), "RequestService. This member didn't create this request.");
 			if (request.getStatus() == 2)
 				Assert.isTrue(request.getDescription() != null && !(request.getDescription() == ""), "RequestService. You need to write a description to rejected request.");
-			try {
-				final int[][] position = request.getProcession().getPosition();
-				Assert.isTrue(position[request.getRow()][request.getColumna()] == 0);
-			} catch (final Exception e) {
-				request.setColumna(oldRequest.getColumna());
-				request.setRow(oldRequest.getRow());
-			}
+
+			final Procession procession = this.processionService.findOne(request.getProcession().getId());
+			final List<Integer> filas = procession.getPositionsRow();
+			final List<Integer> columnas = procession.getPositionsColumn();
+			for (int xy = 0; xy < filas.size(); xy++)
+				if (filas.get(xy) == request.getRow() && columnas.get(xy) == request.getColumna())
+					Assert.notNull(null);
+
 		}
 		Assert.isTrue(request.getColumna() >= 0 && request.getColumna() != null && request.getRow() >= 0 && request.getRow() != null, "RequestService. No valid request. Column or Row must be a integer bigger than -1");
 		Assert.isTrue(request.getProcession() != null, "RequestService. You need to provied a procession in the request.");

@@ -19,21 +19,25 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <security:authorize access="hasRole('BROTHERHOOD')">
-<spring:message code="brotherhood.procession"/>
 
-<spring:message code="rocession.rows"/><input id="filas" type = "text" name = "filas">
-<spring:message code="rocession.columns"/><input id="columnas" type = "text" name = "columnas">
-
-<form:form action="procession/brotherhood/edit.do" modelAttribute="request">
+<form:form action="procession/brotherhood/edit.do" modelAttribute="procession">
 <form:hidden path="id"/>
 <form:hidden path="version"/>
-<acme:textbox code="procession.ticker" path="ticker"/>
+
 <acme:textbox code="procession.description" path="description"/>
 <acme:textbox code="procession.title" path="title"/>
+<jstl:if test="${fechaPasada eq 'fechaPasada'}">
+	<b style="color:red;"><spring:message code="procession.PastDate"/></b><br>
+</jstl:if>
 <acme:textbox code="procession.moment" path="moment"/>
-<acme:textbox code="procession.draftMode" path="draftMode"/>
-<form:hidden id="get-position" path="position"/>
+<spring:message code="procession.draftMode"/>
+<form:select path="draftMode">
+		<form:option value="1" label="Yes" />	
+		<form:option value="0" label="No" />	
+	</form:select>
+	<form:errors path="draftMode"/>
 <br/>
+
 <input type="submit" name="save" 
 	value="<spring:message code="position.save" />" />
 </form:form>
@@ -41,18 +45,19 @@
 <input type="button" name="cancel" value="<spring:message code="request.cancel" />"
 			onclick="javascript: relativeRedir('procession/brotherhood/list.do');" />
 			
-<script type="text/javascript">
-var filas = document.getElementById("filas");
-var columnas = document.getElementById("columnas");
-var matrix = [];
-for(var i=0; i<filas; i++) {
-    matrix[i] = [];
-    for(var j=0; j<columnas; j++) {
-        matrix[i][j] = 0;
-    }
-}
-document.getElementById("get-position").value = matrix;
-</script>
+<!-- <script type="text/javascript">
+$(document).ready(function(){
+	$("#filas, #columnas").change(function(){
+		var filas = document.getElementById("filas").value;
+		var columnas = document.getElementById("columnas").value;
+		var gente= filas * columnas;
+		document.getElementById("prueba").innerHTML = gente;
+		var matrix = [filas,columnas];
+		
+		document.getElementById("get-position").value = matrix;
+	});
+});
+</script>-->
 
 </security:authorize>
 

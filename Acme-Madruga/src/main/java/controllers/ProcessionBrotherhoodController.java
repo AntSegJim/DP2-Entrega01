@@ -2,17 +2,16 @@
 package controllers;
 
 import java.util.Collection;
-
-import javax.validation.Valid;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.BrotherhoodService;
 import services.ProcessionService;
 import domain.Procession;
 
@@ -20,8 +19,6 @@ import domain.Procession;
 @RequestMapping("/procession/brotherhood")
 public class ProcessionBrotherhoodController extends AbstractController {
 
-	@Autowired
-	private BrotherhoodService	brotherhoodService;
 	@Autowired
 	private ProcessionService	processionService;
 
@@ -33,7 +30,7 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		processions = this.processionService.findAll();
 
 		result = new ModelAndView("procession/list");
-		result.addObject("procession", processions);
+		result.addObject("processions", processions);
 		return result;
 
 	}
@@ -50,16 +47,24 @@ public class ProcessionBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView edit(@Valid final Procession newProcession, final BindingResult binding) {
-		final ModelAndView result;
-
-		if (!binding.hasErrors()) {
-			this.processionService.save(newProcession);
-			result = new ModelAndView("redirect:list.do");
-		} else {
+	public ModelAndView edit(Procession newProcession, final BindingResult binding) {
+		ModelAndView result;
+		try {
+			newProcession = this.processionService.reconstruct(newProcession, binding);
+			Assert.isTrue(newProcession.getMoment().after(new Date()));
+			if (!binding.hasErrors()) {
+				this.processionService.save(newProcession);
+				result = new ModelAndView("redirect:list.do");
+			} else {
+				result = new ModelAndView("procession/edit");
+				result.addObject("procession", newProcession);
+			}
+		} catch (final Exception e) {
 			result = new ModelAndView("procession/edit");
 			result.addObject("procession", newProcession);
+			result.addObject("fechaPasada", "fechaPasada");
 		}
+
 		return result;
 
 	}
