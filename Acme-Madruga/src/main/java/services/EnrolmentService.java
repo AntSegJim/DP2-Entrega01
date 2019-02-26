@@ -80,6 +80,9 @@ public class EnrolmentService {
 				Assert.isTrue(enrolment.getIsOut() == 1, "Enrolment.service: Estas fuera de la hermandad");
 			}
 
+			if (enrolment.getStatus() == 2)
+				enrolment.setIsOut(1);
+
 			Assert.isTrue(enrolment.getBrotherhood() != null, "Enrolment.service: Brotherhood no puede ser null");
 			Assert.isTrue(enrolment.getMember() != null, "Enrolment.service: Member no puede ser null");
 			Assert.isTrue(enrolment.getPosition() != null, "Enrolment.service: Position no puede ser null");
