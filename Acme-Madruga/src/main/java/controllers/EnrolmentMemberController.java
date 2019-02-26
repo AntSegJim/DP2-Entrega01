@@ -42,7 +42,7 @@ public class EnrolmentMemberController {
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView listEnrolment() {
+	public ModelAndView list() {
 		final ModelAndView result;
 		final Collection<Enrolment> enrolments;
 
@@ -60,7 +60,7 @@ public class EnrolmentMemberController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView createEnrolment() {
+	public ModelAndView create() {
 		final ModelAndView result;
 		Collection<Posicion> positions;
 		Collection<Brotherhood> brotherhoods;
@@ -82,7 +82,7 @@ public class EnrolmentMemberController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView editEnrolment(@RequestParam final Integer idEnrolment) {
+	public ModelAndView edit(@RequestParam final Integer idEnrolment) {
 		final ModelAndView result;
 		final Enrolment enrolment;
 
@@ -96,7 +96,7 @@ public class EnrolmentMemberController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView editEnrolment(final Enrolment enrolmentMember, final BindingResult binding) {
+	public ModelAndView edit(final Enrolment enrolmentMember, final BindingResult binding) {
 		ModelAndView result;
 		Enrolment enrolment;
 

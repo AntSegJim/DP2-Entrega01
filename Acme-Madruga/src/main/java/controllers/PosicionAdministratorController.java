@@ -31,7 +31,7 @@ public class PosicionAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView listPosition() {
+	public ModelAndView list() {
 		final ModelAndView result;
 		final Collection<Posicion> positions;
 
@@ -45,7 +45,7 @@ public class PosicionAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView createPosition() {
+	public ModelAndView create() {
 		final ModelAndView result;
 		final Posicion position;
 
@@ -59,7 +59,7 @@ public class PosicionAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView editNotification(@RequestParam final int positionId) {
+	public ModelAndView edit(@RequestParam final int positionId) {
 		ModelAndView result;
 		final Posicion position;
 
@@ -72,7 +72,7 @@ public class PosicionAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView editNotification(@ModelAttribute("position") @Valid final Posicion position, final BindingResult binding) {
+	public ModelAndView edit(@ModelAttribute("position") @Valid final Posicion position, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
@@ -93,7 +93,7 @@ public class PosicionAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView deleteControlCheck(final Posicion position, final BindingResult binding) {
+	public ModelAndView delete(final Posicion position, final BindingResult binding) {
 		ModelAndView result;
 
 		try {

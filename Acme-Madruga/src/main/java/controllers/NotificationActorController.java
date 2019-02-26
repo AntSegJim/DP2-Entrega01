@@ -30,7 +30,7 @@ public class NotificationActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView listNotification() {
+	public ModelAndView list() {
 		final ModelAndView result;
 		final Collection<Notification> notifications;
 
@@ -43,7 +43,7 @@ public class NotificationActorController extends AbstractController {
 
 	}
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView showNotification(@RequestParam final Integer notificationId) {
+	public ModelAndView show(@RequestParam final Integer notificationId) {
 		final ModelAndView result;
 		final Notification notification;
 
@@ -57,7 +57,7 @@ public class NotificationActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView createNotification() {
+	public ModelAndView create() {
 		final ModelAndView result;
 		final Notification notification;
 
@@ -71,7 +71,7 @@ public class NotificationActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView editNotification(@RequestParam final int notificationId) {
+	public ModelAndView edit(@RequestParam final int notificationId) {
 		ModelAndView result;
 		final Notification notification;
 
@@ -84,7 +84,7 @@ public class NotificationActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView editNotification(@Valid final Notification notification, final BindingResult binding) {
+	public ModelAndView edit(@Valid final Notification notification, final BindingResult binding) {
 		ModelAndView result;
 
 		try {

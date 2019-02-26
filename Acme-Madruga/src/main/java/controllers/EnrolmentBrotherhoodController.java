@@ -32,7 +32,7 @@ public class EnrolmentBrotherhoodController {
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView listBrotherhood() {
+	public ModelAndView list() {
 		final ModelAndView result;
 		final Collection<Enrolment> enrolments;
 
@@ -50,7 +50,7 @@ public class EnrolmentBrotherhoodController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView editEnrolment(@RequestParam final Integer idEnrolment) {
+	public ModelAndView edit(@RequestParam final Integer idEnrolment) {
 		final ModelAndView result;
 		final Enrolment enrolment;
 
@@ -64,7 +64,7 @@ public class EnrolmentBrotherhoodController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView editEnrolment(final Enrolment enrolmentBrotherhood, final BindingResult binding) {
+	public ModelAndView edit(final Enrolment enrolmentBrotherhood, final BindingResult binding) {
 		ModelAndView result;
 
 		Enrolment enrolment;
