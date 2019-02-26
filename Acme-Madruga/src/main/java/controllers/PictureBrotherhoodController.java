@@ -95,9 +95,12 @@ public class PictureBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/editPictureBrotherhood", method = RequestMethod.POST, params = "save")
 	public ModelAndView savePictureBrotherhood(@Valid final Picture picture, final BindingResult binding) {
 		ModelAndView result;
+		final UserAccount user = LoginService.getPrincipal();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		if (!binding.hasErrors()) {
-			this.pictureService.save(picture);
-
+			final Picture picSave = this.pictureService.save(picture);
+			br.getPictures().add(picSave);
+			this.brotherhoodService.save(br);
 			result = new ModelAndView("redirect:picturesBrotherhood.do");
 		} else {
 			result = new ModelAndView("picture/editPictureBrotherhood");

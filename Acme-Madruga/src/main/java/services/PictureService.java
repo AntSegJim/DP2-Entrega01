@@ -11,7 +11,6 @@ import org.springframework.util.Assert;
 
 import repositories.PictureRepository;
 import security.UserAccount;
-import domain.Brotherhood;
 import domain.Picture;
 
 @Service
@@ -44,12 +43,12 @@ public class PictureService {
 	public Picture save(final Picture picture) {
 		//Que la iamgen que se va a guardar no se nulla y la url de la iamgen no sea nula
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
-		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+		//final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
 		Assert.isTrue(picture != null && picture.getUrl() != null);
-		Assert.isTrue(!this.PRepo.findAll().contains(picture));
+		//Assert.isTrue(!this.PRepo.findAll().contains(picture));
 		//final Picture picSave = this.PRepo.save(picture);
-		Assert.isTrue((br.getPictures().contains(picture) && !this.getPicturesFloatByBrotherhood(br.getId()).contains(picture)) || (!br.getPictures().contains(picture) && this.getPicturesFloatByBrotherhood(br.getId()).contains(picture)));
+		//Assert.isTrue((br.getPictures().contains(picture) && !this.getPicturesFloatByBrotherhood(br.getId()).contains(picture)) || (!br.getPictures().contains(picture) && this.getPicturesFloatByBrotherhood(br.getId()).contains(picture)));
 		//		final Picture picSave = this.PRepo.save(picture);
 		//		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		//		br.getPictures().add(picSave);
