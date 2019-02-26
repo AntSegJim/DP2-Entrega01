@@ -29,11 +29,7 @@
 <form:hidden path="id"/>
 <form:hidden path="version"/>
 
-<form:hidden path="moment"/>
-<form:hidden path="endMoment"/>
-<form:hidden path="status"/>
-<form:hidden path="member"/>
-<form:hidden path="isOut"/>
+
 
 
 

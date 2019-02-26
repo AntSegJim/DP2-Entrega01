@@ -3,8 +3,6 @@ package controllers;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -98,11 +96,11 @@ public class EnrolmentMemberController {
 	}
 
 	@RequestMapping(value = "/member/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView editEnrolment(@Valid final Enrolment enrolment, final BindingResult binding) {
+	public ModelAndView editEnrolment(final Enrolment enrolmentMember, final BindingResult binding) {
 		ModelAndView result;
-		//Enrolment enrolment;
+		Enrolment enrolment;
 
-		//enrolment = this.enrolmentService.reconstruct(enrolmentMember, binding);
+		enrolment = this.enrolmentService.reconstruct(enrolmentMember, binding);
 
 		try {
 			if (!binding.hasErrors()) {

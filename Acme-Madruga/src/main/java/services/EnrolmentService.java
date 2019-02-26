@@ -20,7 +20,6 @@ import domain.Brotherhood;
 import domain.Enrolment;
 import domain.Member;
 import domain.Posicion;
-import forms.EnrolmentMember;
 
 @Service
 @Transactional
@@ -105,19 +104,20 @@ public class EnrolmentService {
 		return res;
 	}
 	//RECONSTRUCT
-	public Enrolment reconstruct(final EnrolmentMember enrolmentForm, final BindingResult binding) {
+	public Enrolment reconstruct(final Enrolment enrolmentForm, final BindingResult binding) {
 		Enrolment res;
 
 		if (enrolmentForm.getId() == 0)
-			res = this.create();
+			res = enrolmentForm;
 		else {
 			res = this.enrolmentRepository.findOne(enrolmentForm.getId());
+			//Hacer copia y hacer set a la copia
 			res.setPosition(enrolmentForm.getPosition());
 			res.setBrotherhood(enrolmentForm.getBrotherhood());
 
-			this.validator.validate(res, binding);
-
 		}
+		this.validator.validate(res, binding);
+
 		return res;
 	}
 	public Collection<Enrolment> enrolmentByMember(final Integer id) {
