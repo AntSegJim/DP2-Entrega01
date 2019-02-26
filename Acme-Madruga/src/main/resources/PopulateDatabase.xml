@@ -378,7 +378,6 @@
 		<property name="description" value="Procesion de Arahal" />
 		<property name="title" value="Procesion de la Esperanza" />
 		<property name="draftMode" value="1" />
-		<property name="brotherhood" ref="brotherhood1" />
 		<property name="brotherhood" ref="brotherhood1" />	
 		<property name="positionsRow">
 			<list>
@@ -400,7 +399,6 @@
 		<property name="description" value="Procesion de Arahal 2" />
 		<property name="title" value="Procesion de la Esperanza 2" />
 		<property name="draftMode" value="1" />
-		<property name="brotherhood" ref="brotherhood1" />
 		<property name="brotherhood" ref="brotherhood1" />	
 		<property name="positionsRow">
 			<list>
@@ -422,7 +420,6 @@
 		<property name="description" value="Procesion de Arahal" />
 		<property name="title" value="Procesion de la Esperanza" />
 		<property name="draftMode" value="1" />
-		<property name="brotherhood" ref="brotherhood2" />
 		<property name="brotherhood" ref="brotherhood1" />	
 		<property name="positionsRow">
 			<list>
