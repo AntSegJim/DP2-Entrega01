@@ -3,8 +3,6 @@ package controllers;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,7 +21,7 @@ import domain.Actor;
 import domain.Enrolment;
 
 @Controller
-@RequestMapping("/enrolment")
+@RequestMapping("/enrolment/brotherhood")
 public class EnrolmentBrotherhoodController {
 
 	@Autowired
@@ -33,7 +31,7 @@ public class EnrolmentBrotherhoodController {
 	private ActorService		actorService;
 
 
-	@RequestMapping(value = "/brotherhood/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listBrotherhood() {
 		final ModelAndView result;
 		final Collection<Enrolment> enrolments;
@@ -51,7 +49,7 @@ public class EnrolmentBrotherhoodController {
 
 	}
 
-	@RequestMapping(value = "/brotherhood/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView editEnrolment(@RequestParam final Integer idEnrolment) {
 		final ModelAndView result;
 		final Enrolment enrolment;
@@ -65,9 +63,13 @@ public class EnrolmentBrotherhoodController {
 
 	}
 
-	@RequestMapping(value = "/brotherhood/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView editEnrolment(@Valid final Enrolment enrolment, final BindingResult binding) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView editEnrolment(final Enrolment enrolmentBrotherhood, final BindingResult binding) {
 		ModelAndView result;
+
+		Enrolment enrolment;
+
+		enrolment = this.enrolmentService.reconstruct(enrolmentBrotherhood, binding);
 
 		try {
 			if (!binding.hasErrors()) {

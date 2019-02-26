@@ -25,7 +25,7 @@ import domain.Enrolment;
 import domain.Posicion;
 
 @Controller
-@RequestMapping("/enrolment")
+@RequestMapping("/enrolment/member")
 public class EnrolmentMemberController {
 
 	@Autowired
@@ -41,7 +41,7 @@ public class EnrolmentMemberController {
 	private BrotherhoodService	brotherhoodService;
 
 
-	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listEnrolment() {
 		final ModelAndView result;
 		final Collection<Enrolment> enrolments;
@@ -59,7 +59,7 @@ public class EnrolmentMemberController {
 
 	}
 
-	@RequestMapping(value = "/member/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createEnrolment() {
 		final ModelAndView result;
 		Collection<Posicion> positions;
@@ -81,7 +81,7 @@ public class EnrolmentMemberController {
 
 	}
 
-	@RequestMapping(value = "/member/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView editEnrolment(@RequestParam final Integer idEnrolment) {
 		final ModelAndView result;
 		final Enrolment enrolment;
@@ -95,7 +95,7 @@ public class EnrolmentMemberController {
 
 	}
 
-	@RequestMapping(value = "/member/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView editEnrolment(final Enrolment enrolmentMember, final BindingResult binding) {
 		ModelAndView result;
 		Enrolment enrolment;

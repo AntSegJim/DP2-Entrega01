@@ -29,10 +29,6 @@
 <form:hidden path="id"/>
 <form:hidden path="version"/>
 
-
-
-
-
 <acme:select items="${positions }" itemLabel="name" code="enrolment.position" path="position"/>
 <acme:select items="${brotherhoods }" itemLabel="title" code="enrolment.brotherhood" path="brotherhood"/>
 </jstl:if>
@@ -40,13 +36,6 @@
 <jstl:if test="${enrolment.id ne 0 }">
 <form:hidden path="id"/>
 <form:hidden path="version"/>
-
-<form:hidden path="moment"/>
-<form:hidden path="endMoment"/>
-<form:hidden path="status"/>
-<form:hidden path="member"/>
-<form:hidden path="position"/>
-<form:hidden path="brotherhood"/>
 
 <b><spring:message code="enrolment.moment" /></b>: <jstl:out value="${enrolment.moment}" ></jstl:out><br/>
 <b><spring:message code="enrolment.position" /></b>: <jstl:out value="${enrolment.position.name}"></jstl:out><br/>
@@ -76,6 +65,8 @@
 <br/>
 <input type="submit" name="save" 
 	value="<spring:message code="enrolment.save" />" />
+	<input type="button" name="cancel" value="<spring:message code="enrolment.cancel" />"
+			onclick="javascript: relativeRedir('enrolment/member/list.do');" />
 </form:form>
 
 </security:authorize>
@@ -90,13 +81,6 @@
 <form:hidden path="id"/>
 <form:hidden path="version"/>
 
-<form:hidden path="moment"/>
-<form:hidden path="endMoment"/>
-<form:hidden path="isOut"/>
-<form:hidden path="member"/>
-<form:hidden path="position"/>
-<form:hidden path="brotherhood"/>
-
 <b><spring:message code="enrolment.moment" /></b>: <jstl:out value="${enrolment.moment}" ></jstl:out><br/>
 <b><spring:message code="enrolment.position" /></b>: <jstl:out value="${enrolment.position.name}"></jstl:out><br/>
 <b><spring:message code="enrolment.brotherhood" /></b>: <jstl:out value="${enrolment.brotherhood.title}"></jstl:out><br/>
@@ -108,7 +92,7 @@
 	<form:select path="status">
 		<form:option value="0" label="Pending" />	
 		<form:option value="1" label="Accepted" />	
-		<form:option value="2" label="Rejected" />	
+		<form:option value="2" label="Canceled" />	
 	</form:select>
 	<form:errors path="status"/>
 

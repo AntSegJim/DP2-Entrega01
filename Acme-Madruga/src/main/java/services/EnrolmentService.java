@@ -69,24 +69,10 @@ public class EnrolmentService {
 			enrolment.setMoment(new Date());
 		} else {
 
-			if (user.getAuthorities().iterator().next().getAuthority().equals("MEMBER")) {
-				final Enrolment old = this.enrolmentRepository.findOne(enrolment.getId());
-
-				Assert.isTrue(old.getBrotherhood() == enrolment.getBrotherhood());
-				Assert.isTrue(old.getPosition() == enrolment.getPosition());
-				Assert.isTrue(old.getStatus() == enrolment.getStatus());
-				Assert.isTrue(old.getMember() == enrolment.getMember());
-			}
-
-			if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD")) {
-				final Enrolment old = this.enrolmentRepository.findOne(enrolment.getId());
-
-				Assert.isTrue(old.getBrotherhood() == enrolment.getBrotherhood());
-				Assert.isTrue(old.getPosition() == enrolment.getPosition());
-				Assert.isTrue(old.getMember() == enrolment.getMember());
-				Assert.isTrue(old.getIsOut() == enrolment.getIsOut());
-
-			}
+			if (user.getAuthorities().iterator().next().getAuthority().equals("MEMBER"))
+				enrolment.getMember().equals(a);
+			else if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"))
+				enrolment.getBrotherhood().equals(a);
 
 			if (enrolment.getIsOut() == 1) {
 				enrolment.setStatus(2);
@@ -104,21 +90,35 @@ public class EnrolmentService {
 		return res;
 	}
 	//RECONSTRUCT
-	public Enrolment reconstruct(final Enrolment enrolmentForm, final BindingResult binding) {
+	public Enrolment reconstruct(final Enrolment enrolment, final BindingResult binding) {
 		Enrolment res;
 
-		if (enrolmentForm.getId() == 0)
-			res = enrolmentForm;
-		else {
-			res = this.enrolmentRepository.findOne(enrolmentForm.getId());
-			//Hacer copia y hacer set a la copia
-			res.setPosition(enrolmentForm.getPosition());
-			res.setBrotherhood(enrolmentForm.getBrotherhood());
+		if (enrolment.getId() == 0) {
+			res = enrolment;
+			res.setMoment(new Date());
+			res.setEndMoment(null);
+			res.setStatus(0);
+			res.setIsOut(0);
+			final UserAccount user = LoginService.getPrincipal();
+			final Actor a = this.actorService.getActorByUserAccount(user.getId());
+			res.setMember((Member) a);
+			this.validator.validate(res, binding);
+
+			return res;
+		} else {
+			final UserAccount user = LoginService.getPrincipal();
+			res = this.enrolmentRepository.findOne(enrolment.getId());
+			final Enrolment copy = res;
+			if (user.getAuthorities().iterator().next().getAuthority().equals("MEMBER"))
+				copy.setIsOut(enrolment.getIsOut());
+			else if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"))
+				copy.setStatus(enrolment.getStatus());
+			this.validator.validate(copy, binding);
+
+			return copy;
 
 		}
-		this.validator.validate(res, binding);
 
-		return res;
 	}
 	public Collection<Enrolment> enrolmentByMember(final Integer id) {
 		return this.enrolmentRepository.enrolmentByMember(id);
@@ -127,10 +127,5 @@ public class EnrolmentService {
 	public Collection<Enrolment> enrolmentByBrotherhood(final Integer id) {
 		return this.enrolmentRepository.enrolmentByBrotherhood(id);
 	}
-
-	//	public void delete(final Enrolment enrolment) {
-	//		if (enrolment.getStatus() == 2)
-	//			this.enrolmentRepository.delete(enrolment);
-	//	}
 
 }
