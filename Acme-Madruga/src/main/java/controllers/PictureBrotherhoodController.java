@@ -112,8 +112,11 @@ public class PictureBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/editPictureBrotherhood", method = RequestMethod.POST, params = "delete")
 	public ModelAndView deletePictureBrotherhood(final Picture picture, final BindingResult binding) {
 		ModelAndView result;
+		final UserAccount user = LoginService.getPrincipal();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 
 		if (!binding.hasErrors()) {
+			br.getPictures().remove(picture);
 			this.pictureService.delete(picture);
 			result = new ModelAndView("redirect:picturesBrotherhood.do");
 		} else {
