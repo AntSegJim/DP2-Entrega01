@@ -38,7 +38,7 @@ public class MemberController extends AbstractController {
 		try {
 			if (!binding.hasErrors()) {
 				this.memberService.save(member);
-				result = new ModelAndView("redirect:action-2.do");
+				result = new ModelAndView("redirect:http://localhost:8080/Acme-Madruga");
 			} else {
 				result = new ModelAndView("member/create");
 				result.addObject("member", member);
@@ -53,12 +53,4 @@ public class MemberController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
-		ModelAndView result;
-
-		result = new ModelAndView("member/action-2");
-
-		return result;
-	}
 }

@@ -92,8 +92,8 @@ public class MemberService {
 			Assert.isTrue(a.getEmail().equals(r.getEmail()));
 		}
 
-		if (r.getPhone() != "" || r.getPhone() != null) {
-			final String regexTelefono = "^\\+[1-9][0-9]{0,2}\\ \\([1-9][0-9]{0,2}\\)\\ [0-9]{4,}$|^\\+[1-9][0-9]{0,2}\\ [0-9]{4,}$|^[0-9]{4,}$";
+		if (r.getPhone() != "" || r.getPhone() != null || r.getPhone() != "+34 ") {
+			final String regexTelefono = "^\\+[1-9][0-9]{0,2}\\ \\([1-9][0-9]{0,2}\\)\\ [0-9]{4,}$|^\\+[1-9][0-9]{0,2}\\ [0-9]{4,}$|^[0-9]{4,}|^\\+[0-9]\\ $|^$|^\\+$";
 			final Pattern patternTelefono = Pattern.compile(regexTelefono);
 			final Matcher matcherTelefono = patternTelefono.matcher(r.getPhone());
 			Assert.isTrue(matcherTelefono.find() == true, "MemberService.save -> Telefono no valido");
@@ -111,6 +111,12 @@ public class MemberService {
 			final UserAccount user = r.getUserAccount();
 			user.setPassword(hash);
 		}
+
+		//Probar tele
+
+		if (r.getPhone() == "+34 ")
+			r.setPhone("");
+
 		res = this.memberRepo.save(r);
 		return res;
 	}

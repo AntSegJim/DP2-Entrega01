@@ -38,11 +38,13 @@
 		<bean class="converters.PictureToStringConverter" />
 		<bean class="converters.StringToFloatConverter" />
 		<bean class="converters.FloatToStringConverter" />
-			<bean class="converters.StringToAdministratorConverter" />
+		<bean class="converters.StringToAdministratorConverter" />
 		<bean class="converters.CustomizableSystemToStringConverter" />
 		<bean class="converters.StringToCustomizableSystemConverter" />
 		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.StringToUserAccountConverter" />
+		<bean class="converters.AuthorityToStringConverter" />
+		<bean class="converters.StringToAuthorityConverter" />
 		
 		
 	</util:list>
