@@ -16,7 +16,7 @@
 
 </head>
 <body>
-
+<input type="hidden" value="paso">
 <security:authorize access="hasRole('BROTHERHOOD')">
 <form:form action="picture/brotherhood/editPictureFloat.do" modelAttribute="picture">
 
