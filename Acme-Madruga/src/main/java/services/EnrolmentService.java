@@ -70,9 +70,9 @@ public class EnrolmentService {
 		} else {
 
 			if (user.getAuthorities().iterator().next().getAuthority().equals("MEMBER"))
-				enrolment.getMember().equals(a);
+				Assert.isTrue(enrolment.getMember().equals(a));
 			else if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"))
-				enrolment.getBrotherhood().equals(a);
+				Assert.isTrue(enrolment.getBrotherhood().equals(a));
 
 			if (enrolment.getIsOut() == 1) {
 				enrolment.setStatus(2);
@@ -86,7 +86,7 @@ public class EnrolmentService {
 			Assert.isTrue(enrolment.getBrotherhood() != null, "Enrolment.service: Brotherhood no puede ser null");
 			Assert.isTrue(enrolment.getMember() != null, "Enrolment.service: Member no puede ser null");
 			Assert.isTrue(enrolment.getPosition() != null, "Enrolment.service: Position no puede ser null");
-			Assert.isTrue(enrolment.getStatus() >= 0 && enrolment.getStatus() <= 2, "Enrolment.service: Status debe tener un valor entre 0 y 2");
+			Assert.isTrue(enrolment.getStatus() >= 0 && enrolment.getStatus() <= 3, "Enrolment.service: Status debe tener un valor entre 0 y 2");
 			Assert.isTrue(enrolment.getIsOut() >= 0 && enrolment.getIsOut() <= 1, "Enrolment.service: Is out debe tener un valor entre 0 y 2");
 		}
 		res = this.enrolmentRepository.save(enrolment);
@@ -112,12 +112,20 @@ public class EnrolmentService {
 			final UserAccount user = LoginService.getPrincipal();
 			res = this.enrolmentRepository.findOne(enrolment.getId());
 			final Enrolment copy = res;
-			if (user.getAuthorities().iterator().next().getAuthority().equals("MEMBER"))
-				copy.setIsOut(enrolment.getIsOut());
-			else if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"))
-				copy.setStatus(enrolment.getStatus());
-			this.validator.validate(copy, binding);
+			if (user.getAuthorities().iterator().next().getAuthority().equals("MEMBER")) {
 
+				if (res.getStatus() == 3)
+					copy.setStatus(enrolment.getStatus());
+				else
+					copy.setIsOut(enrolment.getIsOut());
+			} else if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD")) {
+				copy.setStatus(enrolment.getStatus());
+				copy.setPosition(enrolment.getPosition());
+			}
+
+			this.validator.validate(copy, binding);
+			//ECHAR A UN MIEMBRO CUANDO ESTATUS ES 1 -> BROTHERHOOD
+			//PARA IF
 			return copy;
 
 		}

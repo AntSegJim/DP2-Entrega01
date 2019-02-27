@@ -46,10 +46,14 @@ requestURI="enrolment/member/list.do" >
 	<spring:message code="enrolment.status.cancel" />
 </jstl:if>
 
+<jstl:if test="${row.status eq 3 }">
+	<spring:message code="enrolment.status.resend" />
+</jstl:if>
+
 </display:column>
 
 <display:column>
-	<jstl:if test="${row.status eq 1 or row.status eq 0}">
+	<jstl:if test="${row.status eq 1 or row.status eq 0 or row.status eq 3}">
 		<a href="enrolment/member/edit.do?idEnrolment=${row.id}"><spring:message code="enrolment.edit" /></a>
 	</jstl:if>
 </display:column>

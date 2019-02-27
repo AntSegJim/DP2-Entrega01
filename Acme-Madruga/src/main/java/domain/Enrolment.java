@@ -51,7 +51,7 @@ public class Enrolment extends DomainEntity {
 		this.endMoment = endMoment;
 	}
 
-	@Range(min = 0, max = 2)
+	@Range(min = 0, max = 3)
 	public int getStatus() {
 		return this.status;
 	}

@@ -17,8 +17,10 @@ import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
 import services.EnrolmentService;
+import services.PositionService;
 import domain.Actor;
 import domain.Enrolment;
+import domain.Posicion;
 
 @Controller
 @RequestMapping("/enrolment/brotherhood")
@@ -29,6 +31,9 @@ public class EnrolmentBrotherhoodController {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private PositionService		positionService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -53,12 +58,20 @@ public class EnrolmentBrotherhoodController {
 	public ModelAndView edit(@RequestParam final Integer idEnrolment) {
 		final ModelAndView result;
 		final Enrolment enrolment;
+		Collection<Posicion> positions;
+		String language;
+
+		language = LocaleContextHolder.getLocale().getLanguage();
 
 		enrolment = this.enrolmentService.findOne(idEnrolment);
+		positions = this.positionService.getPositions(language);
+
 		Assert.notNull(enrolment);
 
 		result = new ModelAndView("enrolment/edit");
 		result.addObject("enrolment", enrolment);
+		result.addObject("positions", positions);
+
 		return result;
 
 	}
@@ -77,15 +90,30 @@ public class EnrolmentBrotherhoodController {
 				result = new ModelAndView("redirect:list.do");
 			} else {
 
+				Collection<Posicion> positions;
+				String language;
+
+				language = LocaleContextHolder.getLocale().getLanguage();
+
+				positions = this.positionService.getPositions(language);
 				result = new ModelAndView("enrolment/edit");
 				result.addObject("enrolment", enrolment);
+				result.addObject("positions", positions);
+
 			}
 
 		} catch (final Exception e) {
+			Collection<Posicion> positions;
+			String language;
 
+			language = LocaleContextHolder.getLocale().getLanguage();
+
+			positions = this.positionService.getPositions(language);
 			result = new ModelAndView("enrolment/edit");
 			result.addObject("enrolment", enrolment);
 			result.addObject("exception", e);
+			result.addObject("positions", positions);
+
 		}
 
 		return result;

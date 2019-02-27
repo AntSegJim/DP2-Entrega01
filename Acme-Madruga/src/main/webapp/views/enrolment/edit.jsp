@@ -33,7 +33,7 @@
 <acme:select items="${brotherhoods }" itemLabel="title" code="enrolment.brotherhood" path="brotherhood"/>
 </jstl:if>
 
-<jstl:if test="${enrolment.id ne 0 }">
+<jstl:if test="${enrolment.id ne 0 and enrolment.status ne 3}">
 <form:hidden path="id"/>
 <form:hidden path="version"/>
 
@@ -62,6 +62,24 @@
 </jstl:if>
 </jstl:if>
 
+<jstl:if test="${enrolment.status eq 3 }">
+<form:hidden path="id"/>
+<form:hidden path="version"/>
+<b><spring:message code="enrolment.moment" /></b>: <jstl:out value="${enrolment.moment}" ></jstl:out><br/>
+<b><spring:message code="enrolment.position" /></b>: <jstl:out value="${enrolment.position.name}"></jstl:out><br/>
+<b><spring:message code="enrolment.brotherhood" /></b>: <jstl:out value="${enrolment.brotherhood.title}"></jstl:out><br/>
+<br/>
+<form:label path="status"><spring:message code="enrolment.status" />:</form:label>
+
+	<form:select path="status">
+		<form:option value="3" label="Response" />	
+		<form:option value="1" label="Accepted" />	
+		<form:option value="2" label="Canceled" />	
+	</form:select>
+	<form:errors path="status"/>
+
+</jstl:if>
+
 <br/>
 <input type="submit" name="save" 
 	value="<spring:message code="enrolment.save" />" />
@@ -82,10 +100,11 @@
 <form:hidden path="version"/>
 
 <b><spring:message code="enrolment.moment" /></b>: <jstl:out value="${enrolment.moment}" ></jstl:out><br/>
-<b><spring:message code="enrolment.position" /></b>: <jstl:out value="${enrolment.position.name}"></jstl:out><br/>
 <b><spring:message code="enrolment.brotherhood" /></b>: <jstl:out value="${enrolment.brotherhood.title}"></jstl:out><br/>
 
 <br/>
+
+<acme:select items="${positions }" itemLabel="name" code="enrolment.position" path="position"/>
 
 <form:label path="status"><spring:message code="enrolment.status" />:</form:label>
 
@@ -93,6 +112,7 @@
 		<form:option value="0" label="Pending" />	
 		<form:option value="1" label="Accepted" />	
 		<form:option value="2" label="Canceled" />	
+		<form:option value="3" label="Response" />	
 	</form:select>
 	<form:errors path="status"/>
 
