@@ -20,5 +20,10 @@
 		<put-attribute name="title" value="Member: Create new member" />
 		<put-attribute name="body" value="/views/member/edit.jsp" />
 	</definition>
+	
+	<definition name="member/list" extends="master.page">	
+		<put-attribute name="title" value="Members of the brotherhood" />
+		<put-attribute name="body" value="/views/member/list.jsp" />
+	</definition>
 
 </tiles-definitions>

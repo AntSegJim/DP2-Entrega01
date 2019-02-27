@@ -118,4 +118,38 @@ public class EnrolmentBrotherhoodController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "/listAccepted", method = RequestMethod.GET)
+	public ModelAndView list2(@RequestParam final Integer idMember) {
+		final ModelAndView result;
+		final Collection<Enrolment> enrolments;
+
+		enrolments = this.enrolmentService.enrolmentAcceptedByBrotherhood(idMember);
+		Assert.notNull(enrolments);
+
+		result = new ModelAndView("enrolment/list");
+		result.addObject("enrolments", enrolments);
+		result.addObject("language", LocaleContextHolder.getLocale().getLanguage());
+		return result;
+
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int idEnrolment) {
+		ModelAndView result;
+		final Enrolment e = this.enrolmentService.findOne(idEnrolment);
+		final Collection<Enrolment> enrolments = this.enrolmentService.enrolmentAcceptedByBrotherhood(e.getMember().getId());
+		try {
+			Assert.isTrue(enrolments.contains(e));
+			this.enrolmentService.cancelEnrolment(e);
+			result = new ModelAndView("redirect:listAccepted.do?idMember=" + e.getMember().getId());
+			return result;
+		} catch (final Exception e2) {
+			result = new ModelAndView("procession/list");
+			result.addObject("exception", e2);
+			result.addObject("enrolments", enrolments);
+			return result;
+		}
+	}
+
 }

@@ -101,6 +101,10 @@ requestURI="enrolment/brotherhood/list.do" >
 	<jstl:if test="${row.status eq 0}">
 		<a href="enrolment/brotherhood/edit.do?idEnrolment=${row.id}"><spring:message code="enrolment.edit" /></a>
 	</jstl:if>
+	
+	<jstl:if test="${row.status eq 1}">
+		<a href="enrolment/brotherhood/delete.do?idEnrolment=${row.id}"><spring:message code="enrolment.delete" /></a>
+	</jstl:if>
 </display:column>
 
 </display:table>

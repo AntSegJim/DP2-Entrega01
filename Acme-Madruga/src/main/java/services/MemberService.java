@@ -124,4 +124,9 @@ public class MemberService {
 	public Member getMemberByUserAccount(final int userAccountId) {
 		return this.memberRepo.getMemberByUserAccount(userAccountId);
 	}
+
+	public Collection<Member> getMemberByBrotherhood(final Integer id) {
+		return this.memberRepo.getMembersOfBrotherhood(id);
+	}
+
 }

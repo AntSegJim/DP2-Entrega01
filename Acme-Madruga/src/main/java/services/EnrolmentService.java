@@ -124,8 +124,6 @@ public class EnrolmentService {
 			}
 
 			this.validator.validate(copy, binding);
-			//ECHAR A UN MIEMBRO CUANDO ESTATUS ES 1 -> BROTHERHOOD
-			//PARA IF
 			return copy;
 
 		}
@@ -137,6 +135,17 @@ public class EnrolmentService {
 
 	public Collection<Enrolment> enrolmentByBrotherhood(final Integer id) {
 		return this.enrolmentRepository.enrolmentByBrotherhood(id);
+	}
+
+	public Collection<Enrolment> enrolmentAcceptedByBrotherhood(final Integer id) {
+		return this.enrolmentRepository.enrolmentAcceptedByBrotherhood(id);
+	}
+
+	public void cancelEnrolment(final Enrolment enrolment) {
+		enrolment.setStatus(2);
+		enrolment.setIsOut(1);
+
+		this.enrolmentRepository.save(enrolment);
 	}
 
 }

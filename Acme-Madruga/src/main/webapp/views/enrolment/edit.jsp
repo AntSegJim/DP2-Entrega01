@@ -72,7 +72,6 @@
 <form:label path="status"><spring:message code="enrolment.status" />:</form:label>
 
 	<form:select path="status">
-		<form:option value="3" label="Response" />	
 		<form:option value="1" label="Accepted" />	
 		<form:option value="2" label="Canceled" />	
 	</form:select>
@@ -109,7 +108,6 @@
 <form:label path="status"><spring:message code="enrolment.status" />:</form:label>
 
 	<form:select path="status">
-		<form:option value="0" label="Pending" />	
 		<form:option value="1" label="Accepted" />	
 		<form:option value="2" label="Canceled" />	
 		<form:option value="3" label="Response" />	
@@ -122,4 +120,8 @@
 <input type="submit" name="save" 
 	value="<spring:message code="enrolment.save" />" />
 </form:form>
+
+
+
+
 </security:authorize>

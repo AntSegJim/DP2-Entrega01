@@ -83,6 +83,11 @@
 		<security:intercept-url pattern="/brotherhood/create.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/brotherhood/edit.do" access="isAnonymous()" />
 	
+		<security:intercept-url pattern="/member/brotherhood/list.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/enrolment/brotherhood/listAccepted.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/enrolment/brotherhood/delete.do" access="hasRole('BROTHERHOOD')" />
+	
+	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
