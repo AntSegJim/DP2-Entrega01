@@ -24,9 +24,12 @@ requestURI="picture/brotherhood/picturesFloat.do" >
 </display:column>
 <display:column titleKey="picture.url"> <img src="${row.url}" width="130px" height="80px">  </display:column>
 </display:table>
-<form action="picture/brotherhood/createPictureFloat.do">
+<!-- 
+<form action="picture/brotherhood/createPictureFloat.do?floatId=${paso.id}">
     <input type="submit" value="<spring:message code="picture.create" />" />
 </form>
+ -->
+<a href="picture/brotherhood/createPictureFloat.do?floatId=${paso.id}" ><spring:message code="picture.create" /></a>
 </security:authorize>
 
 

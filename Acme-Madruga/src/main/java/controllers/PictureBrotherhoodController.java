@@ -62,6 +62,7 @@ public class PictureBrotherhoodController extends AbstractController {
 
 		result = new ModelAndView("picture/picturesFloat");
 		result.addObject("pictures", pictures);
+		result.addObject("paso", fl);
 
 		return result;
 	}
@@ -130,13 +131,15 @@ public class PictureBrotherhoodController extends AbstractController {
 
 	//Creacion de una imagen para la hermandad
 	@RequestMapping(value = "/createPictureFloat", method = RequestMethod.GET)
-	public ModelAndView createPictureFloat() {
+	public ModelAndView createPictureFloat(@RequestParam final int floatId) {
 		ModelAndView result;
 		Picture picture;
+		final Paso fl = this.floatService.findOne(floatId);
 
 		picture = this.pictureService.create();
 		result = new ModelAndView("picture/editPictureFloat");
 		result.addObject("picture", picture);
+		result.addObject("paso", fl);
 
 		return result;
 	}
@@ -155,14 +158,19 @@ public class PictureBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/editPictureFloat", method = RequestMethod.POST, params = "save")
-	public ModelAndView savePictureFloat(@Valid final Picture picture, final BindingResult binding, @RequestParam final int floatId) {
+	public ModelAndView savePictureFloat(@Valid final Picture picture, final BindingResult binding, @Valid final Paso paso) {
 		ModelAndView result;
 		if (!binding.hasErrors()) {
-			this.pictureService.save(picture);
-			result = new ModelAndView("redirect:picturesFloat.do?floatId=" + this.floatService.findOne(floatId).getId());
+			final Picture picSave = this.pictureService.save(picture);
+			final Paso fl = this.floatService.findOne(paso.getId());
+			fl.getPictures().add(picSave);
+			this.floatService.save(fl);
+			result = new ModelAndView("redirect:picturesFloat.do?floatId=" + fl.getId());
 		} else {
+			final Paso fl = this.floatService.findOne(paso.getId());
 			result = new ModelAndView("picture/editPictureFloat");
 			result.addObject("picture", picture);
+			result.addObject("paso", fl);
 		}
 		return result;
 	}
