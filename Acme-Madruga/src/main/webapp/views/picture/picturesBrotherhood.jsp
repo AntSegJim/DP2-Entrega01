@@ -15,6 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <security:authorize access="hasRole('BROTHERHOOD')">
 
 <display:table pagesize="5" name="pictures" id="row"
@@ -25,7 +26,7 @@ requestURI="picture/brotherhood/picturesBrotherhood.do" >
 <display:column titleKey="picture.url"> <img src="${row.url}" width="130px" height="80px">  </display:column>
 </display:table>
 <form action="picture/brotherhood/createPictureBrotherhood.do">
-    <input type="submit" value="<spring:message code="picture.create" />" />
+	<acme:submit name="create" code="picture.create"/>
 </form>
 </security:authorize>
 

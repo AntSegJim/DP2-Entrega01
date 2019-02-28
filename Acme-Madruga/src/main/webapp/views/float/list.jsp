@@ -7,6 +7,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table pagesize="5" name="floats" id="row"
 requestURI="float/brotherhood/list.do" >
@@ -17,8 +18,8 @@ requestURI="float/brotherhood/list.do" >
 </display:column>
 <display:column property="title" titleKey="float.title"/>
 <display:column property="description" titleKey="float.description" />
-<display:column property="brotherhood.id" titleKey="float.brotherhood" />
-<display:column property="procession.id" titleKey="float.procession" />
+<display:column property="brotherhood.title" titleKey="float.brotherhood" />
+<display:column property="procession.title" titleKey="float.procession" />
 <display:column>
 	<a href="float/brotherhood/show.do?floatId=${row.id}" ><spring:message code="float.show" /></a>
 </display:column>
@@ -29,7 +30,7 @@ requestURI="float/brotherhood/list.do" >
 
 </display:table>
 <form action="float/brotherhood/create.do">
-    <input type="submit" value="<spring:message code="float.create" />" />
+	<acme:submit name="create" code="float.create"/>
 </form>
 
 

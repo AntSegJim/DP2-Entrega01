@@ -12,6 +12,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
 
 
 </head>
@@ -26,37 +28,18 @@
 	<form:hidden path="brotherhood" />
 
  
- 	<form:label path="title">
-		<spring:message code="float.title" />:
-	</form:label>
-	<form:input path="title" />
-	<form:errors cssClass="error" path="title" />
+ 	<acme:textbox code="float.title" path="title"/>
+	<br />
+	<acme:textbox code="float.description" path="description"/>
+	<br />
+	<acme:select items="${processions}" itemLabel="title" code="float.procession" path="procession"/>
 	<br />
 	
-	<form:label path="description">
-		<spring:message code="float.description" />:
-	</form:label>
-	<form:input path="description" />
-	<form:errors cssClass="error" path="description" />
-	<br />
-	
-	<form:label path="procession">
-	<spring:message code="float.procession" />:
-	</form:label>
-	<form:select id="procession" path="procession">
-		<form:options items="${processions}" itemValue="id" itemLabel="title" />
-	</form:select>
-	<form:errors cssClass="error" path="procession" />
-	<br />
-	
-		
-	<input type="submit" name="save" value="<spring:message code="float.save" />" />
+	<acme:submit name="save" code="float.save"/>	
 	<jstl:if test="${paso.id ne 0 }">
-		<input type="submit" name="delete" value="<spring:message code="float.delete" />"/>
+		<acme:submit name="delete" code="float.delete"/>
 	</jstl:if>
-	
-	<input type="button" name="cancel" value="<spring:message code="float.cancel" />"
-		onclick="javascript: relativeRedir('float/brotherhood/list.do');" />
+	<acme:cancel url="float/brotherhood/list.do" code="float.cancel"/>
 	<br />
 </form:form>
 </security:authorize>
