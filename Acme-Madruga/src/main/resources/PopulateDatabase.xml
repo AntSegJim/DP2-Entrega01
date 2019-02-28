@@ -371,6 +371,18 @@
 		
 	</bean>	
 	
+		<bean id="enrolment4" class="domain.Enrolment">
+		
+		<property name="moment" value="01/02/2019 23:51" />
+		<property name="endMoment" value="01/02/2019 23:59" />
+		<property name="status" value="2" />
+		<property name="isOut" value="0" />
+		<property name="member" ref="member1" />
+		<property name="brotherhood" ref="brotherhood2" />
+		<property name="position" ref="position4" />
+		
+	</bean>	
+	
 	<!-- Procession -->
 	<bean id="procession1" class="domain.Procession">
 		<property name="ticker" value="121212-ASDQW" />
