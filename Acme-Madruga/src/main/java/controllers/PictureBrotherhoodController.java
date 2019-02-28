@@ -100,7 +100,11 @@ public class PictureBrotherhoodController extends AbstractController {
 		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		if (!binding.hasErrors()) {
 			final Picture picSave = this.pictureService.save(picture);
-			br.getPictures().add(picSave);
+			if (br.getPictures().contains(picture)) {
+				br.getPictures().remove(picture);
+				br.getPictures().add(picSave);
+			} else
+				br.getPictures().add(picSave);
 			this.brotherhoodService.save(br);
 			result = new ModelAndView("redirect:picturesBrotherhood.do");
 		} else {

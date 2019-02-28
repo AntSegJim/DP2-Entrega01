@@ -12,6 +12,10 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
 
 
 </head>
@@ -23,21 +27,14 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 
- 
- 	<form:label path="url">
-		<spring:message code="picture.url" />:
-	</form:label>
-	<form:input path="url" />
-	<form:errors cssClass="error" path="url" />
+	<acme:textbox code="picture.url" path="url"/>
 	<br />
 		
-	<input type="submit" name="save" value="<spring:message code="picture.save" />" />
+	<acme:submit name="save" code="picture.save"/>
 	<jstl:if test="${picture.id ne 0 }">
-		<input type="submit" name="delete" value="<spring:message code="picture.delete" />"/>
+		<acme:submit name="delete" code="picture.delete"/>
 	</jstl:if>
-	
-	<input type="button" name="cancel" value="<spring:message code="picture.cancel" />"
-		onclick="javascript: relativeRedir('picture/brotherhood/picturesBrotherhood.do');" />
+	<acme:cancel url="picture/brotherhood/picturesBrotherhood.do" code="picture.cancel"/>
 	<br />
 </form:form>
 </security:authorize>
