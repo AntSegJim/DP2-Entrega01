@@ -20,5 +20,9 @@
 		<put-attribute name="title" value="Brotherhood: Create new brotherhood" />
 		<put-attribute name="body" value="/views/brotherhood/edit.jsp" />
 	</definition>
+	<definition name="brotherhood/list-member" extends="master.page">	
+		<put-attribute name="title" value="List Brotherhood" />
+		<put-attribute name="body" value="/views/brotherhood/list-member.jsp" />
+	</definition>
 
 </tiles-definitions>

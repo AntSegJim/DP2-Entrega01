@@ -44,6 +44,7 @@
 		
 		<security:authorize access="hasRole('MEMBER')">
 			<li><a href="enrolment/member/list.do"><spring:message code="master.page.enrolment" /></a></li>
+			<li><a href="brotherhood/member/list-member-belongs.do"><spring:message code="master.page.Brotherhood.list.Member" /></a></li>
 		
 			<li><a class="fNiv"><spring:message	code="master.page.member" /></a>
 				<ul>

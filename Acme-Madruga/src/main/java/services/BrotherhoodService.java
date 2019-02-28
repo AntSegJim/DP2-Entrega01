@@ -17,6 +17,7 @@ import org.springframework.util.Assert;
 
 import repositories.BrotherhoodRepository;
 import security.Authority;
+import security.LoginService;
 import security.UserAccount;
 import domain.Brotherhood;
 import domain.Picture;
@@ -30,6 +31,9 @@ public class BrotherhoodService {
 
 	@Autowired
 	private ActorService				actorService;
+
+	@Autowired
+	private PictureService				pictureService;
 
 	@Autowired
 	private CustomizableSystemService	customizableService;
@@ -96,7 +100,7 @@ public class BrotherhoodService {
 		final List<String> emails = this.actorService.getEmails();
 
 		if (r.getId() == 0)
-			Assert.isTrue(!emails.contains(r.getEmail()));
+			Assert.isTrue(!emails.contains(r.getEmail()), "Brotherhood.Email -> The email you entered is already being used");
 		else {
 			final Brotherhood a = this.brotherhoodRepo.findOne(r.getId());
 			Assert.isTrue(a.getEmail().equals(r.getEmail()));
@@ -121,6 +125,7 @@ public class BrotherhoodService {
 			final UserAccount user = r.getUserAccount();
 			user.setPassword(hash);
 		}
+
 		res = this.brotherhoodRepo.save(r);
 		return res;
 	}
@@ -131,6 +136,18 @@ public class BrotherhoodService {
 
 	public Collection<Brotherhood> getBrotherhoodsByMember(final Integer memberId) {
 		return this.brotherhoodRepo.getBrotherhoodsByMember(memberId);
+	}
+
+	public Collection<Brotherhood> getBrotherhoodsBelongsByMember(final Integer memberId) {
+		final UserAccount userLoged = LoginService.getPrincipal();
+		Assert.isTrue(userLoged.getAuthorities().iterator().next().getAuthority().equals("MEMBER"));
+		return this.brotherhoodRepo.getBrotherhoodsbelongsByMember(memberId);
+	}
+
+	public Collection<Brotherhood> getBrotherhoodsBelongedByMember(final Integer memberId) {
+		final UserAccount userLoged = LoginService.getPrincipal();
+		Assert.isTrue(userLoged.getAuthorities().iterator().next().getAuthority().equals("MEMBER"));
+		return this.brotherhoodRepo.getBrotherhoodsbelongedByMember(memberId);
 	}
 
 }

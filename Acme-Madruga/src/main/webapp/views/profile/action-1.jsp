@@ -16,8 +16,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="profile.action.1" /></p>
-<p><spring:message code="profile.action.2"/></p>
+
 
 <security:authorize access="isAuthenticated()">
 
@@ -34,7 +33,7 @@
 <b><spring:message code="profile.brotherhood.title" /></b> ${actor.title} <br/>
 <b><spring:message code="profile.brotherhood.establishmentDate" /></b> ${actor.establishmentDate} <br/>
 
-<display:table name="${actor.pictures}" id="row">
+<display:table name="${pictures}" id="row">
 <display:column property="url" 
 titleKey="profile.brotherhood.pictures" />
 </display:table>

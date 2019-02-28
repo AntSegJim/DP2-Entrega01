@@ -32,6 +32,10 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version" />
 	<form:hidden path="userAccount" />
+	
+	<security:authorize access="hasRole('BROTHERHOOD')">
+	<form:hidden path="pictures" />
+	</security:authorize>
 
 	
 	<form:label path="name"><spring:message code="profile.action.3.name" />:</form:label>
@@ -78,11 +82,8 @@
 	<form:errors cssClass="error" path="establishmentDate" />
 	<br />
 	
-	<!--<form:label path="pictures"><spring:message code="profile.brotherhood.pictures" />:</form:label>
-	<form:input path="pictures" />
-	<form:errors cssClass="error" path="pictures" />-->
-	
-		<form:label path="pictures">
+
+<!--		<form:label path="pictures">
 		<spring:message code="profile.brotherhood.pictures" />:
 	</form:label>
 	<form:select id="pictures" path="pictures" >
@@ -90,7 +91,7 @@
 		<form:options items="${pictures}" itemValue="id" itemLabel="url"/>
 	
 	</form:select>
-	<br />
+	<br /> -->
 	
 
 	</security:authorize>

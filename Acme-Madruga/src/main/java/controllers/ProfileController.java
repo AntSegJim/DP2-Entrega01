@@ -64,6 +64,12 @@ public class ProfileController extends AbstractController {
 		result = new ModelAndView("profile/action-1");
 		result.addObject("actor", a);
 
+		if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD")) {
+			final Brotherhood b = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+			final Collection<Picture> pictures = b.getPictures();
+			result.addObject("pictures", pictures);
+		}
+
 		return result;
 	}
 
@@ -118,7 +124,7 @@ public class ProfileController extends AbstractController {
 		b = (Brotherhood) this.actorService.getActorByUserAccount(user.getId());
 		Assert.notNull(b);
 
-		final Collection<Picture> pictures = this.pictureService.finaAll();
+		final Collection<Picture> pictures = b.getPictures();
 
 		result = new ModelAndView("profile/editBrotherhood");
 		result.addObject("actor", b);
@@ -132,24 +138,25 @@ public class ProfileController extends AbstractController {
 	@RequestMapping(value = "/edit-brotherhood", method = RequestMethod.POST, params = "save")
 	public ModelAndView editBrotherhood(@Valid final Brotherhood brotherhood, final BindingResult binding) {
 		ModelAndView result;
-		//		try {
 
-		if (!binding.hasErrors()) {
-			this.brotherhoodService.save(brotherhood);
-			;
-			result = new ModelAndView("redirect:personal-datas.do");
-		} else {
+		try {
+
+			if (!binding.hasErrors()) {
+				this.brotherhoodService.save(brotherhood);
+
+				result = new ModelAndView("redirect:personal-datas.do");
+			} else {
+				result = new ModelAndView("profile/editBrotherhood");
+				result.addObject("actor", brotherhood);
+			}
+		} catch (final Exception e) {
+			final Collection<Picture> pictures = this.pictureService.finaAll();
 			result = new ModelAndView("profile/editBrotherhood");
+			result.addObject("pictures", pictures);
 			result.addObject("actor", brotherhood);
-		}
-		//		} catch (final Exception e) {
-		//			final Collection<Picture> pictures = this.pictureService.finaAll();
-		//			result = new ModelAndView("profile/editBrotherhood");
-		//			result.addObject("pictures", pictures);
-		//			result.addObject("actor", brotherhood);
-		//			result.addObject("exception", e);
+			result.addObject("exception", e);
 
-		//		}
+		}
 		return result;
 
 	}
