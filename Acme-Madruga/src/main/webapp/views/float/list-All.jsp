@@ -8,33 +8,30 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 
 <display:table pagesize="5" name="floats" id="row"
-requestURI="float/brotherhood/list.do" >
+requestURI="float/list-All.do?idBrotherhood=${idBrotherhood }" >
 
-
-<display:column>
-	<a href="float/brotherhood/edit.do?floatId=${row.id}" ><spring:message code="float.edit" /></a>
-</display:column>
 <display:column property="title" titleKey="float.title"/>
 <display:column property="description" titleKey="float.description" />
-<display:column property="brotherhood.title" titleKey="float.brotherhood" />
+
 <display:column property="procession.title" titleKey="float.procession" />
 
-<display:column>
-	<a href="float/brotherhood/show.do?floatId=${row.id}" ><spring:message code="float.show" /></a>
-</display:column>
-<display:column>
-	<a href="picture/brotherhood/picturesFloat.do?floatId=${row.id}" ><spring:message code="float.pictures.show" /></a>
-</display:column>
+<display:column titleKey="float.pictures"> 
+
+	<c:forEach items="${row.pictures}" var="item">
+	<img src="${item.url}" width="130px" height="80px"><br/>
+	</c:forEach>
+	</display:column>
+
+
 
 </display:table>
 
-<form action="float/brotherhood/create.do">
-	<acme:submit name="create" code="float.create"/>
-</form>
+<a href="brotherhood/list.do"><spring:message code="float.back" /></a>
 
 
 

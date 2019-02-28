@@ -30,6 +30,7 @@
 			</li>
 			
 			<li><a href="position/administrator/list.do"><spring:message	code="master.page.positions" /></a>
+			<li><a href="brotherhood/list.do"><spring:message code="master.page.brotherhood.Tour" /></a></li>
 			
 		</security:authorize>
 		
@@ -39,6 +40,7 @@
 			<li><a href="member/brotherhood/list.do"><spring:message code="master.page.brotherhood.member" /></a></li>
 			<li><a href="procession/brotherhood/list.do"><spring:message code="master.page.processions" /></a></li>			
 			<li><a href="picture/brotherhood/picturesBrotherhood.do"><spring:message code="master.page.brotherhood.picture" /></a></li>
+			<li><a href="brotherhood/list.do"><spring:message code="master.page.brotherhood.Tour" /></a></li>
 		</security:authorize>
 		
 		
@@ -54,6 +56,7 @@
 				</ul>
 			</li>
 			<li><a class="fNiv" href="request/member/list.do"><spring:message code="master.page.member.request" /></a></li>
+			<li><a href="brotherhood/list.do"><spring:message code="master.page.brotherhood.Tour" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
@@ -64,6 +67,7 @@
 					<li><a href="member/create.do"><spring:message code="master.page.member.register" /></a></li>
 					<li><a href="brotherhood/create.do"><spring:message code="master.page.brotherhood.register" /></a></li>
 				</ul>
+				<li><a href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
