@@ -142,6 +142,9 @@ public class EnrolmentService {
 	}
 
 	public void cancelEnrolment(final Enrolment enrolment) {
+		final UserAccount user = LoginService.getPrincipal();
+		final Actor a = this.actorService.getActorByUserAccount(user.getId());
+		Assert.isTrue(a.equals(enrolment.getBrotherhood()));
 		enrolment.setStatus(2);
 		enrolment.setIsOut(1);
 
