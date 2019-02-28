@@ -74,9 +74,12 @@ public class EnrolmentService {
 			else if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"))
 				Assert.isTrue(enrolment.getBrotherhood().equals(a));
 
-			if (enrolment.getIsOut() == 1) {
+			if (enrolment.getIsOut() == 1 && enrolment.getStatus() == 1) {
 				enrolment.setStatus(2);
 				enrolment.setEndMoment(new Date());
+				Assert.isTrue(enrolment.getIsOut() == 1, "Enrolment.service: Estas fuera de la hermandad");
+			} else if (enrolment.getIsOut() == 1) {
+				enrolment.setStatus(2);
 				Assert.isTrue(enrolment.getIsOut() == 1, "Enrolment.service: Estas fuera de la hermandad");
 			}
 
