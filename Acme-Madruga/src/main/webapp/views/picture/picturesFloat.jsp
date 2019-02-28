@@ -20,7 +20,7 @@
 <display:table pagesize="5" name="pictures" id="row"
 requestURI="picture/brotherhood/picturesFloat.do" >
 <display:column>
-	<a href="picture/brotherhood/editPictureFloat.do?pictureId=${row.id}" ><spring:message code="picture.edit" /></a>
+	<a href="picture/brotherhood/editPictureFloat.do?pictureId=${row.id}&floatId=${paso.id}" ><spring:message code="picture.edit" /></a>
 </display:column>
 <display:column titleKey="picture.url"> <img src="${row.url}" width="130px" height="80px">  </display:column>
 </display:table>

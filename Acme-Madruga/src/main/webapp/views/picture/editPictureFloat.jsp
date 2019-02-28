@@ -17,10 +17,8 @@
 
 </head>
 <body>
-<input type="hidden" value="paso">
 <security:authorize access="hasRole('BROTHERHOOD')">
-<form:form action="picture/brotherhood/editPictureFloat.do" modelAttribute="picture">
-
+<form:form action="picture/brotherhood/editPictureFloat.do?floatId=${paso.id}" modelAttribute="picture">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 
@@ -32,7 +30,7 @@
 		<acme:submit name="delete" code="picture.delete"/>
 	</jstl:if>
 	
-	<acme:cancel url="picture/brotherhood/picturesFloat.do" code="picture.cancel"/>
+	<acme:cancel url="picture/brotherhood/picturesFloat.do?floatId=${paso.id }" code="picture.cancel"/>
 	<br />
 </form:form>
 </security:authorize>

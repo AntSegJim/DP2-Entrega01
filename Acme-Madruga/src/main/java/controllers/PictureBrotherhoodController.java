@@ -150,28 +150,31 @@ public class PictureBrotherhoodController extends AbstractController {
 
 	//Edicion de una imagne de un float(paso)
 	@RequestMapping(value = "/editPictureFloat", method = RequestMethod.GET)
-	public ModelAndView editPictureFloat(@RequestParam final int pictureId) {
+	public ModelAndView editPictureFloat(@RequestParam final int pictureId, @RequestParam final int floatId) {
 		ModelAndView result;
 		Picture picture;
+		Paso paso;
 
 		picture = this.pictureService.findOne(pictureId);
+		paso = this.floatService.findOne(floatId);
 		Assert.notNull(picture);
 		result = new ModelAndView("picture/editPictureFloat");
 		result.addObject("picture", picture);
+		result.addObject("paso", paso);
 		return result;
 	}
 
 	@RequestMapping(value = "/editPictureFloat", method = RequestMethod.POST, params = "save")
-	public ModelAndView savePictureFloat(@Valid final Picture picture, final BindingResult binding, @Valid final Paso paso) {
+	public ModelAndView savePictureFloat(@Valid final Picture picture, final BindingResult binding, @RequestParam final int floatId) {
 		ModelAndView result;
 		if (!binding.hasErrors()) {
 			final Picture picSave = this.pictureService.save(picture);
-			final Paso fl = this.floatService.findOne(paso.getId());
+			final Paso fl = this.floatService.findOne(floatId);
 			fl.getPictures().add(picSave);
 			this.floatService.save(fl);
-			result = new ModelAndView("redirect:picturesFloat.do?floatId=" + fl.getId());
+			result = new ModelAndView("redirect:picturesFloat.do?floatId=" + floatId);
 		} else {
-			final Paso fl = this.floatService.findOne(paso.getId());
+			final Paso fl = this.floatService.findOne(floatId);
 			result = new ModelAndView("picture/editPictureFloat");
 			result.addObject("picture", picture);
 			result.addObject("paso", fl);
@@ -180,19 +183,21 @@ public class PictureBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/editPictureFloat", method = RequestMethod.POST, params = "delete")
-	public ModelAndView deletePictureFloat(final Picture picture, final BindingResult binding) {
+	public ModelAndView deletePictureFloat(final Picture picture, final BindingResult binding, @RequestParam final int floatId) {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
+			final Paso p = this.floatService.findOne(floatId);
+			p.getPictures().remove(picture);
 			this.pictureService.delete(picture);
-			result = new ModelAndView("redirect:picturesFloat.do");
+			this.floatService.save(p);
+			result = new ModelAndView("redirect:picturesFloat.do?floatId=" + floatId);
 		} else {
 			result = new ModelAndView("picture/editPictureFloat");
 			result.addObject("picture", picture);
+			result.addObject("paso", this.floatService.findOne(floatId));
 		}
-
 		return result;
-
 	}
 
 }
