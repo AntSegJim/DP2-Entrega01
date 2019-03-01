@@ -2,16 +2,21 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.RequestRepository;
 import security.LoginService;
+import domain.Brotherhood;
 import domain.Member;
 import domain.Procession;
 import domain.Request;
@@ -25,7 +30,11 @@ public class RequestService {
 	@Autowired
 	private ProcessionService	processionService;
 	@Autowired
+	private BrotherhoodService	brotherhoodService;
+	@Autowired
 	private MemberService		memberService;
+	@Autowired
+	private Validator			validator;
 
 
 	public Request create() {
@@ -50,30 +59,18 @@ public class RequestService {
 	public Request save(final Request request) {
 		final Request savedRequest;
 		if (request.getId() == 0) {
+			Assert.isTrue(request.getStatus() == 1, "RequestService. No valid new request. Status must be 1.");
 			final int userAccountId = LoginService.getPrincipal().getId();
 			final Member member = this.memberService.getMemberByUserAccount(userAccountId);
-			Assert.isTrue(member.getId() == request.getMember().getId());
-			Assert.isTrue(request.getStatus() == 1, "RequestService. No valid new request. Status must be 1.");
-			final Procession procession = this.processionService.findOne(request.getProcession().getId());
-			Assert.notNull(procession, "RequestService. Procession no valid.");
-			Integer recomendar = 0;
-			final List<Integer> filas = procession.getPositionsRow();
-			final List<Integer> columnas = procession.getPositionsColumn();
-			for (int xy = 0; xy < filas.size(); xy++) {
-				if (recomendar < filas.get(xy))
-					recomendar = filas.get(xy);
-				if (recomendar < columnas.get(xy))
-					recomendar = columnas.get(xy);
-			}
-			request.setRow(recomendar + 1);
-			request.setColumna(recomendar + 1);
-
+			final Collection<Brotherhood> brotherhoods = this.brotherhoodService.getBrotherhoodsByMember(member.getId());
+			final Set<Brotherhood> brotherhoodsWithOutDuplicates = new HashSet<Brotherhood>(brotherhoods);
+			Assert.isTrue(brotherhoodsWithOutDuplicates.contains(request.getProcession().getBrotherhood()), "RequestService. You only can use a procession of your brotherhood");
 		} else {
 			final Request oldRequest = this.requestRepository.findOne(request.getId());
 			Assert.isTrue(oldRequest.getStatus() == 1, "RequestService. You can only update request with status 1.");
 			Assert.isTrue(request.getStatus() == 0 || request.getStatus() == 2, "No valid request. Status must be between 0 or 2.");
-			Assert.isTrue(request.getProcession() == request.getProcession(), "RequestService. You can't change this request.");
-			Assert.isTrue(request.getMember() == request.getMember(), "RequestService. This member didn't create this request.");
+			Assert.isTrue(request.getProcession() == oldRequest.getProcession(), "RequestService. You can't change this request.");
+			Assert.isTrue(request.getMember() == oldRequest.getMember(), "RequestService. This member didn't create this request.");
 			if (request.getStatus() == 2)
 				Assert.isTrue(request.getDescription() != null && !(request.getDescription() == ""), "RequestService. You need to write a description to rejected request.");
 
@@ -83,6 +80,8 @@ public class RequestService {
 			for (int xy = 0; xy < filas.size(); xy++)
 				if (filas.get(xy) == request.getRow() && columnas.get(xy) == request.getColumna())
 					Assert.notNull(null);
+			final Request comprobrarRowAndColumn = this.requestRepository.getRequestWithThisRowAndColumn(request.getRow(), request.getColumna());
+			Assert.isNull(comprobrarRowAndColumn);
 
 		}
 		Assert.isTrue(request.getColumna() >= 0 && request.getColumna() != null && request.getRow() >= 0 && request.getRow() != null, "RequestService. No valid request. Column or Row must be a integer bigger than -1");
@@ -92,8 +91,71 @@ public class RequestService {
 		return savedRequest;
 	}
 	public void delete(final Request request) {
-		if (request.getStatus() == 1)
-			this.requestRepository.delete(request);
+		Assert.isTrue(request.getStatus() == 1);
+		final int userAccountId = LoginService.getPrincipal().getId();
+		final Member member = this.memberService.getMemberByUserAccount(userAccountId);
+		final Collection<Brotherhood> brotherhoods = this.brotherhoodService.getBrotherhoodsByMember(member.getId());
+		final Set<Brotherhood> brotherhoodsWithOutDuplicates = new HashSet<Brotherhood>(brotherhoods);
+		Assert.isTrue(brotherhoodsWithOutDuplicates.contains(request.getProcession().getBrotherhood()));
+		this.requestRepository.delete(request);
+	}
+
+	//RECONSTRUCT
+	public Request reconstruct(final Request request, final BindingResult binding) {
+		Request res;
+
+		if (request.getId() == 0) {
+			res = request;
+			res.setDescription("");
+			res.setMember(this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId()));
+			final Procession procession = this.processionService.findOne(request.getProcession().getId());
+			Assert.notNull(procession, "RequestService. Procession no valid.");
+			Boolean recomendacionEncontrada = false;
+			Integer recomendar = 0;
+			final List<Integer> filas = procession.getPositionsRow();
+			final List<Integer> columnas = procession.getPositionsColumn();
+
+			for (int xy = 0; xy < filas.size(); xy++) {
+				if (recomendar < filas.get(xy))
+					recomendar = filas.get(xy);
+				if (recomendar < columnas.get(xy))
+					recomendar = columnas.get(xy);
+			}
+			while (recomendacionEncontrada == false) {
+				recomendar += 1;
+				final Request comprobrarRowAndColumn = this.requestRepository.getRequestWithThisRowAndColumn(recomendar, recomendar);
+				if (comprobrarRowAndColumn == null) {
+					recomendacionEncontrada = true;
+					res.setRow(recomendar);
+					res.setColumna(recomendar);
+				}
+			}
+			res.setStatus(1);
+
+			this.validator.validate(res, binding);
+			return res;
+		} else {
+			res = this.requestRepository.findOne(request.getId());
+			final Request p = new Request();
+			p.setId(res.getId());
+			p.setVersion(res.getVersion());
+			p.setMember(res.getMember());
+			p.setProcession(res.getProcession());
+			p.setStatus(request.getStatus());
+			if (request.getStatus() == 0) {
+				p.setRow(request.getRow());
+				p.setColumna(request.getColumna());
+			} else if (request.getStatus() == 2)
+				p.setDescription(request.getDescription());
+			else
+				Assert.notNull(null);
+			this.validator.validate(p, binding);
+			return p;
+		}
+
+	}
+	public Collection<Request> getAllMyRequest(final int memberId) {
+		return this.requestRepository.getAllMyRequest(memberId);
 	}
 
 }

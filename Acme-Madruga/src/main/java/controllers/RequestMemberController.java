@@ -2,14 +2,16 @@
 package controllers;
 
 import java.util.Collection;
-
-import javax.validation.Valid;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -36,8 +38,7 @@ public class RequestMemberController extends AbstractController {
 	public ModelAndView list() {
 		final ModelAndView result;
 		final Collection<Request> requests;
-		requests = this.requestService.findAll();
-
+		requests = this.requestService.getAllMyRequest(this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId()).getId());
 		result = new ModelAndView("request/list");
 		result.addObject("requests", requests);
 		return result;
@@ -53,30 +54,54 @@ public class RequestMemberController extends AbstractController {
 		final Integer a = LoginService.getPrincipal().getId();
 		final Member member = this.memberService.getMemberByUserAccount(a);
 		final Collection<Brotherhood> brotherhoods = this.brotherhoodService.getBrotherhoodsByMember(member.getId());
+		final Set<Brotherhood> brotherhoodsWithOutDuplicates = new HashSet<Brotherhood>(brotherhoods);
 		result = new ModelAndView("request/edit");
 		result.addObject("request", request);
-		result.addObject("brotherhoods", brotherhoods);
+		result.addObject("brotherhoods", brotherhoodsWithOutDuplicates);
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView edit(@Valid final Request newRequest, final BindingResult binding) {
-		final ModelAndView result;
-
-		if (!binding.hasErrors()) {
-			this.requestService.save(newRequest);
-			result = new ModelAndView("redirect:list.do");
-		} else {
+	public ModelAndView edit(Request newRequest, final BindingResult binding) {
+		ModelAndView result;
+		final int userAccountId = LoginService.getPrincipal().getId();
+		final Member member = this.memberService.getMemberByUserAccount(userAccountId);
+		final Collection<Brotherhood> brotherhoods = this.brotherhoodService.getBrotherhoodsByMember(member.getId());
+		final Set<Brotherhood> brotherhoodsWithOutDuplicates = new HashSet<Brotherhood>(brotherhoods);
+		try {
+			newRequest = this.requestService.reconstruct(newRequest, binding);
+			if (!binding.hasErrors()) {
+				this.requestService.save(newRequest);
+				result = new ModelAndView("redirect:list.do");
+			} else {
+				result = new ModelAndView("request/edit");
+				result.addObject("brotherhoods", brotherhoodsWithOutDuplicates);
+				result.addObject("request", newRequest);
+			}
+		} catch (final Exception e) {
 			result = new ModelAndView("request/edit");
-			final int userAccountId = LoginService.getPrincipal().getId();
-			final Member member = this.memberService.getMemberByUserAccount(userAccountId);
-			final Collection<Brotherhood> brotherhoods = this.brotherhoodService.getBrotherhoodsByMember(member.getId());
-			result.addObject("brotherhoods", brotherhoods);
+			result.addObject("exception", "e");
+			result.addObject("brotherhoods", brotherhoodsWithOutDuplicates);
 			result.addObject("request", newRequest);
 		}
-
 		return result;
 
 	}
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int requestId) {
+		ModelAndView result;
 
+		try {
+			final Request request = this.requestService.findOne(requestId);
+			Assert.notNull(request);
+			this.requestService.delete(request);
+			result = new ModelAndView("redirect:list.do");
+			return result;
+		} catch (final Exception e) {
+			result = new ModelAndView("request/list");
+			result.addObject("exception", "e");
+			result.addObject("requests", this.requestService.getAllMyRequest(this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId()).getId()));
+			return result;
+		}
+	}
 }

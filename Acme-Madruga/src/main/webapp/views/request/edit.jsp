@@ -30,11 +30,15 @@
 <form:form action=" request/member/edit.do" modelAttribute="request">
 <form:hidden path="id"/>
 <form:hidden path="version"/>
-<acme:textbox code="request.status" path="status"/>
-<acme:textbox code="request.description" path="description"/>
-<acme:textbox code="request.columna" path="columna"/>
-<acme:textbox code="request.row" path="row"/>
-<acme:select id="select-aRellenar" items="${processions}" itemLabel="ticker" code="request.procession" path="procession"/>
+
+<form:label path="procession">
+<spring:message code="request.procession"/>:
+</form:label>
+<form:select id="rellenarme" path="procession">
+</form:select>
+<jstl:if test="${exception eq 'e'}">
+	<b style="color:red;"><spring:message code="procession.NotValid"/></b><br>
+</jstl:if>
 <br/>
 <input type="submit" name="save" 
 	value="<spring:message code="position.save" />" />
@@ -46,20 +50,26 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('select').change(function(){
+		$('#select-prueba').change(function(){
 			var brotherhoodId = $('#select-prueba option:selected').attr('value');
 			$.ajax({
 				type:'GET',
 				url:'procession/member/list.do?brotherhoodId='+brotherhoodId,
 				success: function(res) {
-					document.getElementById("rellenarme").innerHTML = res;
-			        console.log(res);
-			        alert(res);
+					var procesiones = res.split(';');
+					var i;
+					var injectar = "";
+					for (i = 0; i < procesiones.length; i++) { 
+						p = procesiones[i].split(':');
+						injectar += '<option value="'+p[1]+'">'+p[0]+'</option>';
+					}
+					document.getElementById("rellenarme").innerHTML =injectar;
+			       /*  console.log(injectar);
+			        alert(injectar); */
 			    }
 			});
 		});
 	});
 </script>
-<div id="rellenarme"></div>
 </security:authorize>
 

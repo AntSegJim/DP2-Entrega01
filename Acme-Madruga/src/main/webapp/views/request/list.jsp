@@ -17,19 +17,39 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <security:authorize access="hasRole('MEMBER')">
-
+<jstl:if test="${exception eq 'e'}">
+	<b style="color:red;"><spring:message code="request.cant.delete"/></b><br>
+</jstl:if>
 <display:table pagesize="5" name="requests" id="row"
 requestURI="request/member/list.do" >
 
-<display:column property="status" titleKey="request.status" />
+<display:column titleKey="enrolment.status">
+
+<jstl:if test="${row.status eq 1 }">
+	<spring:message code="enrolment.status.pending" />
+</jstl:if>
+
+<jstl:if test="${row.status eq 0 }">
+	<spring:message code="enrolment.status.accepted" />
+</jstl:if>
+
+<jstl:if test="${row.status eq 2 }">
+	<spring:message code="enrolment.status.cancel" />
+</jstl:if>
+</display:column>
+
 <display:column property="columna" titleKey="request.columna" />
 <display:column property="row" titleKey="request.row" />
 <display:column property="description" titleKey="request.description" />
-<display:column property="member.name" titleKey="request.member" />
-<display:column property="procession.ticker" titleKey="request.procession" />
+<display:column property="procession.title" titleKey="request.procession" />
 
 <display:column>
-	<a href="request/member/delete.do?requestId=${row.id}"><spring:message code="request.delete" /></a>
+	<jstl:if test="${row.status eq 1 }">
+		<a href="request/member/delete.do?requestId=${row.id}"><spring:message code="request.delete" /></a>
+	</jstl:if>
+	<jstl:if test="${row.status eq 0 or row.status eq 2 }">
+	-
+	</jstl:if>
 </display:column>
 
 </display:table>
