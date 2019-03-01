@@ -15,7 +15,7 @@ public interface BrotherhoodRepository extends JpaRepository<Brotherhood, Intege
 	@Query("select b from Brotherhood b where b.userAccount.id = ?1")
 	public Brotherhood brotherhoodUserAccount(Integer id);
 
-	@Query("select e.brotherhood from Enrolment e where e.member.id = ?1")
+	@Query("select e.brotherhood from Enrolment e where e.member.id = ?1 and e.status = 1 and e.isOut = 0")
 	public Collection<Brotherhood> getBrotherhoodsByMember(Integer memberId);
 
 	@Query("select e.brotherhood from Enrolment e where e.member.id = ?1 and e.status=1")
@@ -23,4 +23,5 @@ public interface BrotherhoodRepository extends JpaRepository<Brotherhood, Intege
 
 	@Query("select e.brotherhood from Enrolment e where e.member.id = ?1 and e.status=2 and e.endMoment!=null")
 	public Collection<Brotherhood> getBrotherhoodsbelongedByMember(Integer memberId);
+
 }
