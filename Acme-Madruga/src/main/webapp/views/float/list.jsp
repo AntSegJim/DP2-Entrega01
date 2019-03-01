@@ -20,7 +20,6 @@ requestURI="float/brotherhood/list.do" >
 </display:column>
 <display:column property="title" titleKey="float.title"/>
 <display:column property="description" titleKey="float.description" />
-<display:column property="brotherhood.title" titleKey="float.brotherhood" />
 <display:column property="procession.title" titleKey="float.procession" />
 
 <display:column>
