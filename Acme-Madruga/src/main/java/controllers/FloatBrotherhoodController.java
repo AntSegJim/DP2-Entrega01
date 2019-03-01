@@ -3,8 +3,6 @@ package controllers;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -99,12 +97,25 @@ public class FloatBrotherhoodController extends AbstractController {
 
 	//Guardado de un float(paso)
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Paso paso, final BindingResult binding) {
+	public ModelAndView save(final Paso pasoBrotherhood, final BindingResult binding) {
 		ModelAndView result;
-		if (!binding.hasErrors()) {
-			this.floatService.save(paso);
-			result = new ModelAndView("redirect:list.do");
-		} else {
+		Paso paso;
+		paso = this.floatService.reconstruct(pasoBrotherhood, binding);
+
+		try {
+			if (!binding.hasErrors()) {
+				this.floatService.save(paso);
+				result = new ModelAndView("redirect:list.do");
+			} else {
+				Collection<Procession> processions;
+				final UserAccount user = LoginService.getPrincipal();
+				final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+				processions = this.processionService.getAllProcessionsByBrotherhood(br.getId());
+				result = new ModelAndView("float/edit");
+				result.addObject("paso", paso);
+				result.addObject("processions", processions);
+			}
+		} catch (final Exception e) {
 			Collection<Procession> processions;
 			final UserAccount user = LoginService.getPrincipal();
 			final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
@@ -113,8 +124,29 @@ public class FloatBrotherhoodController extends AbstractController {
 			result.addObject("paso", paso);
 			result.addObject("processions", processions);
 		}
+
 		return result;
 	}
+
+	/*
+	 * @RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	 * public ModelAndView save(@Valid final Paso paso, final BindingResult binding) {
+	 * ModelAndView result;
+	 * if (!binding.hasErrors()) {
+	 * this.floatService.save(paso);
+	 * result = new ModelAndView("redirect:list.do");
+	 * } else {
+	 * Collection<Procession> processions;
+	 * final UserAccount user = LoginService.getPrincipal();
+	 * final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+	 * processions = this.processionService.getAllProcessionsByBrotherhood(br.getId());
+	 * result = new ModelAndView("float/edit");
+	 * result.addObject("paso", paso);
+	 * result.addObject("processions", processions);
+	 * }
+	 * return result;
+	 * }
+	 */
 
 	//Borrado de un float(paso)
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")

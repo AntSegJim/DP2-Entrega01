@@ -24,8 +24,6 @@
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="pictures" />
-	<form:hidden path="brotherhood" />
 
  
  	<acme:textbox code="float.title" path="title"/>

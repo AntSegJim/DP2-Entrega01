@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.FloatRepository;
 import security.LoginService;
@@ -28,6 +30,8 @@ public class FloatService {
 	private ActorService		actorS;
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+	@Autowired
+	private Validator			validator;
 
 
 	//Metodo create
@@ -68,4 +72,32 @@ public class FloatService {
 	public Collection<Paso> getFloatsByBrotherhood(final Integer brotherhoodId) {
 		return this.FRepo.getFlotasByBrotherhood(brotherhoodId);
 	}
+
+	//RECONSTRUCT
+	public Paso reconstruct(final Paso paso, final BindingResult binding) {
+		Paso res;
+
+		if (paso.getId() == 0) {
+			res = paso;
+			res.setPictures(new HashSet<Picture>());
+			res.setBrotherhood(this.brotherhoodService.brotherhoodUserAccount(LoginService.getPrincipal().getId()));
+			this.validator.validate(res, binding);
+			return res;
+		} else {
+			res = this.FRepo.findOne(paso.getId());
+			final Paso p = new Paso();
+			p.setId(res.getId());
+			p.setVersion(res.getVersion());
+			p.setTitle(paso.getTitle());
+			p.setDescription(paso.getDescription());
+			p.setProcession(paso.getProcession());
+			p.setPictures(res.getPictures());
+			p.setBrotherhood(res.getBrotherhood());
+
+			this.validator.validate(p, binding);
+			return p;
+		}
+
+	}
+
 }
