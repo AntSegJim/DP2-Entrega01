@@ -55,6 +55,7 @@
 		<security:intercept-url pattern="/profile/personal-datas.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/edit-administrator.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/profile/edit-brotherhood.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/profile/edit-member.do" access="hasRole('MEMBER')" />
 		
 		<security:intercept-url pattern="/notification/actor/list.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/notification/actor/show.do" access="isAuthenticated()" />

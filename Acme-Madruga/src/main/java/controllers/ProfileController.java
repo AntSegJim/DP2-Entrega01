@@ -27,10 +27,12 @@ import security.UserAccount;
 import services.ActorService;
 import services.AdministratorService;
 import services.BrotherhoodService;
+import services.MemberService;
 import services.PictureService;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.Member;
 import domain.Picture;
 
 @Controller
@@ -48,6 +50,9 @@ public class ProfileController extends AbstractController {
 
 	@Autowired
 	private PictureService			pictureService;
+
+	@Autowired
+	private MemberService			memberService;
 
 
 	// Action-2 ---------------------------------------------------------------		
@@ -154,6 +159,44 @@ public class ProfileController extends AbstractController {
 			result = new ModelAndView("profile/editBrotherhood");
 			result.addObject("pictures", pictures);
 			result.addObject("actor", brotherhood);
+			result.addObject("exception", e);
+
+		}
+		return result;
+
+	}
+
+	@RequestMapping(value = "/edit-member", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		ModelAndView result;
+		Member member;
+		try {
+			member = this.memberService.findOne(this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId()).getId());
+			Assert.notNull(member);
+			result = new ModelAndView("profile/editMember");
+			result.addObject("actor", member);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:http://localhost:8080/Acme-Madruga");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit-member", method = RequestMethod.POST, params = "save")
+	public ModelAndView editMember(Member member, final BindingResult binding) {
+		ModelAndView result;
+		try {
+			member = this.memberService.reconstruct(member, binding);
+			if (!binding.hasErrors()) {
+				this.memberService.save(member);
+				result = new ModelAndView("redirect:personal-datas.do");
+			} else {
+				result = new ModelAndView("profile/editMember");
+				result.addObject("actor", member);
+			}
+		} catch (final Exception e) {
+			result = new ModelAndView("profile/editMember");
+			result.addObject("actor", member);
 			result.addObject("exception", e);
 
 		}

@@ -37,6 +37,9 @@
 	<form:hidden path="pictures" />
 	</security:authorize>
 
+	<security:authorize access="hasRole('MEMBER')">
+	<form:hidden path="requests" />
+	</security:authorize>
 	
 	<form:label path="name"><spring:message code="profile.action.3.name" />:</form:label>
 	<form:input path="name"/>

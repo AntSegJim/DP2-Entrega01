@@ -66,4 +66,9 @@ titleKey="profile.brotherhood.pictures" />
 </form>
 </security:authorize>
 
+<security:authorize access="hasRole('MEMBER')">
+<form action="profile/edit-member.do">
+    <input type="submit" value="<spring:message code="profile.edit.profile" />" />
+</form>
+</security:authorize>
 

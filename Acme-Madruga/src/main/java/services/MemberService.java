@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.MemberRepository;
 import security.Authority;
@@ -32,6 +34,8 @@ public class MemberService {
 
 	@Autowired
 	private CustomizableSystemService	customizableService;
+	@Autowired
+	private Validator					validator;
 
 
 	//Crear nuevo member
@@ -127,6 +131,36 @@ public class MemberService {
 
 	public Collection<Member> getMemberByBrotherhood(final Integer id) {
 		return this.memberRepo.getMembersOfBrotherhood(id);
+	}
+
+	//RECONSTRUCT
+	public Member reconstruct(final Member member, final BindingResult binding) {
+		Member res;
+
+		if (member.getId() == 0) {
+			res = member;
+			res.setRequests(new HashSet<Request>());
+			this.validator.validate(res, binding);
+			return res;
+		} else {
+			res = this.memberRepo.findOne(member.getId());
+			final Member p = new Member();
+			p.setId(res.getId());
+			p.setVersion(res.getVersion());
+			p.setAddress(member.getAddress());
+			p.setEmail(member.getEmail());
+			p.setMiddleName(member.getMiddleName());
+			p.setName(member.getName());
+			p.setPhone(member.getPhone());
+			p.setPhoto(member.getPhoto());
+			p.setRequests(res.getRequests());
+			p.setSurname(member.getSurname());
+			p.setUserAccount(res.getUserAccount());
+
+			this.validator.validate(p, binding);
+			return p;
+		}
+
 	}
 
 }
