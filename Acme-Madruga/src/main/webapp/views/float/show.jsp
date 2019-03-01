@@ -23,10 +23,10 @@
 <p><spring:message code="float.show.title"/></p>
 <fieldset>
 <legend><spring:message code="float.datas" /></legend>
-<spring:message code="float.title" />: ${paso.title} <br/>
-<spring:message code="float.description" />: ${paso.description} <br/>
-<spring:message code="float.brotherhood" />: ${paso.brotherhood.title} <br/>
-<spring:message code="float.procession" />: ${paso.procession.title} <br/>
+<spring:message code="float.title" />: <jstl:out value="${paso.title }"/><br/>
+<spring:message code="float.description" />: <jstl:out value="${paso.description }"/> <br/>
+<spring:message code="float.brotherhood" />: <jstl:out value="${paso.brotherhood.title }"/> <br/>
+<spring:message code="float.procession" />: <jstl:out value="${paso.procession.title }"/><br/>
 </fieldset>
 <br />
 
