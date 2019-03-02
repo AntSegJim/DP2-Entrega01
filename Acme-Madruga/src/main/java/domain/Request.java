@@ -38,7 +38,6 @@ public class Request extends DomainEntity {
 		this.status = status;
 	}
 
-	@NotNull
 	@Min(0)
 	public Integer getColumna() {
 		return this.columna;
@@ -47,7 +46,7 @@ public class Request extends DomainEntity {
 	public void setColumna(final Integer column) {
 		this.columna = column;
 	}
-	@NotNull
+
 	@Min(0)
 	public Integer getRow() {
 		return this.row;

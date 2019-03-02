@@ -65,35 +65,43 @@ public class RequestService {
 			final Collection<Brotherhood> brotherhoods = this.brotherhoodService.getBrotherhoodsByMember(member.getId());
 			final Set<Brotherhood> brotherhoodsWithOutDuplicates = new HashSet<Brotherhood>(brotherhoods);
 			Assert.isTrue(brotherhoodsWithOutDuplicates.contains(request.getProcession().getBrotherhood()), "RequestService. You only can use a procession of your brotherhood");
+			Assert.isTrue(request.getProcession() != null, "RequestService. You need to provied a procession in the request.");
+			Assert.isTrue(request.getMember() != null, "RequestService. You need to provied a member in the request.");
 		} else {
 			final Request oldRequest = this.requestRepository.findOne(request.getId());
 			Assert.isTrue(oldRequest.getStatus() == 1, "RequestService. You can only update request with status 1.");
 			Assert.isTrue(request.getStatus() == 0 || request.getStatus() == 2, "No valid request. Status must be between 0 or 2.");
 			Assert.isTrue(request.getProcession() == oldRequest.getProcession(), "RequestService. You can't change this request.");
 			Assert.isTrue(request.getMember() == oldRequest.getMember(), "RequestService. This member didn't create this request.");
+			Assert.isTrue(request.getMember() != null, "RequestService. This member didn't create this request.");
+			Assert.isTrue(request.getProcession() != null, "RequestService. You need to provied a procession in the request.");
 			if (request.getStatus() == 2)
 				Assert.isTrue(request.getDescription() != null && !(request.getDescription() == ""), "RequestService. You need to write a description to rejected request.");
+			if (request.getStatus() == 0) {
 
-			final Procession procession = this.processionService.findOne(request.getProcession().getId());
-			final List<Integer> filas = procession.getPositionsRow();
-			final List<Integer> columnas = procession.getPositionsColumn();
-			for (int xy = 0; xy < filas.size(); xy++)
-				if (filas.get(xy) == request.getRow() && columnas.get(xy) == request.getColumna())
-					Assert.notNull(null);
-			final Request comprobrarRowAndColumn = this.requestRepository.getRequestWithThisRowAndColumn(request.getRow(), request.getColumna());
-			Assert.isNull(comprobrarRowAndColumn);
-
+				final Request comprobrarRowAndColumn = this.requestRepository.getRequestWithThisRowAndColumn(request.getRow(), request.getColumna());
+				Assert.isNull(comprobrarRowAndColumn);
+				Assert.isTrue(request.getColumna() >= 0 && request.getColumna() != null && request.getRow() >= 0 && request.getRow() != null, "RequestService. No valid request. Column or Row must be a integer bigger than -1");
+			}
 		}
-		Assert.isTrue(request.getColumna() >= 0 && request.getColumna() != null && request.getRow() >= 0 && request.getRow() != null, "RequestService. No valid request. Column or Row must be a integer bigger than -1");
-		Assert.isTrue(request.getProcession() != null, "RequestService. You need to provied a procession in the request.");
-		Assert.isTrue(request.getMember() != null, "RequestService. You need to provied a member in the request.");
 
 		savedRequest = this.requestRepository.save(request);
-		final Member miembroRequest = this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId());
-		final Collection<Request> coleccion = miembroRequest.getRequests();
-		coleccion.add(savedRequest);
-		miembroRequest.setRequests(coleccion);
-		this.memberService.save(miembroRequest);
+		if (request.getId() == 0) {
+			final Member miembroRequest = this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId());
+			final Collection<Request> coleccion = miembroRequest.getRequests();
+			coleccion.add(savedRequest);
+			miembroRequest.setRequests(coleccion);
+			this.memberService.save(miembroRequest);
+		} else {
+			final Procession p = this.processionService.findOne(savedRequest.getProcession().getId());
+			final List<Integer> r = p.getPositionsRow();
+			r.add(savedRequest.getRow());
+			final List<Integer> c = p.getPositionsColumn();
+			c.add(savedRequest.getColumna());
+			p.setPositionsRow(r);
+			p.setPositionsColumn(c);
+			this.processionService.save(p);
+		}
 		return savedRequest;
 	}
 	public void delete(final Request request) {
@@ -116,26 +124,26 @@ public class RequestService {
 			res.setMember(this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId()));
 			final Procession procession = this.processionService.findOne(request.getProcession().getId());
 			Assert.notNull(procession, "RequestService. Procession no valid.");
-			Boolean recomendacionEncontrada = false;
-			Integer recomendar = 0;
-			final List<Integer> filas = procession.getPositionsRow();
-			final List<Integer> columnas = procession.getPositionsColumn();
-
-			for (int xy = 0; xy < filas.size(); xy++) {
-				if (recomendar < filas.get(xy))
-					recomendar = filas.get(xy);
-				if (recomendar < columnas.get(xy))
-					recomendar = columnas.get(xy);
-			}
-			while (recomendacionEncontrada == false) {
-				recomendar += 1;
-				final Request comprobrarRowAndColumn = this.requestRepository.getRequestWithThisRowAndColumn(recomendar, recomendar);
-				if (comprobrarRowAndColumn == null) {
-					recomendacionEncontrada = true;
-					res.setRow(recomendar);
-					res.setColumna(recomendar);
-				}
-			}
+			//			Boolean recomendacionEncontrada = false;
+			//			Integer recomendar = 0;
+			//			final List<Integer> filas = procession.getPositionsRow();
+			//			final List<Integer> columnas = procession.getPositionsColumn();
+			//
+			//			for (int xy = 0; xy < filas.size(); xy++) {
+			//				if (recomendar < filas.get(xy))
+			//					recomendar = filas.get(xy);
+			//				if (recomendar < columnas.get(xy))
+			//					recomendar = columnas.get(xy);
+			//			}
+			//			while (recomendacionEncontrada == false) {
+			//				recomendar += 1;
+			//				final Request comprobrarRowAndColumn = this.requestRepository.getRequestWithThisRowAndColumn(recomendar, recomendar);
+			//				if (comprobrarRowAndColumn == null) {
+			//					recomendacionEncontrada = true;
+			//					res.setRow(recomendar);
+			//					res.setColumna(recomendar);
+			//				}
+			//			}
 			res.setStatus(1);
 
 			this.validator.validate(res, binding);
@@ -149,11 +157,22 @@ public class RequestService {
 			p.setProcession(res.getProcession());
 			p.setStatus(request.getStatus());
 			if (request.getStatus() == 0) {
+				final Procession procession = this.processionService.findOne(res.getProcession().getId());
+				final List<Integer> filas = procession.getPositionsRow();
+				final List<Integer> columnas = procession.getPositionsColumn();
+				for (int xy = 0; xy < filas.size(); xy++)
+					if (filas.get(xy) == request.getRow() && columnas.get(xy) == request.getColumna())
+						Assert.notNull(null);
+				Assert.notNull(request.getRow());
+				Assert.notNull(request.getColumna());
 				p.setRow(request.getRow());
 				p.setColumna(request.getColumna());
-			} else if (request.getStatus() == 2)
+			} else if (request.getStatus() == 2) {
 				p.setDescription(request.getDescription());
-			else
+				Assert.isTrue(p.getDescription() != null && p.getDescription() != "");
+				p.setColumna(null);
+				p.setRow(null);
+			} else
 				Assert.notNull(null);
 			this.validator.validate(p, binding);
 			return p;
@@ -162,6 +181,9 @@ public class RequestService {
 	}
 	public Collection<Request> getAllMyRequest(final int memberId) {
 		return this.requestRepository.getAllMyRequest(memberId);
+	}
+	public Request getRequestWithThisRowAndColumn(final Integer recomendar, final Integer recomendar2) {
+		return this.requestRepository.getRequestWithThisRowAndColumn(recomendar, recomendar2);
 	}
 
 }
