@@ -45,6 +45,10 @@ requestURI="procession/brotherhood/list.do" >
 	<display:column>-</display:column>
 </jstl:if>
 
+<display:column>
+	<a href="request/brotherhood/list.do?processionId=${row.id}"><spring:message code="procession.requests" /></a>
+</display:column>
+
 </display:table>
 
 <input type="button" name="create" value="<spring:message code="procession.create" />"

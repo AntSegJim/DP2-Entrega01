@@ -23,7 +23,7 @@
 <display:table pagesize="5" name="requests" id="row"
 requestURI="request/member/list.do" >
 
-<display:column titleKey="enrolment.status">
+<display:column class="color" titleKey="enrolment.status">
 
 <jstl:if test="${row.status eq 1 }">
 	<spring:message code="enrolment.status.pending" />
@@ -38,12 +38,12 @@ requestURI="request/member/list.do" >
 </jstl:if>
 </display:column>
 
-<display:column property="columna" titleKey="request.columna" />
-<display:column property="row" titleKey="request.row" />
-<display:column property="description" titleKey="request.description" />
-<display:column property="procession.title" titleKey="request.procession" />
+<display:column class="color" property="columna" titleKey="request.columna" />
+<display:column class="color" property="row" titleKey="request.row" />
+<display:column class="color" property="description" titleKey="request.description" />
+<display:column class="color" property="procession.title" titleKey="request.procession" />
 
-<display:column>
+<display:column class="color">
 	<jstl:if test="${row.status eq 1 }">
 		<a href="request/member/delete.do?requestId=${row.id}"><spring:message code="request.delete" /></a>
 	</jstl:if>
@@ -58,3 +58,77 @@ requestURI="request/member/list.do" >
 			onclick="javascript: relativeRedir('request/member/create.do');" />
 
 </security:authorize>
+
+<security:authorize access="hasRole('BROTHERHOOD')">
+
+<display:table pagesize="5" name="requests" id="row"
+requestURI="request/brotherhood/list.do" >
+
+<display:column titleKey="enrolment.status">
+
+<jstl:if test="${row.status eq 1 }">
+	<spring:message code="enrolment.status.pending" />
+</jstl:if>
+
+<jstl:if test="${row.status eq 0 }">
+	<spring:message code="enrolment.status.accepted" />
+</jstl:if>
+
+<jstl:if test="${row.status eq 2 }">
+	<spring:message code="enrolment.status.cancel" />
+</jstl:if>
+</display:column>
+<display:column property="member.name" titleKey="request.member" />
+<display:column property="columna" titleKey="request.columna" />
+<display:column property="row" titleKey="request.row" />
+<display:column property="description" titleKey="request.description" />
+
+<display:column>
+	<jstl:if test="${row.status eq 1 }">
+		<a href="request/brotherhood/edit.do?processionId=${row.procession.id}&requestId=${row.id}&status=0"><spring:message code="request.aceptar" /></a>
+	</jstl:if>
+	<jstl:if test="${row.status eq 0 or row.status eq 2 }">
+	-
+	</jstl:if>
+</display:column>
+
+<display:column>
+	<jstl:if test="${row.status eq 1 }">
+		<a href="request/brotherhood/edit.do?processionId=${row.procession.id}&requestId=${row.id}&status=2"><spring:message code="request.rechazar" /></a>
+	</jstl:if>
+	<jstl:if test="${row.status eq 0 or row.status eq 2 }">
+	-
+	</jstl:if>
+</display:column>
+
+</display:table>
+
+</security:authorize>
+
+<script type="text/javascript">
+var x = document.getElementsByClassName("color");
+var i = 0;
+while (i < x.length) {
+	var estado = x[i].innerHTML;
+	
+	if(estado.trim() === "Accepted" || estado.trim() === "Aceptada"){
+		var casilla = 0;
+		for (casilla ; casilla< 6; casilla++) {
+			document.getElementsByClassName("color")[i+casilla].style.background='green';
+		}
+	}else if(estado.trim() === "Pending" || estado.trim() === "Pendiente"){
+		var casilla = 0;
+		for (casilla ; casilla< 6; casilla++) {
+			document.getElementsByClassName("color")[i+casilla].style.background='grey';
+		}
+	}else{
+		var casilla = 0;
+		for (casilla ; casilla< 6; casilla++) {
+			document.getElementsByClassName("color")[i+casilla].style.background='orange';
+		}
+	}
+	
+	i= i+6;
+}
+
+</script>

@@ -73,3 +73,34 @@
 </script>
 </security:authorize>
 
+
+<security:authorize access="hasRole('BROTHERHOOD')">
+
+<form:form action="request/brotherhood/edit.do?status=${status}" modelAttribute="request">
+<form:hidden path="id"/>
+<form:hidden path="version"/>
+
+<jstl:if test="${exception eq 0}">
+	<b style="color:red"><spring:message code="exception.rowAndColumn"/></b>
+</jstl:if>
+<jstl:if test="${exception eq 2}">
+	<b style="color:red"><spring:message code="exception.description.request"/></b>
+</jstl:if>
+<jstl:if test="${status eq 0}">
+	<acme:textbox code="request.row" path="row"/>
+	<acme:textbox code="request.columna" path="columna"/>
+</jstl:if>
+
+<jstl:if test="${status eq 2}">
+	<acme:textbox code="request.description" path="description"/>
+</jstl:if>
+<input type="submit" name="save" 
+	value="<spring:message code="position.save" />" />
+	
+
+<input type="button" name="cancel" value="<spring:message code="request.cancel" />"
+			onclick="javascript: relativeRedir('procession/brotherhood/list.do');" />
+</form:form>
+
+</security:authorize>
+
