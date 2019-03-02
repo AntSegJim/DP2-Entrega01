@@ -17,6 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
 <p><spring:message code="profile.action.3" /></p>
@@ -36,10 +37,6 @@
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<form:hidden path="pictures" />
 	</security:authorize>
-
-	<security:authorize access="hasRole('MEMBER')">
-	<form:hidden path="requests" />
-	</security:authorize>
 	
 	<form:label path="name"><spring:message code="profile.action.3.name" />:</form:label>
 	<form:input path="name"/>
@@ -51,10 +48,12 @@
 	<form:errors cssClass="error" path="middleName" />
 	<br />
 	
-	<form:label path="surname"><spring:message code="profile.action.3.surname" />:</form:label>
+	<acme:textbox code="profile.action.3.surname" path="surname"/>
+	
+<%-- 	<form:label path="surname"><spring:message code="profile.action.3.surname" />:</form:label>
 	<form:input path="surname" />
 	<form:errors cssClass="error" path="surname" />
-	<br />
+	<br /> --%>
 	<form:label path="email"><spring:message code="profile.action.3.email" />:</form:label>
 	<form:input path="email"/>
 	<form:errors cssClass="error" path="email" />	

@@ -87,7 +87,13 @@ public class RequestService {
 		Assert.isTrue(request.getColumna() >= 0 && request.getColumna() != null && request.getRow() >= 0 && request.getRow() != null, "RequestService. No valid request. Column or Row must be a integer bigger than -1");
 		Assert.isTrue(request.getProcession() != null, "RequestService. You need to provied a procession in the request.");
 		Assert.isTrue(request.getMember() != null, "RequestService. You need to provied a member in the request.");
+
 		savedRequest = this.requestRepository.save(request);
+		final Member miembroRequest = this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId());
+		final Collection<Request> coleccion = miembroRequest.getRequests();
+		coleccion.add(savedRequest);
+		miembroRequest.setRequests(coleccion);
+		this.memberService.save(miembroRequest);
 		return savedRequest;
 	}
 	public void delete(final Request request) {
