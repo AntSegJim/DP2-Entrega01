@@ -150,6 +150,7 @@ public class EnrolmentService {
 		Assert.isTrue(a.equals(enrolment.getBrotherhood()));
 		enrolment.setStatus(2);
 		enrolment.setIsOut(1);
+		enrolment.setEndMoment(new Date());
 
 		this.enrolmentRepository.save(enrolment);
 	}
