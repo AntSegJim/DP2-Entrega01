@@ -47,7 +47,7 @@
 		<security:intercept-url pattern="/float/list-All.do" access="permitAll" /> 
 
 		<security:intercept-url pattern="/administrator/action-1.do" access="hasRole('ADMIN')" /> 
-		<security:intercept-url pattern="/administrator/action-2.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/administrator/graph.do" access="hasRole('ADMIN')" /> 
 		
 		<security:intercept-url pattern="/float/brotherhood/**" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/picture/brotherhood/**" access="hasRole('BROTHERHOOD')" />    

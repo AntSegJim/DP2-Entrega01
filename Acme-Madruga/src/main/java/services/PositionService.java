@@ -2,6 +2,8 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -64,5 +66,32 @@ public class PositionService {
 		Assert.isTrue(!usedNames.contains(p.getName()));
 		this.positionRepository.delete(p);
 
+	}
+
+	public Map<String, Double> computeStatistics() {
+		Map<String, Double> map;
+		Double total, countPresident, countVicePresident, countSecretaty, countTreasurer, countHistorian, countFundraiser, countOfficer;
+
+		total = this.positionRepository.countTotal();
+		countPresident = this.positionRepository.countPresident();
+		countVicePresident = this.positionRepository.countVicePresident();
+		countSecretaty = this.positionRepository.countSecretaty();
+		countTreasurer = this.positionRepository.countTreasurer();
+		countHistorian = this.positionRepository.countHistorian();
+		countFundraiser = this.positionRepository.countFundraiser();
+		countOfficer = this.positionRepository.countOfficer();
+
+		map = new HashMap<String, Double>();
+
+		map.put("total", total);
+		map.put("countPresident", countPresident);
+		map.put("countVicePresident", countVicePresident);
+		map.put("countSecretaty", countSecretaty);
+		map.put("countTreasurer", countTreasurer);
+		map.put("countHistorian", countHistorian);
+		map.put("countFundraiser", countFundraiser);
+		map.put("countOfficer", countOfficer);
+
+		return map;
 	}
 }
