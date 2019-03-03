@@ -58,7 +58,12 @@ public class FloatService {
 	public Paso save(final Paso paso) {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
-		Assert.isTrue(paso != null && paso.getTitle() != null && paso.getTitle() != "" && paso.getDescription() != null && paso.getDescription() != "" && paso.getBrotherhood() != null);
+		Assert.isTrue(paso.getTitle() != null);
+		Assert.isTrue(paso != null);
+		Assert.isTrue(paso.getTitle() != "");
+		Assert.isTrue(paso.getDescription() != null);
+		Assert.isTrue(paso.getDescription() != "");
+		Assert.isTrue(paso.getBrotherhood() != null);
 		return this.FRepo.save(paso);
 	}
 	//Metodo delete

@@ -18,7 +18,7 @@
 <security:authorize access="hasRole('BROTHERHOOD')">
 
 <display:table pagesize="5" name="pictures" id="row"
-requestURI="picture/brotherhood/picturesFloat.do" >
+requestURI="picture/brotherhood/picturesFloat.do?floatId=${paso.id}" >
 <display:column>
 	<a href="picture/brotherhood/editPictureFloat.do?pictureId=${row.id}&floatId=${paso.id}" ><spring:message code="picture.edit" /></a>
 </display:column>
