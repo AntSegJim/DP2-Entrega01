@@ -150,4 +150,8 @@ public class BrotherhoodService {
 		return this.brotherhoodRepo.getBrotherhoodsbelongedByMember(memberId);
 	}
 
+	public List<Object[]> getMaxMinAvgDesvMembersBrotherhood() {
+		return this.brotherhoodRepo.getMaxMinAvgDesvMembersBrotherhood();
+	}
+
 }

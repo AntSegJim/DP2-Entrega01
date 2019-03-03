@@ -139,4 +139,8 @@ public class ProcessionService {
 		}
 
 	}
+
+	public Collection<String> procession() {
+		return this.processionRepository.processions();
+	}
 }
