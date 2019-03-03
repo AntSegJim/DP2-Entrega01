@@ -176,7 +176,7 @@ public class ProfileController extends AbstractController {
 			result = new ModelAndView("profile/editMember");
 			result.addObject("actor", member);
 		} catch (final Exception e) {
-			result = new ModelAndView("redirect:http://localhost:8080/Acme-Madruga");
+			result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
 		}
 
 		return result;

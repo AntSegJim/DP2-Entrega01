@@ -42,7 +42,7 @@ public class BrotherhoodController extends AbstractController {
 		try {
 			if (!binding.hasErrors()) {
 				this.brotherhoodService.save(brotherhood);
-				result = new ModelAndView("redirect:http://localhost:8080/Acme-Madruga");
+				result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
 			} else {
 				result = new ModelAndView("brotherhood/create");
 				result.addObject("brotherhood", brotherhood);

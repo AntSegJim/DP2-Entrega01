@@ -20,7 +20,7 @@
 
 
 <security:authorize access="hasRole('ADMIN')">
-<form:form action="notification/actor/edit.do" modelAttribute="notification">
+<form:form action="notification/administrator/edit.do" modelAttribute="notification">
 
 <jstl:if test="${not empty exception}">
 		<p style="color:red"> <spring:message code="notification.error" /> </p>

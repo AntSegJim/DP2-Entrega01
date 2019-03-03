@@ -41,7 +41,7 @@ public class MemberController extends AbstractController {
 		try {
 			if (!binding.hasErrors()) {
 				this.memberService.save(member);
-				result = new ModelAndView("redirect:http://localhost:8080/Acme-Madruga");
+				result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
 			} else {
 				result = new ModelAndView("member/create");
 				result.addObject("member", member);

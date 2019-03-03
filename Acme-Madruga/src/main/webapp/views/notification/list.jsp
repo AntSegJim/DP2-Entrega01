@@ -30,7 +30,7 @@ requestURI="notification/actor/list.do" >
 <security:authorize access="hasRole('ADMIN')">
 
 	<display:column>
-		<a href="notification/actor/edit.do?notificationId=${row.id}"><spring:message code="notification.edit" /></a>
+		<a href="notification/administrator/edit.do?notificationId=${row.id}"><spring:message code="notification.edit" /></a>
 	</display:column>
 </security:authorize>
 
@@ -40,6 +40,6 @@ requestURI="notification/actor/list.do" >
 
 <security:authorize access="hasRole('ADMIN')">
 	<input type="button" name="cancel" value="<spring:message code="notification.create" />"
-			onclick="javascript: relativeRedir('notification/actor/create.do');" />
+			onclick="javascript: relativeRedir('notification/administrator/create.do');" />
 
 </security:authorize>
