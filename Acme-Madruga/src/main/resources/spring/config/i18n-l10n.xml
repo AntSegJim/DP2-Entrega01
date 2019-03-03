@@ -40,6 +40,9 @@
 		<value>/views/brotherhood/messages</value>
 		<value>/views/procession/messages</value>
 		
+		<value>/views/customizable/messages</value>
+		
+		
 		
 	</util:list>
 

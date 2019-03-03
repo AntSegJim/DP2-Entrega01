@@ -38,6 +38,8 @@
 		<value>/views/request/tiles.xml</value>
 		<value>/views/brotherhood/tiles.xml</value>
 		<value>/views/procession/tiles.xml</value>
+		<value>/views/customizable/tiles.xml</value>
+		
 		
 		
 	</util:list>
