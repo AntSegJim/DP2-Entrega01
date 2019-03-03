@@ -170,7 +170,11 @@ public class PictureBrotherhoodController extends AbstractController {
 		if (!binding.hasErrors()) {
 			final Picture picSave = this.pictureService.save(picture);
 			final Paso fl = this.floatService.findOne(floatId);
-			fl.getPictures().add(picSave);
+			if (fl.getPictures().contains(picSave)) {
+				fl.getPictures().remove(picSave);
+				fl.getPictures().add(picSave);
+			} else
+				fl.getPictures().add(picSave);
 			this.floatService.save(fl);
 			result = new ModelAndView("redirect:picturesFloat.do?floatId=" + floatId);
 		} else {
