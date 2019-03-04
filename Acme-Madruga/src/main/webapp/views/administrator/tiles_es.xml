@@ -26,4 +26,9 @@
 		<put-attribute name="body" value="/views/administrator/bar-chart.jsp" />
 	</definition>
 	
+		<definition name="administrator/create" extends="master.page">	
+		<put-attribute name="title" value="Administrador: Crear nuevo Administrador" />
+		<put-attribute name="body" value="/views/administrator/edit.jsp" />
+	</definition>
+	
 </tiles-definitions>
