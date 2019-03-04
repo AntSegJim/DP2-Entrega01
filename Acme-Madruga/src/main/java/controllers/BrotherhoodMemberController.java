@@ -14,7 +14,6 @@ import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
 import services.BrotherhoodService;
-import services.EnrolmentService;
 import domain.Actor;
 import domain.Brotherhood;
 
@@ -27,8 +26,6 @@ public class BrotherhoodMemberController {
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
-	@Autowired
-	private EnrolmentService	enrolmentService;
 
 
 	@RequestMapping(value = "/list-member-belongs", method = RequestMethod.GET)

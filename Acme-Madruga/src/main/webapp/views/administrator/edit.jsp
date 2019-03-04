@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p><spring:message code="administrator.action.1" /></p>
-<form:form action="administrator/edit.do" modelAttribute="administrator">
+<form:form action="administrator/edit.do" modelAttribute="registrationForm">
 <jstl:if test="${not empty exception}">
 		<p style="color:red"> <spring:message code="administrator.error" /> </p>
 </jstl:if>
@@ -75,6 +75,10 @@
 	<form:label path="userAccount.password" ><spring:message code="administrator.password" /></form:label>
 	<form:input path="userAccount.password" type="password"/>
 	<form:errors cssClass="error" path="userAccount.password" />
+	
+		<form:label path="password" ><spring:message code="administrator.confirmation.password" /></form:label>
+	<form:input path="password" type="password"/>
+	<form:errors cssClass="error" path="password" />
 	</fieldset>
 	<br />
 	

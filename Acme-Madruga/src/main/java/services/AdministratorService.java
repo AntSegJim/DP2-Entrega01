@@ -13,12 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.Administrator;
+import forms.RegistrationForm;
 
 @Service
 @Transactional
@@ -29,6 +33,9 @@ public class AdministratorService {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	public Administrator create() {
@@ -124,4 +131,39 @@ public class AdministratorService {
 		return res;
 	}
 
+	public Administrator reconstruct(final RegistrationForm registrationForm, final BindingResult binding) {
+		final Administrator res = new Administrator();
+
+		if (registrationForm.getUserAccount().getId() == 0) {
+			res.setId(registrationForm.getUserAccount().getId());
+			res.setVersion(registrationForm.getVersion());
+			res.setAddress(registrationForm.getAddress());
+			res.setEmail(registrationForm.getEmail());
+			res.setMiddleName(registrationForm.getMiddleName());
+			res.setName(registrationForm.getName());
+			res.setPhone(registrationForm.getPhone());
+			res.setPhoto(registrationForm.getPhoto());
+			res.setSurname(registrationForm.getSurname());
+			res.setUserAccount(registrationForm.getUserAccount());
+			this.validator.validate(res, binding);
+			return res;
+		} else {
+			final Actor a = this.actorService.getActorByUserAccount(registrationForm.getUserAccount().getId());
+			final Administrator p = new Administrator();
+			res.setId(a.getId());
+			res.setVersion(a.getVersion());
+			res.setAddress(a.getAddress());
+			res.setEmail(a.getEmail());
+			res.setMiddleName(a.getMiddleName());
+			res.setName(a.getName());
+			res.setPhone(a.getPhone());
+			res.setPhoto(a.getPhoto());
+			res.setSurname(a.getSurname());
+			res.setUserAccount(a.getUserAccount());
+
+			this.validator.validate(p, binding);
+			return p;
+		}
+
+	}
 }

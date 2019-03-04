@@ -11,10 +11,9 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
+import security.UserAccount;
 import services.AdministratorService;
 import services.BrotherhoodService;
 import services.PositionService;
 import services.ProcessionService;
 import domain.Administrator;
+import forms.RegistrationForm;
 
 @Controller
 @RequestMapping("/administrator")
@@ -90,27 +92,85 @@ public class AdministratorController extends AbstractController {
 
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView action1() {
-		ModelAndView result;
-		final Administrator administrator;
+	//	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	//	public ModelAndView action1() {
+	//		ModelAndView result;
+	//		final Administrator administrator;
+	//
+	//		administrator = this.administratorService.create();
+	//
+	//		result = new ModelAndView("administrator/create");
+	//		result.addObject("administrator", administrator);
+	//
+	//		return result;
+	//	}
+	//
+	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	//	public ModelAndView edit(@Valid final Administrator administrator, final BindingResult binding) {
+	//		ModelAndView result;
+	//		try {
+	//			if (!binding.hasErrors()) {
+	//				this.administratorService.save(administrator);
+	//				result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+	//			} else {
+	//				result = new ModelAndView("administrator/create");
+	//				result.addObject("administrator", administrator);
+	//			}
+	//		} catch (final Exception e) {
+	//			result = new ModelAndView("administrator/create");
+	//			result.addObject("exception", e);
+	//			result.addObject("administrator", administrator);
+	//		}
+	//
+	//		return result;
+	//	}
 
-		administrator = this.administratorService.create();
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView createForm() {
+		ModelAndView result;
+		final RegistrationForm registrationForm = new RegistrationForm();
+
+		registrationForm.setName("");
+		registrationForm.setMiddleName("");
+		registrationForm.setSurname("");
+		registrationForm.setPhoto("");
+		registrationForm.setEmail("");
+		registrationForm.setPhone("");
+		registrationForm.setAddress("");
+		registrationForm.setPassword("");
+
+		//PREGUNTAR
+		final UserAccount user = new UserAccount();
+		user.setAuthorities(new HashSet<Authority>());
+		final Authority ad = new Authority();
+		ad.setAuthority(Authority.ADMIN);
+		user.getAuthorities().add(ad);
+
+		//NUEVO
+		user.setUsername("");
+		user.setPassword("");
+
+		registrationForm.setUserAccount(user);
 
 		result = new ModelAndView("administrator/create");
-		result.addObject("administrator", administrator);
+		result.addObject("registrationForm", registrationForm);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView edit(@Valid final Administrator administrator, final BindingResult binding) {
+	public ModelAndView save(final RegistrationForm registrationForm, final BindingResult binding) {
 		ModelAndView result;
+		Administrator administrator = null;
+
 		try {
-			if (!binding.hasErrors()) {
+
+			administrator = this.administratorService.reconstruct(registrationForm, binding);
+			if (!binding.hasErrors() && registrationForm.getUserAccount().getPassword().equals(registrationForm.getPassword())) {
 				this.administratorService.save(administrator);
 				result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
 			} else {
+
 				result = new ModelAndView("administrator/create");
 				result.addObject("administrator", administrator);
 			}
@@ -118,6 +178,7 @@ public class AdministratorController extends AbstractController {
 			result = new ModelAndView("administrator/create");
 			result.addObject("exception", e);
 			result.addObject("administrator", administrator);
+
 		}
 
 		return result;
