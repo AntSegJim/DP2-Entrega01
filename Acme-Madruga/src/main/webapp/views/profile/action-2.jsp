@@ -37,70 +37,31 @@
 	<form:hidden path="pictures" />
 	</security:authorize>
 	
-	<form:label path="name"><spring:message code="profile.action.3.name" />:</form:label>
-	<form:input path="name"/>
-	<form:errors cssClass="error" path="name" />	
+	<acme:textbox code="profile.action.3.name" path="name"/>
 	<br />
-	
-	<form:label path="middleName"><spring:message code="profile.action.3.middleName" />:</form:label>
-	<form:input path="middleName" />
-	<form:errors cssClass="error" path="middleName" />
+	<acme:textbox code="profile.action.3.middleName" path="middleName"/>
 	<br />
-	
 	<acme:textbox code="profile.action.3.surname" path="surname"/>
-	
-<%-- 	<form:label path="surname"><spring:message code="profile.action.3.surname" />:</form:label>
-	<form:input path="surname" />
-	<form:errors cssClass="error" path="surname" />
-	<br /> --%>
-	<form:label path="email"><spring:message code="profile.action.3.email" />:</form:label>
-	<form:input path="email"/>
-	<form:errors cssClass="error" path="email" />	
+	<br />
+	<acme:textbox code="profile.action.3.email" path="email"/>	
+	<br />
+	<acme:textbox code="profile.action.3.photo" path="photo"/>
+	<br />
+	<acme:textbox code="profile.action.3.phone" path="phone"/>
+	<br />
+	<acme:textbox code="profile.action.3.address" path="address"/>
 	<br />
 	
-	<form:label path="photo"><spring:message code="profile.action.3.photo" />:</form:label>
-	<form:input path="photo" />
-	<form:errors cssClass="error" path="photo" />
-	<br />
-	
-	<form:label path="phone"><spring:message code="profile.action.3.phone" />:</form:label>
-	<form:input path="phone" />
-	<form:errors cssClass="error" path="phone" />
-	<br />
-	
-	<form:label path="address"><spring:message code="profile.action.3.address" />:</form:label>
-	<form:input path="address" />
-	<form:errors cssClass="error" path="address" />
-	<br />
 	<security:authorize access="hasRole('BROTHERHOOD')">
-<form:label path="title"><spring:message code="profile.brotherhood.title" />:</form:label>
-	<form:input path="title" />
-	<form:errors cssClass="error" path="title" />
+	<acme:textbox code="profile.brotherhood.title" path="title"/>
 	<br />
-	
-	<form:label path="establishmentDate"><spring:message code="profile.brotherhood.establishmentDate" />:</form:label>
-	<form:input path="establishmentDate" />
-	<form:errors cssClass="error" path="establishmentDate" />
+	<acme:textbox code="profile.brotherhood.establishmentDate" path="establishmentDate"/>
 	<br />
-	
-
-<!--		<form:label path="pictures">
-		<spring:message code="profile.brotherhood.pictures" />:
-	</form:label>
-	<form:select id="pictures" path="pictures" >
-		<form:option value="0" label="----" />		
-		<form:options items="${pictures}" itemValue="id" itemLabel="url"/>
-	
-	</form:select>
-	<br /> -->
-	
-
 	</security:authorize>
+	
 	<br />
-	<input type="submit" name="save" value="<spring:message code="profile.action.3.save" />" />
-	<input type="button" name="cancel" value="<spring:message code="administrator.cancel" />"
-			onclick="javascript: relativeRedir('profile/personal-datas.do');" />
-
+	<acme:submit name="save" code="profile.action.3.save"/>
+	<acme:cancel url="profile/personal-datas.do" code="administrator.cancel"/>
 </form:form>
 
 </security:authorize>
