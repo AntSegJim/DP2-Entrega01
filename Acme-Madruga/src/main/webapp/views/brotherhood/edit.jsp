@@ -15,6 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="brotherhood/edit.do" modelAttribute="brotherhood">
 <jstl:if test="${not empty exception}">
@@ -28,39 +29,25 @@
 	<fieldset>
 	<legend><spring:message code="administrator.personalDatas" /></legend>
 	
-	<form:label path="name"><spring:message code="administrator.name" /></form:label>
-	<form:input path="name" />
-	<form:errors cssClass="error" path="name" />
+	<acme:textbox code="administrator.name" path="name"/>
 	<br />
 	
-	<form:label path="middleName"><spring:message code="administrator.middleName" /></form:label>
-	<form:input path="middleName" />
-	<form:errors cssClass="error" path="middleName" />
+	<acme:textbox code="administrator.middleName" path="middleName"/>
 	<br />
 	
-	<form:label path="surname"><spring:message code="administrator.surname" /></form:label>
-	<form:input path="surname" />
-	<form:errors cssClass="error" path="surname" />
+	<acme:textbox code="administrator.surname" path="surname"/>
 	<br />
 		
-	<form:label path="photo"><spring:message code="administrator.photo" /></form:label>
-	<form:input path="photo" />
-	<form:errors cssClass="error" path="photo" />
+	<acme:textbox code="administrator.photo" path="photo"/>	
 	<br />
 	
-	<form:label path="email"><spring:message code="administrator.email" /></form:label>
-	<form:input path="email" />
-	<form:errors cssClass="error" path="email" />
+	<acme:textbox code="administrator.email" path="email"/>	
 	<br />
 	
-	<form:label path="phone"><spring:message code="administrator.phone" /></form:label>
-	<form:input path="phone" />
-	<form:errors cssClass="error" path="phone" />
+	<acme:textbox code="administrator.phone" path="phone"/>	
 	<br />
 	
-	<form:label path="address"><spring:message code="administrator.adress" /></form:label>
-	<form:input path="address" />
-	<form:errors cssClass="error" path="address" />
+	<acme:textbox code="administrator.adress" path="address"/>	
 	<br />
 	<p><spring:message code="administrator.information" /></p>
 	</fieldset>
@@ -68,31 +55,19 @@
 	
 	<fieldset>
 	 <legend><spring:message code="brotherhood.Data" /></legend>
-	<form:label path="title"><spring:message code="brotherhood.title" /></form:label>
-	<form:input path="title" />
-	<form:errors cssClass="error" path="title" />
-	
-	<form:label path="establishmentDate" ><spring:message code="brotherhood.establishmentDate" /></form:label>
-	<form:input path="establishmentDate" />
-	<form:errors cssClass="error" path="establishmentDate" />
+	<acme:textbox code="brotherhood.title" path="title"/>	
+	<acme:textbox code="brotherhood.establishmentDate" path="establishmentDate"/>	
 	<br />
 	</fieldset>
+	
 	<fieldset>
 	 <legend><spring:message code="administrator.userAccount" /></legend>
-	<form:label path="userAccount.username"><spring:message code="administrator.username" /></form:label>
-	<form:input path="userAccount.username" />
-	<form:errors cssClass="error" path="userAccount.username" />
-	
-	<form:label path="userAccount.password" ><spring:message code="administrator.password" /></form:label>
-	<form:input path="userAccount.password" type="password"/>
-	<form:errors cssClass="error" path="userAccount.password" />
+	<acme:textbox code="administrator.username" path="userAccount.username"/>	
+	<acme:password code="administrator.password" path="userAccount.password"/>
 	</fieldset>
 	<br />
 	
-	<input type="submit" name="save" 
-	value="<spring:message code="administrator.save" />" />
-
-<input type="button" name="cancel" value="<spring:message code="administrator.cancel" />"
-			onclick="javascript: relativeRedir('welcome/index.do');" />
+	<acme:submit name="save" code="administrator.save"/>
+	<acme:cancel url="welcome/index.do" code="administrator.cancel"/>
 	
 </form:form>
