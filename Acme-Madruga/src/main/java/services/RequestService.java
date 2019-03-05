@@ -65,7 +65,7 @@ public class RequestService {
 			final Collection<Brotherhood> brotherhoods = this.brotherhoodService.getBrotherhoodsByMember(member.getId());
 			final Set<Brotherhood> brotherhoodsWithOutDuplicates = new HashSet<Brotherhood>(brotherhoods);
 			Assert.isTrue(brotherhoodsWithOutDuplicates.contains(request.getProcession().getBrotherhood()), "RequestService. You only can use a procession of your brotherhood");
-			Assert.isTrue(request.getProcession() != null, "RequestService. You need to provied a procession in the request.");
+			Assert.isTrue(request.getProcession() != null && request.getProcession().getDraftMode() == 0, "RequestService. You need to provied a procession in the request.");
 			Assert.isTrue(request.getMember() != null, "RequestService. You need to provied a member in the request.");
 		} else {
 			final Request oldRequest = this.requestRepository.findOne(request.getId());

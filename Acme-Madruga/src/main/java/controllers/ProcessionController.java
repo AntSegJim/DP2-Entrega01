@@ -26,7 +26,7 @@ public class ProcessionController extends AbstractController {
 		final ModelAndView result;
 		final Collection<Procession> processions;
 
-		processions = this.processionService.getAllProcessionsByBrotherhood(idBrotherhood);
+		processions = this.processionService.getAllProcessionsByBrotherhoodFinalMode(idBrotherhood);
 
 		result = new ModelAndView("procession/list-All");
 		result.addObject("processions", processions);

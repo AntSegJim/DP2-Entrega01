@@ -67,7 +67,7 @@ public class FloatBrotherhoodController extends AbstractController {
 		Collection<Procession> processions;
 		final UserAccount user = LoginService.getPrincipal();
 		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
-		processions = this.processionService.getAllProcessionsByBrotherhood(br.getId());
+		processions = this.processionService.getAllProcessionsByBrotherhoodFinalMode(br.getId());
 
 		paso = this.floatService.create();
 
@@ -85,7 +85,7 @@ public class FloatBrotherhoodController extends AbstractController {
 		Collection<Procession> processions;
 		final UserAccount user = LoginService.getPrincipal();
 		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
-		processions = this.processionService.getAllProcessionsByBrotherhood(br.getId());
+		processions = this.processionService.getAllProcessionsByBrotherhoodFinalMode(br.getId());
 
 		paso = this.floatService.findOne(floatId);
 		Assert.notNull(paso);
@@ -110,7 +110,7 @@ public class FloatBrotherhoodController extends AbstractController {
 				Collection<Procession> processions;
 				final UserAccount user = LoginService.getPrincipal();
 				final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
-				processions = this.processionService.getAllProcessionsByBrotherhood(br.getId());
+				processions = this.processionService.getAllProcessionsByBrotherhoodFinalMode(br.getId());
 				result = new ModelAndView("float/edit");
 				result.addObject("paso", paso);
 				result.addObject("processions", processions);
@@ -119,7 +119,7 @@ public class FloatBrotherhoodController extends AbstractController {
 			Collection<Procession> processions;
 			final UserAccount user = LoginService.getPrincipal();
 			final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
-			processions = this.processionService.getAllProcessionsByBrotherhood(br.getId());
+			processions = this.processionService.getAllProcessionsByBrotherhoodFinalMode(br.getId());
 			result = new ModelAndView("float/edit");
 			result.addObject("paso", paso);
 			result.addObject("processions", processions);
@@ -159,7 +159,7 @@ public class FloatBrotherhoodController extends AbstractController {
 			Collection<Procession> processions;
 			final UserAccount user = LoginService.getPrincipal();
 			final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
-			processions = this.processionService.getAllProcessionsByBrotherhood(br.getId());
+			processions = this.processionService.getAllProcessionsByBrotherhoodFinalMode(br.getId());
 			result = new ModelAndView("float/edit");
 			result.addObject("paso", paso);
 			result.addObject("processions", processions);

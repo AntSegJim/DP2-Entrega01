@@ -24,26 +24,10 @@ public class ProcessionMemberController extends AbstractController {
 	private ProcessionService	processionService;
 
 
-	@RequestMapping(value = "/list2", method = RequestMethod.GET)
-	public ResponseEntity<String> list2(@RequestParam final int brotherhoodId) {
-		final List<String> a = new ArrayList<String>();
-		a.add("procession1:1201");
-		a.add("procession2:1202");
-		a.add("hermandad3:1203");
-		a.add("hermandad4:1204");
-		String processions = "";
-		for (int x = 0; x < a.size(); x++)
-			if (x == 0)
-				processions += a.get(x);
-			else
-				processions += ";" + a.get(x);
-		return new ResponseEntity<String>(processions, HttpStatus.OK);
-	}
-
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ResponseEntity<String> list(@RequestParam final int brotherhoodId) {
 		try {
-			final Collection<Procession> p = this.processionService.getAllProcessionsByBrotherhood(brotherhoodId);
+			final Collection<Procession> p = this.processionService.getAllProcessionsByBrotherhoodFinalMode(brotherhoodId);
 			final List<Procession> a = new ArrayList<Procession>(p);
 			String processions = "";
 			for (int x = 0; x < a.size(); x++)
