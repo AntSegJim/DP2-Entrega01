@@ -13,6 +13,8 @@ package controllers;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -38,15 +40,22 @@ public class WelcomeController extends AbstractController {
 	// Index ------------------------------------------------------------------		
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index() {
+	public ModelAndView index(final HttpServletRequest request) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
 		String language;
+		String urlBanner;
+		final String nameApp;
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
 		language = LocaleContextHolder.getLocale().getLanguage();
+		urlBanner = this.customizableService.getUrlBanner();
+		nameApp = this.customizableService.getNameApp();
+
+		request.getSession().setAttribute("urlBanner", urlBanner);
+		request.getSession().setAttribute("nameApp", nameApp);
 
 		result = new ModelAndView("welcome/index");
 		if (language.equals("en"))

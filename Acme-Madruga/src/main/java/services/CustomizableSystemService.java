@@ -67,4 +67,8 @@ public class CustomizableSystemService {
 	public String getUrlBanner() {
 		return this.customizableSystemRepository.getUrlBanner();
 	}
+
+	public String getNameApp() {
+		return this.customizableSystemRepository.getNameApp();
+	}
 }
