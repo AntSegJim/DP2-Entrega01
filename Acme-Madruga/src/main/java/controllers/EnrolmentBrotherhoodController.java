@@ -56,26 +56,31 @@ public class EnrolmentBrotherhoodController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final Integer idEnrolment) {
-		final ModelAndView result;
-		final Enrolment enrolment;
-		Collection<Posicion> positions;
-		String language;
+		ModelAndView result;
 
-		language = LocaleContextHolder.getLocale().getLanguage();
+		try {
 
-		enrolment = this.enrolmentService.findOne(idEnrolment);
-		positions = this.positionService.getPositions(language);
+			final Enrolment enrolment;
+			Collection<Posicion> positions;
+			String language;
 
-		Assert.notNull(enrolment);
+			language = LocaleContextHolder.getLocale().getLanguage();
 
-		result = new ModelAndView("enrolment/edit");
-		result.addObject("enrolment", enrolment);
-		result.addObject("positions", positions);
+			enrolment = this.enrolmentService.findOne(idEnrolment);
+			positions = this.positionService.getPositions(language);
 
+			Assert.notNull(enrolment);
+
+			result = new ModelAndView("enrolment/edit");
+			result.addObject("enrolment", enrolment);
+			result.addObject("positions", positions);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:list.do");
+		}
 		return result;
 
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView edit(final Enrolment enrolmentBrotherhood, final BindingResult binding) {
 		ModelAndView result;
@@ -137,19 +142,19 @@ public class EnrolmentBrotherhoodController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int idEnrolment) {
 		ModelAndView result;
-		final Enrolment e = this.enrolmentService.findOne(idEnrolment);
-		final Collection<Enrolment> enrolments = this.enrolmentService.enrolmentAcceptedByBrotherhood(e.getMember().getId());
 		try {
+			final Enrolment e = this.enrolmentService.findOne(idEnrolment);
+			final Collection<Enrolment> enrolments = this.enrolmentService.enrolmentAcceptedByBrotherhood(e.getMember().getId());
+
 			Assert.isTrue(enrolments.contains(e));
 			this.enrolmentService.cancelEnrolment(e);
 			result = new ModelAndView("redirect:listAccepted.do?idMember=" + e.getMember().getId());
 			return result;
 		} catch (final Exception e2) {
-			result = new ModelAndView("procession/list");
-			result.addObject("exception", e2);
-			result.addObject("enrolments", enrolments);
-			return result;
+			result = new ModelAndView("redirect:list.do");
+
 		}
+		return result;
 	}
 
 }

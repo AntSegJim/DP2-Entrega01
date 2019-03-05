@@ -83,14 +83,22 @@ public class EnrolmentMemberController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final Integer idEnrolment) {
-		final ModelAndView result;
-		final Enrolment enrolment;
+		ModelAndView result;
 
-		enrolment = this.enrolmentService.findOne(idEnrolment);
-		Assert.notNull(enrolment);
+		try {
 
-		result = new ModelAndView("enrolment/edit");
-		result.addObject("enrolment", enrolment);
+			final Enrolment enrolment;
+
+			enrolment = this.enrolmentService.findOne(idEnrolment);
+			Assert.notNull(enrolment);
+
+			result = new ModelAndView("enrolment/edit");
+			result.addObject("enrolment", enrolment);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:list.do");
+		}
+
 		return result;
 
 	}

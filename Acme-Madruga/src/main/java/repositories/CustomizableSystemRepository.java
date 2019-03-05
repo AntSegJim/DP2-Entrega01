@@ -19,4 +19,7 @@ public interface CustomizableSystemRepository extends JpaRepository<Customizable
 	@Query("select c.telephoneCode from CustomizableSystem c")
 	public String getTelephoneCode();
 
+	@Query("select c.banner from CustomizableSystem c")
+	public String getUrlBanner();
+
 }

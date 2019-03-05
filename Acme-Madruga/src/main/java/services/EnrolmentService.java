@@ -55,7 +55,16 @@ public class EnrolmentService {
 	}
 
 	public Enrolment findOne(final int idEnrolment) {
-		return this.enrolmentRepository.findOne(idEnrolment);
+		final Enrolment res = this.enrolmentRepository.findOne(idEnrolment);
+
+		final UserAccount user = LoginService.getPrincipal();
+		final Actor a = this.actorService.getActorByUserAccount(user.getId());
+		if (user.getAuthorities().iterator().next().getAuthority().equals("MEMBER"))
+			Assert.isTrue(a.equals(res.getMember()));
+		else if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"))
+			Assert.isTrue(a.equals(res.getBrotherhood()));
+
+		return res;
 	}
 
 	public Enrolment save(final Enrolment enrolment) {

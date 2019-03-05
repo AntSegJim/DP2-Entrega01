@@ -64,4 +64,7 @@ public class CustomizableSystemService {
 		return this.customizableSystemRepository.getTelephoneCode();
 	}
 
+	public String getUrlBanner() {
+		return this.customizableSystemRepository.getUrlBanner();
+	}
 }
