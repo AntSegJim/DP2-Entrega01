@@ -28,9 +28,17 @@ requestURI="enrolment/member/list.do" >
 <jstl:out value="${row.brotherhood.title}"></jstl:out>
 </display:column>
 
+<jstl:if test="${language eq 'en' }">
 <display:column titleKey="enrolment.position">
 <jstl:out value="${row.position.name}"></jstl:out>
 </display:column>
+</jstl:if>
+
+<jstl:if test="${language eq 'es' }">
+<display:column titleKey="enrolment.position">
+<jstl:out value="${row.position.spanishName}"></jstl:out>
+</display:column>
+</jstl:if>
 
 <display:column titleKey="enrolment.status">
 
@@ -77,9 +85,17 @@ requestURI="enrolment/brotherhood/list.do" >
 <jstl:out value="${row.member.name}"></jstl:out>
 </display:column>
 
+<jstl:if test="${language eq 'en' }">
 <display:column titleKey="enrolment.position">
 <jstl:out value="${row.position.name}"></jstl:out>
 </display:column>
+</jstl:if>
+
+<jstl:if test="${language eq 'es' }">
+<display:column titleKey="enrolment.position">
+<jstl:out value="${row.position.spanishName}"></jstl:out>
+</display:column>
+</jstl:if>
 
 <display:column titleKey="enrolment.status">
 

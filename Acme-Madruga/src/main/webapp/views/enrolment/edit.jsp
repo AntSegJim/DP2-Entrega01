@@ -29,7 +29,12 @@
 <form:hidden path="id"/>
 <form:hidden path="version"/>
 
+<jstl:if test="${language eq 'en' }">
 <acme:select items="${positions }" itemLabel="name" code="enrolment.position" path="position"/>
+</jstl:if>
+<jstl:if test="${language eq 'es' }">
+<acme:select items="${positions }" itemLabel="spanishName" code="enrolment.position" path="position"/>
+</jstl:if>
 <acme:select items="${brotherhoods }" itemLabel="title" code="enrolment.brotherhood" path="brotherhood"/>
 </jstl:if>
 
@@ -38,7 +43,14 @@
 <form:hidden path="version"/>
 
 <b><spring:message code="enrolment.moment" /></b>: <jstl:out value="${enrolment.moment}" ></jstl:out><br/>
+<jstl:if test="${language eq 'en' }">
 <b><spring:message code="enrolment.position" /></b>: <jstl:out value="${enrolment.position.name}"></jstl:out><br/>
+</jstl:if>
+
+<jstl:if test="${language eq 'en' }">
+<b><spring:message code="enrolment.position" /></b>: <jstl:out value="${enrolment.position.spanishName}"></jstl:out><br/>
+</jstl:if>
+
 <b><spring:message code="enrolment.brotherhood" /></b>: <jstl:out value="${enrolment.brotherhood.title}"></jstl:out><br/>
 
 <br/>
@@ -103,8 +115,12 @@
 
 <br/>
 
+<jstl:if test="${language eq 'en' }">
 <acme:select items="${positions }" itemLabel="name" code="enrolment.position" path="position"/>
-
+</jstl:if>
+<jstl:if test="${language eq 'es' }">
+<acme:select items="${positions }" itemLabel="spanishName" code="enrolment.position" path="position"/>
+</jstl:if>
 <form:label path="status"><spring:message code="enrolment.status" />:</form:label>
 
 	<form:select path="status">
@@ -117,8 +133,12 @@
 
 
 <br/>
+<br/>
 <input type="submit" name="save" 
 	value="<spring:message code="enrolment.save" />" />
+	
+	<input type="button" name="cancel" value="<spring:message code="enrolment.cancel" />"
+			onclick="javascript: relativeRedir('enrolment/brotherhood/list.do');" />
 </form:form>
 
 

@@ -69,7 +69,7 @@ public class EnrolmentMemberController {
 
 		language = LocaleContextHolder.getLocale().getLanguage();
 		enrolment = this.enrolmentService.create();
-		positions = this.positionService.getPositions(language);
+		positions = this.positionService.findAll();
 		brotherhoods = this.brotherhoodService.findAll();
 		Assert.notNull(enrolment);
 
@@ -77,6 +77,7 @@ public class EnrolmentMemberController {
 		result.addObject("enrolment", enrolment);
 		result.addObject("positions", positions);
 		result.addObject("brotherhoods", brotherhoods);
+		result.addObject("language", language);
 		return result;
 
 	}
@@ -117,23 +118,28 @@ public class EnrolmentMemberController {
 			} else {
 				final String language = LocaleContextHolder.getLocale().getLanguage();
 
-				final Collection<Posicion> positions = this.positionService.getPositions(language);
+				final Collection<Posicion> positions = this.positionService.findAll();
+
 				final Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
 				result = new ModelAndView("enrolment/edit");
 				result.addObject("enrolment", enrolment);
 				result.addObject("positions", positions);
 				result.addObject("brotherhoods", brotherhoods);
+				result.addObject("language", language);
+
 			}
 		} catch (final Exception e) {
 			final String language = LocaleContextHolder.getLocale().getLanguage();
 
-			final Collection<Posicion> positions = this.positionService.getPositions(language);
+			final Collection<Posicion> positions = this.positionService.findAll();
 			final Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
 			result = new ModelAndView("enrolment/edit");
 			result.addObject("enrolment", enrolment);
 			result.addObject("positions", positions);
 			result.addObject("brotherhoods", brotherhoods);
 			result.addObject("exception", e);
+			result.addObject("language", language);
+
 		}
 
 		return result;

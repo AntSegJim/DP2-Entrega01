@@ -22,7 +22,7 @@
 requestURI="position/administrator/list.do" >
 
 <display:column property="name" titleKey="position.name" />
-<display:column property="idioma" titleKey="position.language" />
+<display:column property="spanishName" titleKey="position.spanishName" />
 
 <display:column>
 	<a href="position/administrator/edit.do?positionId=${row.id}"><spring:message code="position.edit" /></a>

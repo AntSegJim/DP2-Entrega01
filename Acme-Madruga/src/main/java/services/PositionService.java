@@ -25,7 +25,7 @@ public class PositionService {
 	public Posicion create() {
 
 		final Posicion posicion = new Posicion();
-		posicion.setIdioma("");
+		posicion.setSpanishName("");
 		posicion.setName("");
 
 		return posicion;
@@ -43,17 +43,13 @@ public class PositionService {
 	public Posicion save(final Posicion p) {
 		Posicion res;
 
-		Assert.notNull(p.getIdioma() != null && p.getIdioma() != "", "No debe tener un idioma vacio");
+		Assert.notNull(p.getSpanishName() != null && p.getSpanishName() != "", "No debe tener un idioma vacio");
 		Assert.notNull(p.getName() != null && p.getName() != "", "No debe tener un nombre vacio");
 
 		res = this.positionRepository.save(p);
 
 		return res;
 
-	}
-
-	public Collection<Posicion> getPositions(final String language) {
-		return this.positionRepository.getPositions(language);
 	}
 
 	public Collection<String> getUsedNames() {

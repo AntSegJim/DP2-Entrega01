@@ -31,7 +31,7 @@
 
 
 <acme:textbox code="position.name" path="name"/>
-<acme:textbox code="position.language" path="idioma"/>
+<acme:textbox code="position.spanishName" path="spanishName"/>
 
 <br/>
 <input type="submit" name="save" 

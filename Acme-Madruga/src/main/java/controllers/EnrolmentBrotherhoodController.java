@@ -67,13 +67,14 @@ public class EnrolmentBrotherhoodController {
 			language = LocaleContextHolder.getLocale().getLanguage();
 
 			enrolment = this.enrolmentService.findOne(idEnrolment);
-			positions = this.positionService.getPositions(language);
+			positions = this.positionService.findAll();
 
 			Assert.notNull(enrolment);
 
 			result = new ModelAndView("enrolment/edit");
 			result.addObject("enrolment", enrolment);
 			result.addObject("positions", positions);
+			result.addObject("language", language);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:list.do");
@@ -86,7 +87,6 @@ public class EnrolmentBrotherhoodController {
 		ModelAndView result;
 
 		Enrolment enrolment;
-
 		enrolment = this.enrolmentService.reconstruct(enrolmentBrotherhood, binding);
 
 		try {
@@ -100,10 +100,11 @@ public class EnrolmentBrotherhoodController {
 
 				language = LocaleContextHolder.getLocale().getLanguage();
 
-				positions = this.positionService.getPositions(language);
+				positions = this.positionService.findAll();
 				result = new ModelAndView("enrolment/edit");
 				result.addObject("enrolment", enrolment);
 				result.addObject("positions", positions);
+				result.addObject("language", language);
 
 			}
 
@@ -113,11 +114,12 @@ public class EnrolmentBrotherhoodController {
 
 			language = LocaleContextHolder.getLocale().getLanguage();
 
-			positions = this.positionService.getPositions(language);
+			positions = this.positionService.findAll();
 			result = new ModelAndView("enrolment/edit");
 			result.addObject("enrolment", enrolment);
 			result.addObject("exception", e);
 			result.addObject("positions", positions);
+			result.addObject("language", language);
 
 		}
 

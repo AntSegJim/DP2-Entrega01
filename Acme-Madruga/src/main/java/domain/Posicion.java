@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Posicion extends DomainEntity {
 
 	private String	name;
-	private String	idioma;
+	private String	spanishName;
 
 
 	@NotNull
@@ -27,12 +27,12 @@ public class Posicion extends DomainEntity {
 
 	@NotNull
 	@NotBlank
-	public String getIdioma() {
-		return this.idioma;
+	public String getSpanishName() {
+		return this.spanishName;
 	}
 
-	public void setIdioma(final String idioma) {
-		this.idioma = idioma;
+	public void setSpanishName(final String spanishName) {
+		this.spanishName = spanishName;
 	}
 
 }
