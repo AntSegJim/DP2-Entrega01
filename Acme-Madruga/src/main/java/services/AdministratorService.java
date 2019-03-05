@@ -145,11 +145,12 @@ public class AdministratorService {
 			res.setPhoto(registrationForm.getPhoto());
 			res.setSurname(registrationForm.getSurname());
 			res.setUserAccount(registrationForm.getUserAccount());
+
 			this.validator.validate(res, binding);
 			return res;
 		} else {
 			final Actor a = this.actorService.getActorByUserAccount(registrationForm.getUserAccount().getId());
-			final Administrator p = new Administrator();
+
 			res.setId(a.getId());
 			res.setVersion(a.getVersion());
 			res.setAddress(a.getAddress());
@@ -161,8 +162,8 @@ public class AdministratorService {
 			res.setSurname(a.getSurname());
 			res.setUserAccount(a.getUserAccount());
 
-			this.validator.validate(p, binding);
-			return p;
+			this.validator.validate(res, binding);
+			return res;
 		}
 
 	}
