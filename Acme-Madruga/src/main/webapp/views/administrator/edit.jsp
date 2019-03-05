@@ -18,7 +18,15 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<form:form action="administrator/edit.do" modelAttribute="registrationForm">
+	
+<script type="text/javascript">
+function enableSending(){
+    document.form.submit.disabled = !document.form.checkbox.checked;
+}
+</script>
+
+
+<form:form action="administrator/edit.do" modelAttribute="registrationForm" name="form">
 <jstl:if test="${not empty exception}">
 		<p style="color:red"> <spring:message code="administrator.error" /> </p>
 </jstl:if>
@@ -72,6 +80,13 @@
 	</fieldset>
 	<br />
 	
-	<acme:submit name="save" code="administrator.save"/>
+
+	
+	  <input type="checkbox" class="checkbox" name="checkbox" id="checkbox" onclick= "enableSending();"/>  <a href="https://www.google.com/">
+				<spring:message code="Terminos.Condiciones" /></a>
+			
+	<input type="submit" name="submit" value="<spring:message code="administrator.save"/>" disabled="disabled">
+	
+	<!--<acme:submit name="save" code="administrator.save"/>-->
 	<acme:cancel url="welcome/index.do" code="administrator.cancel"/>
 </form:form>
