@@ -20,6 +20,9 @@ public interface ProcessionRepository extends JpaRepository<Procession, Integer>
 	@Query("select p from Procession p where p.brotherhood.id = ?1")
 	public Collection<Procession> getAllProcessionsByBrotherhood(int brotherhoodId);
 
+	@Query("select p from Procession p where p.brotherhood.id = ?1 and p.draftMode = 0")
+	public Collection<Procession> getAllProcessionsByBrotherhoodFinalMode(int brotherhoodId);
+
 	//DASHBOARD
 	@Query(value = "select Procession.title from Procession where date_add(CURRENT_DATE, interval 30 day) >= Procession.moment", nativeQuery = true)
 	public Collection<String> processions();
