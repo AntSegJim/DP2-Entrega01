@@ -34,8 +34,7 @@
 <acme:textbox code="customizable.code" path="telephoneCode"/>
 
 <br/>
-<input type="submit" name="save" 
-	value="<spring:message code="customizable.save" />" />
+<acme:submit name="save" code="customizable.save"/>
 
 </form:form>
 </security:authorize>
