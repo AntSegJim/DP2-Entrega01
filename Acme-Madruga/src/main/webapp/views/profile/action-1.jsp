@@ -20,22 +20,21 @@
 
 <security:authorize access="isAuthenticated()">
 
-<img src="${actor.photo}">  <br/>
+<img src="<jstl:out value='${actor.photo }'/> ">  <br/>
 <br/>
-<b><spring:message code="profile.action.2.name" /> </b> ${actor.name} <br/>
-<b><spring:message code="profile.action.2.middleName" /></b> ${actor.middleName} <br/>
-<b><spring:message code="profile.action.2.surname" /></b> ${actor.surname} <br/>
-<b><spring:message code="profile.action.2.email" /></b> ${actor.email} <br/>
-<b><spring:message code="profile.action.2.phone" /></b> ${actor.phone} <br/>
-<b><spring:message code="profile.action.2.address" /></b> ${actor.address} <br/>
+<b><spring:message code="profile.action.2.name" /> </b> <jstl:out value="${actor.name }"/> <br/>
+<b><spring:message code="profile.action.2.middleName" /></b> <jstl:out value="${actor.middleName }"/> <br/>
+<b><spring:message code="profile.action.2.surname" /></b> <jstl:out value="${actor.surname }"/> <br/>
+<b><spring:message code="profile.action.2.email" /></b> <jstl:out value="${actor.email }"/> <br/>
+<b><spring:message code="profile.action.2.phone" /></b> <jstl:out value="${actor.phone }"/> <br/>
+<b><spring:message code="profile.action.2.address" /></b> <jstl:out value="${actor.address }"/> <br/>
 
 <security:authorize access="hasRole('BROTHERHOOD')">
-<b><spring:message code="profile.brotherhood.title" /></b> ${actor.title} <br/>
-<b><spring:message code="profile.brotherhood.establishmentDate" /></b> ${actor.establishmentDate} <br/>
+<b><spring:message code="profile.brotherhood.title" /></b> <jstl:out value="${actor.title }"/> <br/>
+<b><spring:message code="profile.brotherhood.establishmentDate" /></b> <jstl:out value="${actor.establishmentDate }"/> <br/>
 
 <display:table name="${pictures}" id="row">
-<display:column property="url" 
-titleKey="profile.brotherhood.pictures" />
+<display:column titleKey="profile.brotherhood.pictures" ><img src="${row.url}" width="130px" height="80px"></display:column>
 </display:table>
 
 
