@@ -105,7 +105,7 @@ public class ProcessionService {
 	public Collection<Procession> getAllProcessionsByBrotherhood(final int brotherhoodId) {
 		return this.processionRepository.getAllProcessionsByBrotherhood(brotherhoodId);
 	}
-	public Collection<Procession> getAllProcessionsByBrotherhoodFinalMode(final int brotherhoodId) {
+	public Collection<Procession> getAllProcessionsByBrotherhoodFinalMode(int brotherhoodId){
 		return this.processionRepository.getAllProcessionsByBrotherhoodFinalMode(brotherhoodId);
 	}
 
