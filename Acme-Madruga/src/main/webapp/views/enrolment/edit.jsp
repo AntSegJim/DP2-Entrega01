@@ -116,10 +116,10 @@
 <br/>
 
 <jstl:if test="${language eq 'en' }">
-<acme:select items="${positions }" itemLabel="name" code="enrolment.position" path="position"/>
+<acme:selectWithoutNullOption items="${positions }" itemLabel="name" code="enrolment.position" path="position"/>
 </jstl:if>
 <jstl:if test="${language eq 'es' }">
-<acme:select items="${positions }" itemLabel="spanishName" code="enrolment.position" path="position"/>
+<acme:selectWithoutNullOption items="${positions }" itemLabel="spanishName" code="enrolment.position" path="position"/>
 </jstl:if>
 <form:label path="status"><spring:message code="enrolment.status" />:</form:label>
 
