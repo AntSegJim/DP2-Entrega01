@@ -28,6 +28,7 @@ import services.AdministratorService;
 import services.BrotherhoodService;
 import services.PositionService;
 import services.ProcessionService;
+import services.RequestService;
 import domain.Administrator;
 import forms.RegistrationForm;
 
@@ -46,6 +47,9 @@ public class AdministratorController extends AbstractController {
 
 	@Autowired
 	private AdministratorService	administratorService;
+
+	@Autowired
+	private RequestService			requestService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -73,6 +77,10 @@ public class AdministratorController extends AbstractController {
 		result.addObject("memberBrotherhoodMin", memberBrotherhoodMin);
 		result.addObject("memberBrotherhoodMax", memberBrotherhoodMax);
 		result.addObject("memberBrotherhoodDesv", memberBrotherhoodDesv);
+
+		result.addObject("ratioPendingRequest", this.requestService.pendingRatio());
+		result.addObject("ratioAcceptedRequest", this.requestService.acceptedRatio());
+		result.addObject("ratioRejectedRequest", this.requestService.rejectedRatio());
 
 		return result;
 	}

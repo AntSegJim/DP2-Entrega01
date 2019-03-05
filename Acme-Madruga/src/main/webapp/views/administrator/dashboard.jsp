@@ -30,6 +30,13 @@
 </fieldset>
 
 <fieldset>
+<legend><spring:message code="administrator.request" /></legend>
+<b><spring:message code="administrator.request.pending" /></b>: <jstl:out value="${ratioPendingRequest}"></jstl:out> <br/>
+<b><spring:message code="administrator.request.accepted" /></b>: <jstl:out value="${ratioAcceptedRequest}"></jstl:out> <br/>
+<b><spring:message code="administrator.request.rejected" /></b>: <jstl:out value="${ratioRejectedRequest}"></jstl:out> <br/>
+</fieldset>
+
+<fieldset>
 <legend><spring:message code="administrator.Procession" /></legend>
 <jstl:if test="${fn:length(procession) ne 0}">
 <jstl:forEach var="item" items="${procession}">

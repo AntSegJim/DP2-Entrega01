@@ -186,4 +186,16 @@ public class RequestService {
 		return this.requestRepository.getRequestWithThisRowAndColumn(recomendar, recomendar2);
 	}
 
+	public Double pendingRatio() {
+		return this.requestRepository.pendingRatio();
+	}
+
+	public Double acceptedRatio() {
+		return this.requestRepository.acceptedRatio();
+	}
+
+	public Double rejectedRatio() {
+		return this.requestRepository.rejectedRatio();
+	}
+
 }

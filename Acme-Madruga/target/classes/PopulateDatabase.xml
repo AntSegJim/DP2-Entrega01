@@ -414,6 +414,53 @@
 		</property>
 	</bean>	
 	
+	<!-- Request -->
+	
+	<bean id="request1" class="domain.Request">
+		<property name="status" value="0" />
+		<property name="columna" value="1" />
+		<property name="row" value="2" />
+		<property name="description" value="Procesion de la Esperanza" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession3" />	
+	</bean>	
+	
+	<bean id="request2" class="domain.Request">
+		<property name="status" value="0" />
+		<property name="columna" value="12" />
+		<property name="row" value="23" />
+		<property name="description" value="Procesion" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession2" />	
+	</bean>	
+	
+	<bean id="request3" class="domain.Request">
+		<property name="status" value="1" />
+		<property name="columna" value="123" />
+		<property name="row" value="21" />
+		<property name="description" value="Esperanza" />
+		<property name="member" ref="member2" />
+		<property name="procession" ref="procession3" />	
+	</bean>	
+	
+	<bean id="request4" class="domain.Request">
+		<property name="status" value="2" />
+		<property name="columna" value="13" />
+		<property name="row" value="2" />
+		<property name="description" value="Procesion de la Esperanza" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession1" />	
+	</bean>	
+	
+	<bean id="request5" class="domain.Request">
+		<property name="status" value="2" />
+		<property name="columna" value="1" />
+		<property name="row" value="42" />
+		<property name="description" value="Procesion de la Esperanza" />
+		<property name="member" ref="member2" />
+		<property name="procession" ref="procession1" />	
+	</bean>	
+	
 	
 	
 </beans>

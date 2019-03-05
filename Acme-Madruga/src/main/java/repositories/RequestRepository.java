@@ -15,4 +15,14 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 
 	@Query("select r from Request r where r.member.id = ?1 ORDER BY  r.status")
 	public Collection<Request> getAllMyRequest(int memberId);
+
+	//DASHBOARD
+	@Query("select count(r)*1.0/(select count(a) from Request a) from Request r where r.status=0")
+	public Double pendingRatio();
+
+	@Query("select count(r)*1.0/(select count(a) from Request a) from Request r where r.status=1")
+	public Double acceptedRatio();
+
+	@Query("select count(r)*1.0/(select count(a) from Request a) from Request r where r.status=2")
+	public Double rejectedRatio();
 }
