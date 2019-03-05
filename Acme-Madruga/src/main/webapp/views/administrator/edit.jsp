@@ -15,8 +15,9 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<p><spring:message code="administrator.action.1" /></p>
+
 <form:form action="administrator/edit.do" modelAttribute="registrationForm">
 <jstl:if test="${not empty exception}">
 		<p style="color:red"> <spring:message code="administrator.error" /> </p>
@@ -28,39 +29,31 @@
 	<fieldset>
 	<legend><spring:message code="administrator.personalDatas" /></legend>
 	
-	<form:label path="name"><spring:message code="administrator.name" /></form:label>
-	<form:input path="name" />
-	<form:errors cssClass="error" path="name" />
-	<br />
+		<acme:textbox code="administrator.name" path="name"/>
 	
-	<form:label path="middleName"><spring:message code="administrator.middleName" /></form:label>
-	<form:input path="middleName" />
-	<form:errors cssClass="error" path="middleName" />
-	<br />
 	
-	<form:label path="surname"><spring:message code="administrator.surname" /></form:label>
-	<form:input path="surname" />
-	<form:errors cssClass="error" path="surname" />
-	<br />
+	<acme:textbox code="administrator.middleName" path="middleName"/>
+	
+	
+	
+		<acme:textbox code="administrator.surname" path="surname"/>
+	
+	
 		
-	<form:label path="photo"><spring:message code="administrator.photo" /></form:label>
-	<form:input path="photo" />
-	<form:errors cssClass="error" path="photo" />
-	<br />
+		<acme:textbox code="administrator.photo" path="photo"/>
+
+
 	
-	<form:label path="email"><spring:message code="administrator.email" /></form:label>
-	<form:input path="email" />
-	<form:errors cssClass="error" path="email" />
-	<br />
+	<acme:textbox code="administrator.email" path="email"/>
 	
-	<form:label path="phone"><spring:message code="administrator.phone" /></form:label>
-	<form:input path="phone" />
-	<form:errors cssClass="error" path="phone" />
-	<br />
+
 	
-	<form:label path="address"><spring:message code="administrator.adress" /></form:label>
-	<form:input path="address" />
-	<form:errors cssClass="error" path="address" />
+	
+		<acme:textbox code="administrator.phone" path="phone"/>
+	
+	
+	<acme:textbox code="administrator.adress" path="address"/>
+
 	<br />
 	<p><spring:message code="administrator.information" /></p>
 	</fieldset>
@@ -68,17 +61,14 @@
 	
 	<fieldset>
 	 <legend><spring:message code="administrator.userAccount" /></legend>
-	<form:label path="userAccount.username"><spring:message code="administrator.username" /></form:label>
-	<form:input path="userAccount.username" />
-	<form:errors cssClass="error" path="userAccount.username" />
+	 
+	 <acme:textbox code="administrator.username" path="userAccount.username"/>
+
+	<acme:password code="administrator.password" path="userAccount.password"/>
+
 	
-	<form:label path="userAccount.password" ><spring:message code="administrator.password" /></form:label>
-	<form:input path="userAccount.password" type="password"/>
-	<form:errors cssClass="error" path="userAccount.password" />
+	<acme:password code="administrator.confirmation.password" path="password"/>
 	
-		<form:label path="password" ><spring:message code="administrator.confirmation.password" /></form:label>
-	<form:input path="password" type="password"/>
-	<form:errors cssClass="error" path="password" />
 	</fieldset>
 	<br />
 	
