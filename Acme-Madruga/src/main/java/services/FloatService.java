@@ -52,7 +52,13 @@ public class FloatService {
 	}
 	//Metodo findOne
 	public Paso findOne(final int floatId) {
-		return this.FRepo.findOne(floatId);
+		final UserAccount user = LoginService.getPrincipal();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+
+		final Paso res = this.FRepo.findOne(floatId);
+		final Brotherhood brFloat = res.getBrotherhood();
+		Assert.isTrue(br.equals(brFloat));
+		return res;
 	}
 	//Metodo save
 	public Paso save(final Paso paso) {
@@ -69,7 +75,9 @@ public class FloatService {
 	//Metodo delete
 	public void delete(final Paso paso) {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
+		Assert.isTrue(br.equals(paso.getBrotherhood()));
 		this.FRepo.delete(paso);
 	}
 

@@ -137,14 +137,17 @@ public class PictureBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/createPictureFloat", method = RequestMethod.GET)
 	public ModelAndView createPictureFloat(@RequestParam final int floatId) {
 		ModelAndView result;
-		Picture picture;
-		final Paso fl = this.floatService.findOne(floatId);
+		try {
+			Picture picture;
+			final Paso fl = this.floatService.findOne(floatId);
 
-		picture = this.pictureService.create();
-		result = new ModelAndView("picture/editPictureFloat");
-		result.addObject("picture", picture);
-		result.addObject("paso", fl);
-
+			picture = this.pictureService.create();
+			result = new ModelAndView("picture/editPictureFloat");
+			result.addObject("picture", picture);
+			result.addObject("paso", fl);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+		}
 		return result;
 	}
 
@@ -152,15 +155,20 @@ public class PictureBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/editPictureFloat", method = RequestMethod.GET)
 	public ModelAndView editPictureFloat(@RequestParam final int pictureId, @RequestParam final int floatId) {
 		ModelAndView result;
-		Picture picture;
-		Paso paso;
+		try {
+			Picture picture;
+			Paso paso;
 
-		picture = this.pictureService.findOne(pictureId);
-		paso = this.floatService.findOne(floatId);
-		Assert.notNull(picture);
-		result = new ModelAndView("picture/editPictureFloat");
-		result.addObject("picture", picture);
-		result.addObject("paso", paso);
+			picture = this.pictureService.findOne(pictureId);
+			paso = this.floatService.findOne(floatId);
+			Assert.notNull(picture);
+			result = new ModelAndView("picture/editPictureFloat");
+			result.addObject("picture", picture);
+			result.addObject("paso", paso);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+		}
+
 		return result;
 	}
 

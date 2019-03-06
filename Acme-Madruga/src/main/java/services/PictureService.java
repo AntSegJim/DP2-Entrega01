@@ -37,7 +37,11 @@ public class PictureService {
 	}
 	//Metodo findOne
 	public Picture findOne(final int PictureId) {
-		return this.PRepo.findOne(PictureId);
+		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
+
+		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
+		final Picture res = this.PRepo.findOne(PictureId);
+		return res;
 	}
 	//Metodo save
 	public Picture save(final Picture picture) {

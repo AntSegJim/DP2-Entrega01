@@ -99,7 +99,11 @@ public class ActorService {
 	}
 
 	public Actor findOne(final int id) {
-		return this.actorRepository.findOne(id);
+		final UserAccount user = LoginService.getPrincipal();
+		final Actor a = this.getActorByUserAccount(user.getId());
+		final Actor res = this.actorRepository.findOne(id);
+		Assert.isTrue(a.getId() == res.getId());
+		return res;
 	}
 
 	public Actor getActorByUsername(final String username) {

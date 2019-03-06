@@ -81,17 +81,23 @@ public class FloatBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView editFloat(@RequestParam final int floatId) {
 		ModelAndView result;
-		Paso paso;
-		Collection<Procession> processions;
-		final UserAccount user = LoginService.getPrincipal();
-		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
-		processions = this.processionService.getAllProcessionsByBrotherhoodFinalMode(br.getId());
 
-		paso = this.floatService.findOne(floatId);
-		Assert.notNull(paso);
-		result = new ModelAndView("float/edit");
-		result.addObject("paso", paso);
-		result.addObject("processions", processions);
+		try {
+			Paso paso;
+			Collection<Procession> processions;
+
+			final UserAccount user = LoginService.getPrincipal();
+			final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+			processions = this.processionService.getAllProcessionsByBrotherhoodFinalMode(br.getId());
+
+			paso = this.floatService.findOne(floatId);
+			Assert.notNull(paso);
+			result = new ModelAndView("float/edit");
+			result.addObject("paso", paso);
+			result.addObject("processions", processions);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:list.do");
+		}
 		return result;
 	}
 
