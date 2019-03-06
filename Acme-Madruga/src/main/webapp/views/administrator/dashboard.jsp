@@ -30,6 +30,28 @@
 </fieldset>
 
 <fieldset>
+<legend><spring:message code="administrator.brotherhood" /></legend>
+<b><spring:message code="administrator.brotherhood.largest" /></b>:
+<br/>
+<jstl:if test="${fn:length(largestBrotherhoods) ne 0}">
+<jstl:forEach var="item" items="${largestBrotherhoods}">
+<jstl:out value="${item}"></jstl:out>
+<br/>
+</jstl:forEach>
+</jstl:if>
+<br/>
+
+<b><spring:message code="administrator.brotherhood.smallest" /></b>:
+<br/>
+<jstl:if test="${fn:length(smallestBrotherhoods) ne 0}">
+<jstl:forEach var="item" items="${smallestBrotherhoods}">
+<jstl:out value="${item}"></jstl:out>
+<br/>
+</jstl:forEach>
+</jstl:if>
+</fieldset>
+
+<fieldset>
 <legend><spring:message code="administrator.request" /></legend>
 <b><spring:message code="administrator.request.pending" /></b>: <jstl:out value="${ratioPendingRequest}"></jstl:out> <br/>
 <b><spring:message code="administrator.request.accepted" /></b>: <jstl:out value="${ratioAcceptedRequest}"></jstl:out> <br/>

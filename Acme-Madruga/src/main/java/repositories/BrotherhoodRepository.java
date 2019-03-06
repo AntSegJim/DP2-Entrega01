@@ -29,4 +29,10 @@ public interface BrotherhoodRepository extends JpaRepository<Brotherhood, Intege
 	@Query("select avg(1.0*(select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = b.id)), min(1.0*(select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = b.id)), max(1.0*(select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = b.id)), sqrt(1.0*sum(1.0*(select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = b.id) * (select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = b.id)) / count(b) - avg(1.0*(select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = b.id)) * avg(1.0*(select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = b.id))) from Brotherhood b")
 	public List<Object[]> getMaxMinAvgDesvMembersBrotherhood();
 
+	@Query("select c.title from Brotherhood c where (select max(1.0*(select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = b.id)) from Brotherhood b) = (1.0*(select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = c.id))")
+	public Collection<String> getLargestBrotherhoods();
+
+	@Query("select c.title from Brotherhood c where (select min(1.0*(select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = b.id)) from Brotherhood b) = (1.0*(select count(e.member) from Enrolment e where e.status=1 and e.brotherhood.id = c.id))")
+	public Collection<String> getSmallestBrotherhoods();
+
 }

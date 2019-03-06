@@ -70,6 +70,9 @@ public class AdministratorController extends AbstractController {
 		final Double memberBrotherhoodMax = (Double) memberBrotherhood.get(0)[2];
 		final Double memberBrotherhoodDesv = (Double) memberBrotherhood.get(0)[3];
 
+		final Collection<String> largestBrotherhoods = this.brotherhoodService.getLargestBrotherhoods();
+		final Collection<String> smallestBrotherhoods = this.brotherhoodService.getSmallestBrotherhoods();
+
 		result = new ModelAndView("administrator/dashboard");
 		result.addObject("procession", procession);
 
@@ -77,6 +80,9 @@ public class AdministratorController extends AbstractController {
 		result.addObject("memberBrotherhoodMin", memberBrotherhoodMin);
 		result.addObject("memberBrotherhoodMax", memberBrotherhoodMax);
 		result.addObject("memberBrotherhoodDesv", memberBrotherhoodDesv);
+
+		result.addObject("largestBrotherhoods", largestBrotherhoods);
+		result.addObject("smallestBrotherhoods", smallestBrotherhoods);
 
 		result.addObject("ratioPendingRequest", this.requestService.pendingRatio());
 		result.addObject("ratioAcceptedRequest", this.requestService.acceptedRatio());

@@ -154,4 +154,12 @@ public class BrotherhoodService {
 		return this.brotherhoodRepo.getMaxMinAvgDesvMembersBrotherhood();
 	}
 
+	public Collection<String> getLargestBrotherhoods() {
+		return this.brotherhoodRepo.getLargestBrotherhoods();
+	}
+
+	public Collection<String> getSmallestBrotherhoods() {
+		return this.brotherhoodRepo.getSmallestBrotherhoods();
+	}
+
 }
