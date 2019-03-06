@@ -163,4 +163,8 @@ public class MemberService {
 
 	}
 
+	public Collection<String> members10Percentage() {
+		return this.memberRepo.member10Percentage();
+	}
+
 }

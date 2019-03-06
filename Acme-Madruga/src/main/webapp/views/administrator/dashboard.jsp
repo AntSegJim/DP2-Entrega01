@@ -68,4 +68,14 @@
 </jstl:if>
 </fieldset>
 
+<fieldset>
+<legend><spring:message code="administrator.members" /></legend>
+<jstl:if test="${fn:length(members10Percentage) ne 0}">
+<jstl:forEach var="item" items="${members10Percentage}">
+<jstl:out value="${item}"></jstl:out>
+<br/>
+</jstl:forEach>
+</jstl:if>
+</fieldset>
+
 </security:authorize>

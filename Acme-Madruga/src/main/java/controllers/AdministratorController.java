@@ -26,6 +26,7 @@ import security.Authority;
 import security.UserAccount;
 import services.AdministratorService;
 import services.BrotherhoodService;
+import services.MemberService;
 import services.PositionService;
 import services.ProcessionService;
 import services.RequestService;
@@ -51,6 +52,9 @@ public class AdministratorController extends AbstractController {
 	@Autowired
 	private RequestService			requestService;
 
+	@Autowired
+	private MemberService			memberService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -73,6 +77,8 @@ public class AdministratorController extends AbstractController {
 		final Collection<String> largestBrotherhoods = this.brotherhoodService.getLargestBrotherhoods();
 		final Collection<String> smallestBrotherhoods = this.brotherhoodService.getSmallestBrotherhoods();
 
+		final Collection<String> members10Percentage = this.memberService.members10Percentage();
+
 		result = new ModelAndView("administrator/dashboard");
 		result.addObject("procession", procession);
 
@@ -87,6 +93,8 @@ public class AdministratorController extends AbstractController {
 		result.addObject("ratioPendingRequest", this.requestService.pendingRatio());
 		result.addObject("ratioAcceptedRequest", this.requestService.acceptedRatio());
 		result.addObject("ratioRejectedRequest", this.requestService.rejectedRatio());
+
+		result.addObject("members10Percentage", members10Percentage);
 
 		return result;
 	}
