@@ -11,7 +11,6 @@
 package controllers;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -22,34 +21,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
-import security.UserAccount;
 import services.AdministratorService;
 import services.BrotherhoodService;
+import services.CustomizableSystemService;
 import services.PositionService;
 import services.ProcessionService;
 import services.RequestService;
 import domain.Administrator;
-import forms.RegistrationForm;
+import forms.RegistrationFormAdmin;
 
 @Controller
 @RequestMapping("/administrator")
 public class AdministratorController extends AbstractController {
 
 	@Autowired
-	private PositionService			positionService;
+	private PositionService				positionService;
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ProcessionService			processionService;
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService			brotherhoodService;
 
 	@Autowired
-	private AdministratorService	administratorService;
+	private AdministratorService		administratorService;
 
 	@Autowired
-	private RequestService			requestService;
+	private RequestService				requestService;
+
+	@Autowired
+	private CustomizableSystemService	customizableService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -142,29 +143,11 @@ public class AdministratorController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createForm() {
 		ModelAndView result;
-		final RegistrationForm registrationForm = new RegistrationForm();
+		RegistrationFormAdmin registrationForm = new RegistrationFormAdmin();
 
-		registrationForm.setName("");
-		registrationForm.setMiddleName("");
-		registrationForm.setSurname("");
-		registrationForm.setPhoto("");
-		registrationForm.setEmail("");
-		registrationForm.setPhone("");
-		registrationForm.setAddress("");
-		registrationForm.setPassword("");
-
-		//PREGUNTAR
-		final UserAccount user = new UserAccount();
-		user.setAuthorities(new HashSet<Authority>());
-		final Authority ad = new Authority();
-		ad.setAuthority(Authority.ADMIN);
-		user.getAuthorities().add(ad);
-
-		//NUEVO
-		user.setUsername("");
-		user.setPassword("");
-
-		registrationForm.setUserAccount(user);
+		registrationForm = registrationForm.createToAdmin();
+		final String telephoneCode = this.customizableService.getTelephoneCode();
+		registrationForm.setPhone(telephoneCode + " ");
 
 		result = new ModelAndView("administrator/create");
 		result.addObject("registrationForm", registrationForm);
@@ -173,7 +156,7 @@ public class AdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final RegistrationForm registrationForm, final BindingResult binding) {
+	public ModelAndView save(final RegistrationFormAdmin registrationForm, final BindingResult binding) {
 		ModelAndView result;
 		Administrator administrator = null;
 

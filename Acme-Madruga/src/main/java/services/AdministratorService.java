@@ -22,20 +22,23 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
-import forms.RegistrationForm;
+import forms.RegistrationFormAdmin;
 
 @Service
 @Transactional
 public class AdministratorService {
 
 	@Autowired
-	private AdministratorRepository	adminRepo;
+	private AdministratorRepository		adminRepo;
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService				actorService;
 
 	@Autowired
-	private Validator				validator;
+	private Validator					validator;
+
+	@Autowired
+	private CustomizableSystemService	customizableService;
 
 
 	public Administrator create() {
@@ -45,7 +48,8 @@ public class AdministratorService {
 		admin.setSurname("");
 		admin.setPhoto("");
 		admin.setEmail("");
-		admin.setPhone("");
+		final String telephoneCode = this.customizableService.getTelephoneCode();
+		admin.setPhone(telephoneCode + " ");
 		admin.setAddress("");
 
 		//PREGUNTAR
@@ -131,7 +135,7 @@ public class AdministratorService {
 		return res;
 	}
 
-	public Administrator reconstruct(final RegistrationForm registrationForm, final BindingResult binding) {
+	public Administrator reconstruct(final RegistrationFormAdmin registrationForm, final BindingResult binding) {
 		final Administrator res = new Administrator();
 
 		if (registrationForm.getUserAccount().getId() == 0) {

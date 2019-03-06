@@ -10,15 +10,19 @@
 
 package forms;
 
+import java.util.HashSet;
+
 import javax.validation.constraints.Size;
 
+import security.Authority;
+import security.UserAccount;
 import domain.Actor;
 
-public class RegistrationForm extends Actor {
+public class RegistrationFormAdmin extends Actor {
 
 	// Constructors -----------------------------------------------------------
 
-	public RegistrationForm() {
+	public RegistrationFormAdmin() {
 		super();
 	}
 
@@ -107,5 +111,32 @@ public class RegistrationForm extends Actor {
 	//	}
 
 	// Business methods -------------------------------------------------------
+	public RegistrationFormAdmin createToAdmin() {
+
+		final RegistrationFormAdmin registrationForm = new RegistrationFormAdmin();
+
+		registrationForm.setName("");
+		registrationForm.setMiddleName("");
+		registrationForm.setSurname("");
+		registrationForm.setPhoto("");
+		registrationForm.setEmail("");
+		registrationForm.setAddress("");
+		registrationForm.setPassword("");
+
+		//PREGUNTAR
+		final UserAccount user = new UserAccount();
+		user.setAuthorities(new HashSet<Authority>());
+		final Authority ad = new Authority();
+		ad.setAuthority(Authority.ADMIN);
+		user.getAuthorities().add(ad);
+
+		//NUEVO
+		user.setUsername("");
+		user.setPassword("");
+
+		registrationForm.setUserAccount(user);
+
+		return registrationForm;
+	}
 
 }
