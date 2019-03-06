@@ -19,11 +19,11 @@
 
 
 	
-<script type="text/javascript">
+<!--  <script type="text/javascript">
 function enableSending(){
-    document.form.submit.disabled = !document.form.checkbox.checked;
+    document.form.save.disabled = !document.form.checkbox.checked;
 }
-</script>
+</script>-->
 
 
 <form:form action="administrator/edit.do" modelAttribute="registrationForm" name="form">
@@ -82,11 +82,10 @@ function enableSending(){
 	
 
 	
-	  <input type="checkbox" class="checkbox" name="checkbox" id="checkbox" onclick= "enableSending();"/>  <a href="https://www.google.com/">
-				<spring:message code="Terminos.Condiciones" /></a>
+	 	 <input type="checkbox" class="checkbox"  required name="checkbox" id="checkbox" onclick= "enableSending();"/>  <a href="https://www.google.com/">
+				<spring:message code="Terminos.Condiciones" /></a> 
 			
-	<input type="submit" name="submit" value="<spring:message code="administrator.save"/>" disabled="disabled">
-	
+	  <input type="submit" name="save" value="<spring:message code="administrator.save"/> "> 
 	<!--<acme:submit name="save" code="administrator.save"/>-->
 	<acme:cancel url="welcome/index.do" code="administrator.cancel"/>
 </form:form>
