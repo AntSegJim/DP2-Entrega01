@@ -15,7 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
 <security:authorize access="isAuthenticated()">
@@ -46,8 +46,7 @@
 </security:authorize>
 
 <br/>
-<input type="button" name="cancel" value="<spring:message code="administrator.cancel" />"
-			onclick="javascript: relativeRedir('welcome/index.do');" />
+<acme:cancel url="welcome/index.do" code="administrator.cancel"/>
 
 
 </security:authorize>
