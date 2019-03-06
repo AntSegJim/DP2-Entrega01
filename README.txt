@@ -23,3 +23,5 @@ En este README.txt, vamos a recoger los pasos que hay que seguir para incorporar
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
+9. Ahora deberemos ir a nuestro navegador y escribir la siguiente url: https://localhost:8443/"NOMBRE DE NUESTRO PROYECTO"
+10. Al pulsar al enter, nos saldra una pantalla intermedia donde nos dirá que nuestra conexión no es segura. Allí deberemos pulsar el boton "Add Exception..." y aceptar. Con ello ya tendremos acceso a nuestra página.
