@@ -84,12 +84,16 @@ public class PictureBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/editPictureBrotherhood", method = RequestMethod.GET)
 	public ModelAndView editPictureBrotherhood(@RequestParam final int pictureId) {
 		ModelAndView result;
-		Picture picture;
+		try {
+			Picture picture;
 
-		picture = this.pictureService.findOne(pictureId);
-		Assert.notNull(picture);
-		result = new ModelAndView("picture/editPictureBrotherhood");
-		result.addObject("picture", picture);
+			picture = this.pictureService.findOne(pictureId);
+			Assert.notNull(picture);
+			result = new ModelAndView("picture/editPictureBrotherhood");
+			result.addObject("picture", picture);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+		}
 		return result;
 	}
 

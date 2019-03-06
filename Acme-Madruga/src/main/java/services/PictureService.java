@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.PictureRepository;
 import security.UserAccount;
+import domain.Brotherhood;
 import domain.Picture;
 
 @Service
@@ -38,9 +39,10 @@ public class PictureService {
 	//Metodo findOne
 	public Picture findOne(final int PictureId) {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
-
-		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		final Picture res = this.PRepo.findOne(PictureId);
+		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
+
 		return res;
 	}
 	//Metodo save
