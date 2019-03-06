@@ -34,6 +34,7 @@ import domain.Administrator;
 import domain.Brotherhood;
 import domain.Member;
 import domain.Picture;
+import forms.MemberRegistrationForm;
 
 @Controller
 @RequestMapping("/profile")
@@ -183,10 +184,11 @@ public class ProfileController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit-member", method = RequestMethod.POST, params = "save")
-	public ModelAndView editMember(Member member, final BindingResult binding) {
+	public ModelAndView editMember(final MemberRegistrationForm memberRegistrationForm, final BindingResult binding) {
 		ModelAndView result;
+		Member member;
 		try {
-			member = this.memberService.reconstruct(member, binding);
+			member = this.memberService.reconstruct(memberRegistrationForm, binding);
 			if (!binding.hasErrors()) {
 				this.memberService.save(member);
 				result = new ModelAndView("redirect:personal-datas.do");
@@ -196,7 +198,7 @@ public class ProfileController extends AbstractController {
 			}
 		} catch (final Exception e) {
 			result = new ModelAndView("profile/editMember");
-			result.addObject("actor", member);
+			result.addObject("actor", memberRegistrationForm);
 			result.addObject("exception", e);
 
 		}

@@ -82,7 +82,7 @@ function enableSending(){
 	
 
 	
-	 	 <input type="checkbox" class="checkbox"  required name="checkbox" id="checkbox" onclick= "enableSending();"/>  <a href="https://www.google.com/">
+	 	 <input type="checkbox" class="checkbox"  required name="checkbox" id="checkbox" onclick= "enableSending();"/>  <a  target="_blank" href="https://www.google.com/">
 				<spring:message code="Terminos.Condiciones" /></a> 
 			
 	  <input type="submit" name="save" value="<spring:message code="administrator.save"/> "> 

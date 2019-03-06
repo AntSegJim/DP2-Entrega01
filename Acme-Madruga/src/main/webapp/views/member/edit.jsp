@@ -15,68 +15,39 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="member/edit.do" modelAttribute="member">
+<form:form action="member/edit.do" modelAttribute="memberRegistrationForm">
 <jstl:if test="${not empty exception}">
-		<p style="color:red"> <spring:message code="administrator.error" /> </p>
+		<b style="color:red"> <spring:message code="member.error" /> </b>
 </jstl:if>
 	<form:hidden path="id"/>
 	<form:hidden path="version" />
-	<form:hidden path="requests" />
-	<form:hidden path="userAccount.authorities" />
 	
 	<fieldset>
 	<legend><spring:message code="administrator.personalDatas" /></legend>
 	
-	<form:label path="name"><spring:message code="administrator.name" /></form:label>
-	<form:input path="name" />
-	<form:errors cssClass="error" path="name" />
-	<br />
+	<acme:textbox code="administrator.name" path="name"/>
+	<acme:textbox code="administrator.middleName" path="middleName"/>
+	<acme:textbox code="administrator.surname" path="surname"/>
+	<acme:textbox code="administrator.photo" path="photo"/>
+	<acme:textbox code="administrator.email" path="email"/>
+	<acme:textbox code="administrator.phone" path="phone"/>
+	<acme:textbox code="administrator.adress" path="address"/>
 	
-	<form:label path="middleName"><spring:message code="administrator.middleName" /></form:label>
-	<form:input path="middleName" />
-	<form:errors cssClass="error" path="middleName" />
-	<br />
-	
-	<form:label path="surname"><spring:message code="administrator.surname" /></form:label>
-	<form:input path="surname" />
-	<form:errors cssClass="error" path="surname" />
-	<br />
-		
-	<form:label path="photo"><spring:message code="administrator.photo" /></form:label>
-	<form:input path="photo" />
-	<form:errors cssClass="error" path="photo" />
-	<br />
-	
-	<form:label path="email"><spring:message code="administrator.email" /></form:label>
-	<form:input path="email" />
-	<form:errors cssClass="error" path="email" />
-	<br />
-	
-	<form:label path="phone"><spring:message code="administrator.phone" /></form:label>
-	<form:input path="phone" />
-	<form:errors cssClass="error" path="phone" />
-	<br />
-	
-	<form:label path="address"><spring:message code="administrator.adress" /></form:label>
-	<form:input path="address" />
-	<form:errors cssClass="error" path="address" />
-	<br />
 	<p><spring:message code="administrator.information" /></p>
 	</fieldset>
 	<br />
 	
 	<fieldset>
 	 <legend><spring:message code="administrator.userAccount" /></legend>
-	<form:label path="userAccount.username"><spring:message code="administrator.username" /></form:label>
-	<form:input path="userAccount.username" />
-	<form:errors cssClass="error" path="userAccount.username" />
-	
-	<form:label path="userAccount.password" ><spring:message code="administrator.password" /></form:label>
-	<form:input path="userAccount.password" type="password"/>
-	<form:errors cssClass="error" path="userAccount.password" />
+	<acme:textbox code="administrator.username" path="userAccount.username"/>
+	<acme:password code="administrator.password" path="userAccount.password"/>
+	<acme:password code="administrator.confirmation.password" path="password2"/>
 	</fieldset>
 	<br />
+	<acme:checkbox code="Terminos.Condiciones" path="check" />
+	<a  target="_blank" href="https://www.google.com/"><spring:message code="Terminos.Condiciones" /></a> 
 	
 	<input type="submit" name="save" 
 	value="<spring:message code="administrator.save" />" />
@@ -85,3 +56,17 @@
 			onclick="javascript: relativeRedir('welcome/index.do');" />
 	
 </form:form>
+
+<script>
+$( document ).ready(function() {
+	document.getElementById("checkbox").value='false';
+	document.getElementById("checkbox").checked=false;
+});
+$( '#checkbox' ).on( 'click', function() {
+    if( $(this).is(':checked') ){
+        document.getElementById("checkbox").value='true';
+    } else {
+    	document.getElementById("checkbox").value='false';
+    }
+});
+</script>

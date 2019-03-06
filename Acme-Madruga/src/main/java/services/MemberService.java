@@ -21,6 +21,7 @@ import security.Authority;
 import security.UserAccount;
 import domain.Member;
 import domain.Request;
+import forms.MemberRegistrationForm;
 
 @Service
 @Transactional
@@ -134,33 +135,49 @@ public class MemberService {
 	}
 
 	//RECONSTRUCT
-	public Member reconstruct(final Member member, final BindingResult binding) {
+	public Member reconstruct(final MemberRegistrationForm memberRegistrationForm, final BindingResult binding) {
 		Member res;
 
-		if (member.getId() == 0) {
-			res = member;
+		if (memberRegistrationForm.getId() == 0) {
+			res = new Member();
+			res.setAddress(memberRegistrationForm.getAddress());
+			res.setEmail(memberRegistrationForm.getEmail());
+			res.setMiddleName(memberRegistrationForm.getMiddleName());
+			res.setName(memberRegistrationForm.getName());
+			res.setPhone(memberRegistrationForm.getPhone());
+			res.setPhoto(memberRegistrationForm.getPhoto());
+			res.setSurname(memberRegistrationForm.getSurname());
+			final UserAccount user = new UserAccount();
+			user.setAuthorities(new HashSet<Authority>());
+			final Authority ad = new Authority();
+			ad.setAuthority(Authority.MEMBER);
+			user.getAuthorities().add(ad);
+			user.setUsername(memberRegistrationForm.getUserAccount().getUsername());
+			user.setPassword(memberRegistrationForm.getUserAccount().getPassword());
+			res.setUserAccount(user);
 			res.setRequests(new HashSet<Request>());
+			Assert.isTrue(memberRegistrationForm.getPassword2().equals(memberRegistrationForm.getUserAccount().getPassword()));
+			Assert.isTrue(memberRegistrationForm.getCheck() == true);
 			this.validator.validate(res, binding);
-			return res;
 		} else {
-			res = this.memberRepo.findOne(member.getId());
+			res = this.memberRepo.findOne(memberRegistrationForm.getId());
 			final Member p = new Member();
 			p.setId(res.getId());
 			p.setVersion(res.getVersion());
-			p.setAddress(member.getAddress());
-			p.setEmail(member.getEmail());
-			p.setMiddleName(member.getMiddleName());
-			p.setName(member.getName());
-			p.setPhone(member.getPhone());
-			p.setPhoto(member.getPhoto());
+			p.setAddress(memberRegistrationForm.getAddress());
+			p.setEmail(memberRegistrationForm.getEmail());
+			p.setMiddleName(memberRegistrationForm.getMiddleName());
+			p.setName(memberRegistrationForm.getName());
+			p.setPhone(memberRegistrationForm.getPhone());
+			p.setPhoto(memberRegistrationForm.getPhoto());
 			p.setRequests(res.getRequests());
-			p.setSurname(member.getSurname());
-			p.setUserAccount(res.getUserAccount());
+			p.setSurname(memberRegistrationForm.getSurname());
+			p.setUserAccount(memberRegistrationForm.getUserAccount());
 
 			this.validator.validate(p, binding);
-			return p;
+			res = p;
 		}
-
+		return res;
 	}
 
 	public Collection<String> members10Percentage() {
