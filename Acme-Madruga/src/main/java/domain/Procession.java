@@ -27,12 +27,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
-	@Index(columnList = "brotherhood")
+	@Index(columnList = "brotherhood, draftMode")
 })
 public class Procession extends DomainEntity {
 
 	private List<Integer>		positionsRow;
 	private List<Integer>		positionsColumn;
+	private Integer				maxRows;
+	private Integer				maxColumns;
 	private String				ticker;
 	private Date				moment;
 	private String				description;
@@ -122,6 +124,26 @@ public class Procession extends DomainEntity {
 
 	public void setPositionsColumn(final List<Integer> positionsColumn) {
 		this.positionsColumn = positionsColumn;
+	}
+
+	@NotNull
+	@Range(min = 1, max = 10)
+	public Integer getMaxRows() {
+		return this.maxRows;
+	}
+
+	public void setMaxRows(final Integer maxRows) {
+		this.maxRows = maxRows;
+	}
+
+	@NotNull
+	@Range(min = 1, max = 5000)
+	public Integer getMaxColumns() {
+		return this.maxColumns;
+	}
+
+	public void setMaxColumns(final Integer maxColumns) {
+		this.maxColumns = maxColumns;
 	}
 
 }

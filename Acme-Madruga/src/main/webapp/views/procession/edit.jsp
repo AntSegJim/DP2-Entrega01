@@ -30,6 +30,8 @@
 	<b style="color:red;"><spring:message code="procession.PastDate"/></b><br>
 </jstl:if>
 <acme:textbox code="procession.moment" path="moment"/>
+<acme:textbox code="procession.rows" path="maxRows" />
+<acme:textbox code="procession.columns" path="maxColumns"/>
 <spring:message code="procession.draftMode"/>
 <form:select path="draftMode">
 		<form:option value="1" ><spring:message code="procession.draftMode.Yes"/></form:option>	

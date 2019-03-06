@@ -90,7 +90,7 @@
 	<acme:textbox code="request.row" path="row"/>
 	<acme:textbox code="request.columna" path="columna"/>
 </jstl:if>
-
+<p>**<spring:message code="position.full-procession" /></p>
 <jstl:if test="${status eq 2}">
 	<acme:textbox code="request.description" path="description"/>
 </jstl:if>

@@ -44,6 +44,8 @@ public class ProcessionService {
 		procession.setRequests(new HashSet<Request>());
 		final Brotherhood brotherhood = new Brotherhood();
 		procession.setBrotherhood(brotherhood);
+		procession.setMaxRows(2);
+		procession.setMaxColumns(3000);
 		return procession;
 	}
 	public Procession findOne(final int processionId) {
@@ -59,6 +61,7 @@ public class ProcessionService {
 			Assert.isTrue(procession.getPositionsColumn().isEmpty() && procession.getPositionsRow().isEmpty());
 			Assert.isTrue(!this.processionRepository.getAllTickers().contains(procession.getTicker()), "Used ticker");
 		} else {
+			Assert.isTrue(this.processionRepository.findOne(procession.getId()).getDraftMode() == 1);
 			final Collection<Procession> allMyProcession = this.processionRepository.getAllProcessionsByBrotherhood(this.brotherhoodService.brotherhoodUserAccount(LoginService.getPrincipal().getId()).getId());
 			Assert.isTrue(allMyProcession.contains(procession));
 		}
@@ -105,7 +108,7 @@ public class ProcessionService {
 	public Collection<Procession> getAllProcessionsByBrotherhood(final int brotherhoodId) {
 		return this.processionRepository.getAllProcessionsByBrotherhood(brotherhoodId);
 	}
-	public Collection<Procession> getAllProcessionsByBrotherhoodFinalMode(int brotherhoodId){
+	public Collection<Procession> getAllProcessionsByBrotherhoodFinalMode(final int brotherhoodId) {
 		return this.processionRepository.getAllProcessionsByBrotherhoodFinalMode(brotherhoodId);
 	}
 
@@ -121,7 +124,6 @@ public class ProcessionService {
 			res.setPositionsRow(new ArrayList<Integer>());
 			res.setRequests(new HashSet<Request>());
 			this.validator.validate(res, binding);
-			return res;
 		} else {
 			res = this.processionRepository.findOne(procession.getId());
 			final Procession p = new Procession();
@@ -136,13 +138,13 @@ public class ProcessionService {
 			p.setPositionsColumn(res.getPositionsColumn());
 			p.setRequests(res.getRequests());
 			p.setBrotherhood(res.getBrotherhood());
-
+			p.setMaxRows(res.getMaxRows());
+			p.setMaxColumns(res.getMaxColumns());
 			this.validator.validate(p, binding);
-			return p;
+			res = p;
 		}
-
+		return res;
 	}
-
 	public Collection<String> procession() {
 		return this.processionRepository.processions();
 	}

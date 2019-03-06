@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -79,7 +80,7 @@ public class RequestService {
 				Assert.isTrue(request.getDescription() != null && !(request.getDescription() == ""), "RequestService. You need to write a description to rejected request.");
 			if (request.getStatus() == 0) {
 
-				final Request comprobrarRowAndColumn = this.requestRepository.getRequestWithThisRowAndColumn(request.getRow(), request.getColumna());
+				final Request comprobrarRowAndColumn = this.requestRepository.getRequestWithThisRowAndColumn(request.getRow(), request.getColumna(), request.getProcession().getId());
 				Assert.isNull(comprobrarRowAndColumn);
 				Assert.isTrue(request.getColumna() >= 0 && request.getColumna() != null && request.getRow() >= 0 && request.getRow() != null, "RequestService. No valid request. Column or Row must be a integer bigger than -1");
 			}
@@ -94,13 +95,13 @@ public class RequestService {
 			this.memberService.save(miembroRequest);
 		} else {
 			final Procession p = this.processionService.findOne(savedRequest.getProcession().getId());
-			final List<Integer> r = p.getPositionsRow();
+			final List<Integer> r = new ArrayList<Integer>(p.getPositionsRow());
 			r.add(savedRequest.getRow());
-			final List<Integer> c = p.getPositionsColumn();
+			final List<Integer> c = new ArrayList<Integer>(p.getPositionsColumn());
 			c.add(savedRequest.getColumna());
 			p.setPositionsRow(r);
 			p.setPositionsColumn(c);
-			this.processionService.save(p);
+			//this.processionService.save(p);
 		}
 		return savedRequest;
 	}
@@ -124,30 +125,9 @@ public class RequestService {
 			res.setMember(this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId()));
 			final Procession procession = this.processionService.findOne(request.getProcession().getId());
 			Assert.notNull(procession, "RequestService. Procession no valid.");
-			//			Boolean recomendacionEncontrada = false;
-			//			Integer recomendar = 0;
-			//			final List<Integer> filas = procession.getPositionsRow();
-			//			final List<Integer> columnas = procession.getPositionsColumn();
-			//
-			//			for (int xy = 0; xy < filas.size(); xy++) {
-			//				if (recomendar < filas.get(xy))
-			//					recomendar = filas.get(xy);
-			//				if (recomendar < columnas.get(xy))
-			//					recomendar = columnas.get(xy);
-			//			}
-			//			while (recomendacionEncontrada == false) {
-			//				recomendar += 1;
-			//				final Request comprobrarRowAndColumn = this.requestRepository.getRequestWithThisRowAndColumn(recomendar, recomendar);
-			//				if (comprobrarRowAndColumn == null) {
-			//					recomendacionEncontrada = true;
-			//					res.setRow(recomendar);
-			//					res.setColumna(recomendar);
-			//				}
-			//			}
 			res.setStatus(1);
-
 			this.validator.validate(res, binding);
-			return res;
+
 		} else {
 			res = this.requestRepository.findOne(request.getId());
 			final Request p = new Request();
@@ -159,14 +139,16 @@ public class RequestService {
 			if (request.getStatus() == 0) {
 				final Procession procession = this.processionService.findOne(res.getProcession().getId());
 				final List<Integer> filas = procession.getPositionsRow();
-				final List<Integer> columnas = procession.getPositionsColumn();
-				for (int xy = 0; xy < filas.size(); xy++)
-					if (filas.get(xy) == request.getRow() && columnas.get(xy) == request.getColumna())
-						Assert.notNull(null);
-				Assert.notNull(request.getRow());
-				Assert.notNull(request.getColumna());
+				Assert.isTrue(procession.getMaxRows() > request.getRow() && procession.getMaxColumns() > request.getColumna());
+				if (!filas.isEmpty()) {
+					final List<Integer> columnas = procession.getPositionsColumn();
+					for (int xy = 0; xy < filas.size(); xy++)
+						if (filas.get(xy) == request.getRow() && columnas.get(xy) == request.getColumna())
+							Assert.notNull(null);
+				}
 				p.setRow(request.getRow());
 				p.setColumna(request.getColumna());
+				Assert.isTrue(request.getRow() < procession.getMaxRows() && request.getColumna() < procession.getMaxColumns());
 			} else if (request.getStatus() == 2) {
 				p.setDescription(request.getDescription());
 				Assert.isTrue(p.getDescription() != null && p.getDescription() != "");
@@ -175,15 +157,15 @@ public class RequestService {
 			} else
 				Assert.notNull(null);
 			this.validator.validate(p, binding);
-			return p;
+			res = p;
 		}
-
+		return res;
 	}
 	public Collection<Request> getAllMyRequest(final int memberId) {
 		return this.requestRepository.getAllMyRequest(memberId);
 	}
-	public Request getRequestWithThisRowAndColumn(final Integer recomendar, final Integer recomendar2) {
-		return this.requestRepository.getRequestWithThisRowAndColumn(recomendar, recomendar2);
+	public Request getRequestWithThisRowAndColumn(final Integer row, final Integer column, final int processionId) {
+		return this.requestRepository.getRequestWithThisRowAndColumn(row, column, processionId);
 	}
 
 	public Double pendingRatio() {

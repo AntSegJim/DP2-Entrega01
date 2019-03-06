@@ -21,6 +21,8 @@
 <spring:message code="procession.title"/>: ${procession.title}<br>
 <spring:message code="procession.moment"/>: ${procession.moment}<br>
 <spring:message code="procession.description"/>: ${procession.description}<br>
+<spring:message code="procession.rows"/>: ${procession.maxRows}<br>
+<spring:message code="procession.columns"/>: ${procession.maxColumns}<br>
 <spring:message code="procession.draftMode"/>: 
 <jstl:if test="${procession.draftMode eq 1 }">
 <spring:message code="procession.draftMode.Yes"/>

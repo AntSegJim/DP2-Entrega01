@@ -369,7 +369,9 @@
 				<value>12</value>
 				<value>0</value>
 			</list>
-		</property>	
+		</property>
+		<property name="maxRows" value ="2"/>
+		<property name="maxColumns" value ="500"/>
 	</bean>	
 	
 	<bean id="procession2" class="domain.Procession">
@@ -391,6 +393,8 @@
 				<value>0</value>
 			</list>
 		</property>	
+		<property name="maxRows" value ="3"/>
+		<property name="maxColumns" value ="3000"/>
 	</bean>	
 	
 	<bean id="procession3" class="domain.Procession">
@@ -412,6 +416,8 @@
 				<value>0</value>
 			</list>
 		</property>
+		<property name="maxRows" value ="5"/>
+		<property name="maxColumns" value ="1000"/>
 	</bean>	
 	
 	<!-- Request -->
