@@ -17,35 +17,33 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="brotherhood/edit.do" modelAttribute="brotherhood">
+<form:form action="brotherhood/edit.do" modelAttribute="registrationForm">
 <jstl:if test="${not empty exception}">
 		<p style="color:red"> <spring:message code="administrator.error" /> </p>
 </jstl:if>
 	<form:hidden path="id"/>
 	<form:hidden path="version" />
-	<form:hidden path="userAccount.authorities" />
-	<form:hidden path="pictures" />
+	
+	
 	
 	<fieldset>
 	<legend><spring:message code="administrator.personalDatas" /></legend>
 	
 	<acme:textbox code="administrator.name" path="name"/>
-	<br />
+	
 	
 	<acme:textbox code="administrator.middleName" path="middleName"/>
-	<br />
+	
 	
 	<acme:textbox code="administrator.surname" path="surname"/>
-	<br />
 		
 	<acme:textbox code="administrator.photo" path="photo"/>	
-	<br />
-	
+		
 	<acme:textbox code="administrator.email" path="email"/>	
-	<br />
+	
 	
 	<acme:textbox code="administrator.phone" path="phone"/>	
-	<br />
+
 	
 	<acme:textbox code="administrator.adress" path="address"/>	
 	<br />
@@ -64,10 +62,29 @@
 	 <legend><spring:message code="administrator.userAccount" /></legend>
 	<acme:textbox code="administrator.username" path="userAccount.username"/>	
 	<acme:password code="administrator.password" path="userAccount.password"/>
+	<acme:password code="administrator.confirmation.password" path="password"/>
 	</fieldset>
 	<br />
 	
-	<acme:submit name="save" code="administrator.save"/>
+	<acme:checkbox code="Terminos.Condiciones" path="check" />
+	<a  target="_blank" href="https://www.google.com/"><spring:message code="Terminos.Condiciones" /></a> 
+	
+	<input type="submit" name="save" 
+	value="<spring:message code="administrator.save" />" />
 	<acme:cancel url="welcome/index.do" code="administrator.cancel"/>
 	
 </form:form>
+
+<script>
+$( document ).ready(function() {
+	document.getElementById("checkbox").value='false';
+	document.getElementById("checkbox").checked=false;
+});
+$( '#checkbox' ).on( 'click', function() {
+    if( $(this).is(':checked') ){
+        document.getElementById("checkbox").value='true';
+    } else {
+    	document.getElementById("checkbox").value='false';
+    }
+});
+</script>

@@ -21,7 +21,6 @@ import repositories.BrotherhoodRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
 import domain.Brotherhood;
 import domain.Picture;
 import forms.RegistrationFormBrotherhood;
@@ -171,9 +170,9 @@ public class BrotherhoodService {
 		return this.brotherhoodRepo.getSmallestBrotherhoods();
 	}
 	public Brotherhood reconstruct(final RegistrationFormBrotherhood registrationForm, final BindingResult binding) {
-		final Brotherhood res = new Brotherhood();
+		Brotherhood res = new Brotherhood();
 
-		if (registrationForm.getUserAccount().getId() == 0) {
+		if (registrationForm.getId() == 0) {
 			res.setId(registrationForm.getUserAccount().getId());
 			res.setVersion(registrationForm.getVersion());
 			res.setAddress(registrationForm.getAddress());
@@ -183,27 +182,44 @@ public class BrotherhoodService {
 			res.setPhone(registrationForm.getPhone());
 			res.setPhoto(registrationForm.getPhoto());
 			res.setSurname(registrationForm.getSurname());
-			res.setUserAccount(registrationForm.getUserAccount());
+			final Authority ad = new Authority();
+			final UserAccount user = new UserAccount();
+			user.setAuthorities(new HashSet<Authority>());
+			ad.setAuthority(Authority.BROTHERHOOD);
+			user.getAuthorities().add(ad);
+			res.setUserAccount(user);
+			user.setUsername(registrationForm.getUserAccount().getUsername());
+			user.setPassword(registrationForm.getUserAccount().getPassword());
+
+			res.setPictures(new HashSet<Picture>());
+			res.setTitle(registrationForm.getTitle());
+			res.setEstablishmentDate(registrationForm.getEstablishmentDate());
 
 			this.validator.validate(res, binding);
-			return res;
+
 		} else {
-			final Actor a = this.actorService.getActorByUserAccount(registrationForm.getUserAccount().getId());
 
-			res.setId(a.getId());
-			res.setVersion(a.getVersion());
-			res.setAddress(a.getAddress());
-			res.setEmail(a.getEmail());
-			res.setMiddleName(a.getMiddleName());
-			res.setName(a.getName());
-			res.setPhone(a.getPhone());
-			res.setPhoto(a.getPhoto());
-			res.setSurname(a.getSurname());
-			res.setUserAccount(a.getUserAccount());
+			res = this.brotherhoodRepo.findOne(registrationForm.getId());
+			final Brotherhood p = new Brotherhood();
+			p.setId(res.getId());
+			p.setVersion(res.getVersion());
+			p.setAddress(res.getAddress());
+			p.setEmail(res.getEmail());
+			p.setMiddleName(res.getMiddleName());
+			p.setName(res.getName());
+			p.setPhone(res.getPhone());
+			p.setPhoto(res.getPhoto());
+			p.setSurname(res.getSurname());
+			p.setUserAccount(res.getUserAccount());
+			p.setPictures(res.getPictures());
+			p.setTitle(registrationForm.getTitle());
+			p.setEstablishmentDate(registrationForm.getEstablishmentDate());
 
-			this.validator.validate(res, binding);
-			return res;
+			this.validator.validate(p, binding);
+			res = p;
+
 		}
+		return res;
 
 	}
 

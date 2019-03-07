@@ -52,8 +52,7 @@
 	<input type="submit" name="save" 
 	value="<spring:message code="administrator.save" />" />
 
-<input type="button" name="cancel" value="<spring:message code="administrator.cancel" />"
-			onclick="javascript: relativeRedir('welcome/index.do');" />
+<acme:cancel url="welcome/index.do" code="administrator.cancel"/>
 	
 </form:form>
 
