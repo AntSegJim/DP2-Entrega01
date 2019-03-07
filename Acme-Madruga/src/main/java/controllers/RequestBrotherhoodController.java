@@ -45,9 +45,9 @@ public class RequestBrotherhoodController extends AbstractController {
 				result = new ModelAndView("request/list");
 				result.addObject("requests", requests);
 			} else
-				result = new ModelAndView("redirect:procession/brotherhood/list.do");
+				result = new ModelAndView("redirect:../../procession/brotherhood/list.do");
 		} catch (final Exception e) {
-			result = new ModelAndView("redirect:procession/brotherhood/list.do");
+			result = new ModelAndView("redirect:../../procession/brotherhood/list.do");
 		}
 
 		return result;
@@ -107,7 +107,7 @@ public class RequestBrotherhoodController extends AbstractController {
 				Assert.isTrue(false);
 
 		} catch (final Exception e) {
-			result = new ModelAndView("redirect:procession/brotherhood/list.do");
+			result = new ModelAndView("redirect:../../procession/brotherhood/list.do");
 		}
 		return result;
 	}
@@ -146,7 +146,7 @@ public class RequestBrotherhoodController extends AbstractController {
 				result.addObject("status", 2);
 				result.addObject("exception", 2);
 			} else
-				result = new ModelAndView("redirect:procession/brotherhood/list.do");
+				result = new ModelAndView("redirect:../../procession/brotherhood/list.do");
 		}
 		return result;
 
