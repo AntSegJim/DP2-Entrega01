@@ -41,13 +41,14 @@ public class PictureService {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		final Picture res = this.PRepo.findOne(PictureId);
+		Assert.isTrue(br.getPictures().contains(res) || this.getPicturesFloatByBrotherhood(br.getId()).contains(res));
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
 
 		return res;
 	}
 	//Metodo save
 	public Picture save(final Picture picture) {
-		//Que la iamgen que se va a guardar no se nulla y la url de la iamgen no sea nula
+		//Que la iamgen que se va a guardar no se nulla y la url de la imagen no sea nula
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		//final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
@@ -64,7 +65,10 @@ public class PictureService {
 	//Metodo delete
 	public void delete(final Picture picture) {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+		Assert.isTrue(br.getPictures().contains(picture));
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
+
 		this.PRepo.delete(picture);
 	}
 

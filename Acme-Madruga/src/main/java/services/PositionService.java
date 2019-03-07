@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.PosicionRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Posicion;
 
 @Service
@@ -41,6 +43,10 @@ public class PositionService {
 	}
 
 	public Posicion save(final Posicion p) {
+
+		final UserAccount user = LoginService.getPrincipal();
+		Assert.notNull(user.getAuthorities().iterator().next().getAuthority().equals("ADMIN"));
+
 		Posicion res;
 
 		Assert.notNull(p.getSpanishName() != null && p.getSpanishName() != "", "No debe tener un idioma vacio");
@@ -57,6 +63,9 @@ public class PositionService {
 	}
 
 	public void delete(final Posicion p) {
+
+		final UserAccount user = LoginService.getPrincipal();
+		Assert.notNull(user.getAuthorities().iterator().next().getAuthority().equals("ADMIN"));
 
 		final Collection<String> usedNames = this.getUsedNames();
 		Assert.isTrue(!usedNames.contains(p.getName()));

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.NotificationRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Notification;
 
 @Service
@@ -39,6 +41,10 @@ public class NotificationService {
 	}
 
 	public Notification save(final Notification n) {
+
+		final UserAccount user = LoginService.getPrincipal();
+		Assert.notNull(user.getAuthorities().iterator().next().getAuthority().equals("ADMIN"));
+
 		Notification res;
 
 		Assert.notNull(n.getBody() != null && n.getBody() != "", "No debe tener un cuerpo vacio");

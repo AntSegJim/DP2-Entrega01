@@ -52,10 +52,14 @@ public class FloatBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int floatId) {
 		ModelAndView result;
-		Paso paso;
-		paso = this.floatService.findOne(floatId);
-		result = new ModelAndView("float/show");
-		result.addObject("paso", paso);
+		try {
+			Paso paso;
+			paso = this.floatService.findOne(floatId);
+			result = new ModelAndView("float/show");
+			result.addObject("paso", paso);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:list.do");
+		}
 		return result;
 	}
 

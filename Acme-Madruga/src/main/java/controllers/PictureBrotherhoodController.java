@@ -54,16 +54,19 @@ public class PictureBrotherhoodController extends AbstractController {
 	//Imagenes de un Float(Paso)
 	@RequestMapping(value = "/picturesFloat", method = RequestMethod.GET)
 	public ModelAndView picturesFloat(@RequestParam final int floatId) {
-		final ModelAndView result;
-		final Collection<Picture> pictures;
+		ModelAndView result;
+		try {
+			final Collection<Picture> pictures;
 
-		final Paso fl = this.floatService.findOne(floatId);
-		pictures = fl.getPictures();
+			final Paso fl = this.floatService.findOne(floatId);
+			pictures = fl.getPictures();
 
-		result = new ModelAndView("picture/picturesFloat");
-		result.addObject("pictures", pictures);
-		result.addObject("paso", fl);
-
+			result = new ModelAndView("picture/picturesFloat");
+			result.addObject("pictures", pictures);
+			result.addObject("paso", fl);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+		}
 		return result;
 	}
 

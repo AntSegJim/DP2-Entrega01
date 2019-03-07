@@ -63,6 +63,8 @@ public class FloatService {
 	//Metodo save
 	public Paso save(final Paso paso) {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
+		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+		Assert.isTrue(br.equals(paso.getBrotherhood()));
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
 		Assert.isTrue(paso.getTitle() != null);
 		Assert.isTrue(paso != null);
@@ -77,7 +79,7 @@ public class FloatService {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
-		Assert.isTrue(br.equals(paso.getBrotherhood()));
+		Assert.isTrue(br.getId() == paso.getBrotherhood().getId());
 		this.FRepo.delete(paso);
 	}
 
