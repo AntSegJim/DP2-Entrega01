@@ -57,7 +57,7 @@ public class NotificationAdministratorController {
 		try {
 			if (!binding.hasErrors()) {
 				this.notificationService.save(notification);
-				result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga/notification/actor/list.do");
+				result = new ModelAndView("redirect:../../notification/actor/list.do");
 			} else {
 				result = new ModelAndView("notification/edit");
 				result.addObject("notification", notification);
