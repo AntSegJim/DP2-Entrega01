@@ -65,13 +65,12 @@ public class PictureService {
 	//Metodo delete
 	public void delete(final Picture picture) {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
-		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
-		Assert.isTrue(br.getPictures().contains(picture));
+		//final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+		//Assert.isTrue(br.getPictures().contains(picture));
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
 
 		this.PRepo.delete(picture);
 	}
-
 	public Collection<Picture> getPicturesFloatByBrotherhood(final Integer id) {
 		return this.PRepo.getPicturesFloatByBrotherhood(id);
 	}

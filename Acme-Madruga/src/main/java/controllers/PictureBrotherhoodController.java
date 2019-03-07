@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import security.UserAccount;
+import services.ActorService;
 import services.BrotherhoodService;
 import services.FloatService;
 import services.PictureService;
@@ -33,6 +34,8 @@ public class PictureBrotherhoodController extends AbstractController {
 	private FloatService		floatService;
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+	@Autowired
+	private ActorService		actorS;
 
 
 	//Imagenes de una Brotherhood(Hermandad)
@@ -65,7 +68,7 @@ public class PictureBrotherhoodController extends AbstractController {
 			result.addObject("pictures", pictures);
 			result.addObject("paso", fl);
 		} catch (final Exception e) {
-			result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+			result = new ModelAndView("redirect:../../float/brotherhood/list.do");
 		}
 		return result;
 	}
@@ -95,7 +98,7 @@ public class PictureBrotherhoodController extends AbstractController {
 			result = new ModelAndView("picture/editPictureBrotherhood");
 			result.addObject("picture", picture);
 		} catch (final Exception e) {
-			result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+			result = new ModelAndView("redirect:picturesBrotherhood.do");
 		}
 		return result;
 	}
@@ -153,7 +156,7 @@ public class PictureBrotherhoodController extends AbstractController {
 			result.addObject("picture", picture);
 			result.addObject("paso", fl);
 		} catch (final Exception e) {
-			result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+			result = new ModelAndView("redirect:../../float/brotherhood/list.do");
 		}
 		return result;
 	}
@@ -173,7 +176,7 @@ public class PictureBrotherhoodController extends AbstractController {
 			result.addObject("picture", picture);
 			result.addObject("paso", paso);
 		} catch (final Exception e) {
-			result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+			result = new ModelAndView("redirect:../../float/brotherhood/list.do");
 		}
 
 		return result;

@@ -162,10 +162,11 @@ public class FloatBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Paso paso, final BindingResult binding) {
 		ModelAndView result;
-		try {
+
+		if (!binding.hasErrors()) {
 			this.floatService.delete(paso);
 			result = new ModelAndView("redirect:list.do");
-		} catch (final Throwable oops) {
+		} else {
 			Collection<Procession> processions;
 			final UserAccount user = LoginService.getPrincipal();
 			final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
@@ -174,6 +175,20 @@ public class FloatBrotherhoodController extends AbstractController {
 			result.addObject("paso", paso);
 			result.addObject("processions", processions);
 		}
+		/*
+		 * try {
+		 * this.floatService.delete(paso);
+		 * result = new ModelAndView("redirect:list.do");
+		 * } catch (final Throwable oops) {
+		 * Collection<Procession> processions;
+		 * final UserAccount user = LoginService.getPrincipal();
+		 * final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
+		 * processions = this.processionService.getAllProcessionsByBrotherhoodFinalMode(br.getId());
+		 * result = new ModelAndView("float/edit");
+		 * result.addObject("paso", paso);
+		 * result.addObject("processions", processions);
+		 * }
+		 */
 		return result;
 
 	}
