@@ -59,18 +59,21 @@ public class PosicionAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int positionId) {
+	public ModelAndView edit(@RequestParam final Integer positionId) {
 		ModelAndView result;
-		final Posicion position;
+		try {
+			final Posicion position;
 
-		position = this.posicionService.findOne(positionId);
+			position = this.posicionService.findOne(positionId);
+			Assert.notNull(position);
 
-		result = new ModelAndView("position/edit");
-		result.addObject("position", position);
-
+			result = new ModelAndView("position/edit");
+			result.addObject("position", position);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:list.do");
+		}
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView edit(@ModelAttribute("position") @Valid final Posicion position, final BindingResult binding) {
 		ModelAndView result;

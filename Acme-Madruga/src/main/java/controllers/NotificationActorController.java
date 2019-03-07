@@ -41,14 +41,20 @@ public class NotificationActorController extends AbstractController {
 	}
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final Integer notificationId) {
-		final ModelAndView result;
-		final Notification notification;
+		ModelAndView result;
+		try {
 
-		notification = this.notificationService.findOne(notificationId);
-		Assert.notNull(notification);
+			final Notification notification;
 
-		result = new ModelAndView("notification/show");
-		result.addObject("notification", notification);
+			notification = this.notificationService.findOne(notificationId);
+			Assert.notNull(notification);
+
+			result = new ModelAndView("notification/show");
+			result.addObject("notification", notification);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:list.do");
+		}
+
 		return result;
 
 	}

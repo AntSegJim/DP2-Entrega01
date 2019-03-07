@@ -39,7 +39,8 @@ public class PositionService {
 	}
 
 	public Posicion findOne(final Integer id) {
-		return this.positionRepository.findOne(id);
+		final Posicion res = this.positionRepository.findOne(id);
+		return res;
 	}
 
 	public Posicion save(final Posicion p) {

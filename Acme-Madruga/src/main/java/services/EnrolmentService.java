@@ -104,6 +104,7 @@ public class EnrolmentService {
 		res = this.enrolmentRepository.save(enrolment);
 		return res;
 	}
+
 	//RECONSTRUCT
 	public Enrolment reconstruct(final Enrolment enrolment, final BindingResult binding) {
 		Enrolment res;

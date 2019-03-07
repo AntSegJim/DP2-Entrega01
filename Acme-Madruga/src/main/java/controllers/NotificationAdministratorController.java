@@ -38,18 +38,22 @@ public class NotificationAdministratorController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int notificationId) {
+	public ModelAndView edit(@RequestParam final Integer notificationId) {
 		ModelAndView result;
-		final Notification notification;
+		try {
+			final Notification notification;
 
-		notification = this.notificationService.findOne(notificationId);
+			notification = this.notificationService.findOne(notificationId);
+			Assert.notNull(notification);
 
-		result = new ModelAndView("notification/edit");
-		result.addObject("notification", notification);
+			result = new ModelAndView("notification/edit");
+			result.addObject("notification", notification);
 
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../notification/actor/list.do");
+		}
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView edit(@Valid final Notification notification, final BindingResult binding) {
 		ModelAndView result;
