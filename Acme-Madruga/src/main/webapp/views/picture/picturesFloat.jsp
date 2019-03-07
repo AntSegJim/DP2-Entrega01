@@ -15,6 +15,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
 <security:authorize access="hasRole('BROTHERHOOD')">
 
 <display:table pagesize="5" name="pictures" id="row"
@@ -26,6 +28,7 @@ requestURI="picture/brotherhood/picturesFloat.do?floatId=${paso.id}" >
 </display:table>
 
 <a href="picture/brotherhood/createPictureFloat.do?floatId=${paso.id}" ><spring:message code="picture.create" /></a>
+<acme:cancel url="float/brotherhood/list.do" code="picture.cancel"/>
 </security:authorize>
 
 

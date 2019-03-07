@@ -51,8 +51,6 @@
 			<li><a href="enrolment/member/list.do"><spring:message code="master.page.enrolment" /></a></li>
 			<li><a href="brotherhood/member/list-member-belongs.do"><spring:message code="master.page.Brotherhood.list.Member" /></a></li>
 		
-			<li><a class="fNiv"><spring:message	code="master.page.member" /></a>
-			</li>
 			<li><a class="fNiv" href="request/member/list.do"><spring:message code="master.page.member.request" /></a></li>
 			<li><a href="brotherhood/list.do"><spring:message code="master.page.brotherhood.Tour" /></a></li>
 		</security:authorize>
