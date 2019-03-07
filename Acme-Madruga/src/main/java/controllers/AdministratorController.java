@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -200,6 +201,7 @@ public class AdministratorController extends AbstractController {
 
 				result = new ModelAndView("administrator/create");
 				result.addObject("registrationForm", registrationForm);
+				Assert.isTrue(registrationForm.getPassword().equals(registrationForm.getUserAccount().getPassword()));
 			}
 		} catch (final Exception e) {
 			result = new ModelAndView("administrator/create");

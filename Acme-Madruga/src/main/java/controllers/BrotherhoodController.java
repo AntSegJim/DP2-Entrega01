@@ -84,7 +84,7 @@ public class BrotherhoodController extends AbstractController {
 			brotherhood = this.brotherhoodService.reconstruct(registrationForm, binding);
 			if (!binding.hasErrors() && registrationForm.getUserAccount().getPassword().equals(registrationForm.getPassword())) {
 				this.brotherhoodService.save(brotherhood);
-				result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+				result = new ModelAndView("redirect:/");
 			} else {
 
 				result = new ModelAndView("brotherhood/create");
