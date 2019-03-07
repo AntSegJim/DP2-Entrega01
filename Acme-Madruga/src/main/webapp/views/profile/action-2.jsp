@@ -48,9 +48,21 @@
 	
 	<acme:password code="profile.pass1" path="userAccount.password"/>
 	
+	<security:authorize access="hasRole('MEMBER')">
 	<acme:password code="profile.pass2" path="password2"/>
+	</security:authorize>
+	
+	
+	<security:authorize access="hasAnyRole('BROTHERHOOD,ADMIN')">
+	
+	<acme:password code="profile.pass2" path="password"/>
+	
+	</security:authorize>
+	
 	
 	<security:authorize access="hasRole('BROTHERHOOD')">
+	
+
 	<acme:textbox code="profile.brotherhood.title" path="title"/>
 	
 	<acme:textbox code="profile.brotherhood.establishmentDate" path="establishmentDate"/>

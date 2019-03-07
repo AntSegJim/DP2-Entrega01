@@ -20,7 +20,6 @@ import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
 import domain.Administrator;
 import forms.RegistrationForm;
 
@@ -131,10 +130,14 @@ public class AdministratorService {
 		return res;
 	}
 
-	public Administrator reconstruct(final RegistrationForm registrationForm, final BindingResult binding) {
-		final Administrator res = new Administrator();
+	public Administrator getAdministratorByUserAccount(final int userAccountId) {
+		return this.adminRepo.getAdministratorByUserAccount(userAccountId);
+	}
 
-		if (registrationForm.getUserAccount().getId() == 0) {
+	public Administrator reconstruct(final RegistrationForm registrationForm, final BindingResult binding) {
+		Administrator res = new Administrator();
+
+		if (registrationForm.getId() == 0) {
 			res.setId(registrationForm.getUserAccount().getId());
 			res.setVersion(registrationForm.getVersion());
 			res.setAddress(registrationForm.getAddress());
@@ -147,24 +150,35 @@ public class AdministratorService {
 			res.setUserAccount(registrationForm.getUserAccount());
 
 			this.validator.validate(res, binding);
-			return res;
-		} else {
-			final Actor a = this.actorService.getActorByUserAccount(registrationForm.getUserAccount().getId());
 
-			res.setId(a.getId());
-			res.setVersion(a.getVersion());
-			res.setAddress(a.getAddress());
-			res.setEmail(a.getEmail());
-			res.setMiddleName(a.getMiddleName());
-			res.setName(a.getName());
-			res.setPhone(a.getPhone());
-			res.setPhoto(a.getPhoto());
-			res.setSurname(a.getSurname());
-			res.setUserAccount(a.getUserAccount());
+		} else {
+			Assert.isTrue(registrationForm.getPassword().equals(registrationForm.getUserAccount().getPassword()));
+			res = this.adminRepo.findOne(registrationForm.getId());
+			final Administrator a = new Administrator();
+			a.setId(res.getId());
+			a.setVersion(res.getVersion());
+			a.setAddress(registrationForm.getAddress());
+			a.setEmail(registrationForm.getEmail());
+			a.setMiddleName(registrationForm.getMiddleName());
+			a.setName(registrationForm.getName());
+			a.setPhone(registrationForm.getPhone());
+			a.setPhoto(registrationForm.getPhoto());
+			a.setSurname(registrationForm.getSurname());
+			if (registrationForm.getPassword().equals("") || registrationForm.getPassword() == null)
+				a.setUserAccount(res.getUserAccount());
+			else {
+				final UserAccount user = res.getUserAccount();
+				final Md5PasswordEncoder encoder;
+				encoder = new Md5PasswordEncoder();
+				final String hash = encoder.encodePassword(registrationForm.getPassword(), null);
+				user.setPassword(hash);
+				a.setUserAccount(user);
+			}
 
 			this.validator.validate(res, binding);
-			return res;
+			res = a;
 		}
+		return res;
 	}
 
 	public Administrator reconstruct(final Administrator administrator, final BindingResult binding) {
