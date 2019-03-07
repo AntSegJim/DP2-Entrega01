@@ -14,13 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.BrotherhoodRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.Brotherhood;
 import domain.Picture;
+import forms.RegistrationFormBrotherhood;
 
 @Service
 @Transactional
@@ -37,6 +41,11 @@ public class BrotherhoodService {
 
 	@Autowired
 	private CustomizableSystemService	customizableService;
+
+																;
+
+	@Autowired
+	private Validator					validator;
 
 
 	//Metodos CRUD
@@ -160,6 +169,42 @@ public class BrotherhoodService {
 
 	public Collection<String> getSmallestBrotherhoods() {
 		return this.brotherhoodRepo.getSmallestBrotherhoods();
+	}
+	public Brotherhood reconstruct(final RegistrationFormBrotherhood registrationForm, final BindingResult binding) {
+		final Brotherhood res = new Brotherhood();
+
+		if (registrationForm.getUserAccount().getId() == 0) {
+			res.setId(registrationForm.getUserAccount().getId());
+			res.setVersion(registrationForm.getVersion());
+			res.setAddress(registrationForm.getAddress());
+			res.setEmail(registrationForm.getEmail());
+			res.setMiddleName(registrationForm.getMiddleName());
+			res.setName(registrationForm.getName());
+			res.setPhone(registrationForm.getPhone());
+			res.setPhoto(registrationForm.getPhoto());
+			res.setSurname(registrationForm.getSurname());
+			res.setUserAccount(registrationForm.getUserAccount());
+
+			this.validator.validate(res, binding);
+			return res;
+		} else {
+			final Actor a = this.actorService.getActorByUserAccount(registrationForm.getUserAccount().getId());
+
+			res.setId(a.getId());
+			res.setVersion(a.getVersion());
+			res.setAddress(a.getAddress());
+			res.setEmail(a.getEmail());
+			res.setMiddleName(a.getMiddleName());
+			res.setName(a.getName());
+			res.setPhone(a.getPhone());
+			res.setPhoto(a.getPhoto());
+			res.setSurname(a.getSurname());
+			res.setUserAccount(a.getUserAccount());
+
+			this.validator.validate(res, binding);
+			return res;
+		}
+
 	}
 
 }
