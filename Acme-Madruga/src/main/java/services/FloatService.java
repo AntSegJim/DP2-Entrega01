@@ -57,6 +57,7 @@ public class FloatService {
 
 		final Paso res = this.FRepo.findOne(floatId);
 		final Brotherhood brFloat = res.getBrotherhood();
+		Assert.isTrue(this.getFloatsByBrotherhood(br.getId()).contains(res));
 		Assert.isTrue(br.equals(brFloat));
 		return res;
 	}
@@ -79,7 +80,8 @@ public class FloatService {
 		final UserAccount user = this.actorS.getActorLogged().getUserAccount();
 		final Brotherhood br = this.brotherhoodService.brotherhoodUserAccount(user.getId());
 		Assert.isTrue(user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD"));
-		Assert.isTrue(br.getId() == paso.getBrotherhood().getId());
+		//Assert.isTrue(br.getId() == paso.getBrotherhood().getId());
+		Assert.isTrue(this.getFloatsByBrotherhood(br.getId()).contains(paso));
 		this.FRepo.delete(paso);
 	}
 
