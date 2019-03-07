@@ -99,21 +99,21 @@ public class ProfileController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit-administrator", method = RequestMethod.POST, params = "save")
-	public ModelAndView editAdministrator(@Valid final Administrator administrator, final BindingResult binding) {
+	public ModelAndView editAdministrator(final Administrator administrator, final BindingResult binding) {
 		ModelAndView result;
+		final Administrator admin = this.adminService.reconstruct(administrator, binding);
 		try {
-
 			if (!binding.hasErrors()) {
-				this.adminService.save(administrator);
+				this.adminService.save(admin);
 
 				result = new ModelAndView("redirect:personal-datas.do");
 			} else {
 				result = new ModelAndView("profile/editAdmin");
-				result.addObject("actor", administrator);
+				result.addObject("actor", admin);
 			}
 		} catch (final Exception e) {
 			result = new ModelAndView("profile/editAdmin");
-			result.addObject("actor", administrator);
+			result.addObject("actor", admin);
 			result.addObject("exception", e);
 
 		}

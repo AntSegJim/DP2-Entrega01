@@ -165,6 +165,41 @@ public class AdministratorService {
 			this.validator.validate(res, binding);
 			return res;
 		}
+	}
+
+	public Administrator reconstruct(final Administrator administrator, final BindingResult binding) {
+		Administrator res;
+
+		if (administrator.getId() == 0) {
+			res = administrator;
+			final Authority ad = new Authority();
+			final UserAccount user = new UserAccount();
+			user.setAuthorities(new HashSet<Authority>());
+			ad.setAuthority(Authority.ADMIN);
+			user.getAuthorities().add(ad);
+			res.setUserAccount(user);
+			user.setUsername(administrator.getUserAccount().getUsername());
+			user.setPassword(administrator.getUserAccount().getPassword());
+
+			this.validator.validate(res, binding);
+			return res;
+		} else {
+			res = this.adminRepo.findOne(administrator.getId());
+			final Administrator p = new Administrator();
+			p.setId(res.getId());
+			p.setVersion(res.getVersion());
+			p.setAddress(administrator.getAddress());
+			p.setEmail(administrator.getEmail());
+			p.setMiddleName(administrator.getMiddleName());
+			p.setName(administrator.getName());
+			p.setPhone(administrator.getPhone());
+			p.setPhoto(administrator.getPhoto());
+			p.setSurname(administrator.getSurname());
+			p.setUserAccount(res.getUserAccount());
+
+			this.validator.validate(p, binding);
+			return p;
+		}
 
 	}
 }

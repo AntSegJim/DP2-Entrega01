@@ -31,7 +31,7 @@
 <form:label path="name"><spring:message code="profile.action.3.changePersonalData" />:</form:label><br /><br />
 	<form:hidden path="id"/>
 	<form:hidden path="version" />
-	<form:hidden path="userAccount" />
+	
 	
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<form:hidden path="pictures" />

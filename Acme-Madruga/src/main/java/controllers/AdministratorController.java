@@ -26,6 +26,7 @@ import security.Authority;
 import security.UserAccount;
 import services.AdministratorService;
 import services.BrotherhoodService;
+import services.CustomizableSystemService;
 import services.MemberService;
 import services.PositionService;
 import services.ProcessionService;
@@ -38,22 +39,25 @@ import forms.RegistrationForm;
 public class AdministratorController extends AbstractController {
 
 	@Autowired
-	private PositionService			positionService;
+	private PositionService				positionService;
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ProcessionService			processionService;
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService			brotherhoodService;
 
 	@Autowired
-	private AdministratorService	administratorService;
+	private AdministratorService		administratorService;
 
 	@Autowired
-	private RequestService			requestService;
+	private RequestService				requestService;
 
 	@Autowired
-	private MemberService			memberService;
+	private MemberService				memberService;
+
+	@Autowired
+	private CustomizableSystemService	customizableService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -157,7 +161,8 @@ public class AdministratorController extends AbstractController {
 		registrationForm.setSurname("");
 		registrationForm.setPhoto("");
 		registrationForm.setEmail("");
-		registrationForm.setPhone("");
+		final String telephoneCode = this.customizableService.getTelephoneCode();
+		registrationForm.setPhone(telephoneCode + " ");
 		registrationForm.setAddress("");
 		registrationForm.setPassword("");
 
@@ -190,16 +195,16 @@ public class AdministratorController extends AbstractController {
 			administrator = this.administratorService.reconstruct(registrationForm, binding);
 			if (!binding.hasErrors() && registrationForm.getUserAccount().getPassword().equals(registrationForm.getPassword())) {
 				this.administratorService.save(administrator);
-				result = new ModelAndView("redirect:https://localhost:8443/Acme-Madruga");
+				result = new ModelAndView("redirect:/");
 			} else {
 
 				result = new ModelAndView("administrator/create");
-				result.addObject("administrator", administrator);
+				result.addObject("registrationForm", registrationForm);
 			}
 		} catch (final Exception e) {
 			result = new ModelAndView("administrator/create");
 			result.addObject("exception", e);
-			result.addObject("administrator", administrator);
+			result.addObject("registrationForm", registrationForm);
 
 		}
 
