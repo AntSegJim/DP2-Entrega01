@@ -19,7 +19,7 @@
 
 <form:form action="brotherhood/edit.do" modelAttribute="registrationForm">
 <jstl:if test="${not empty exception}">
-		<p style="color:red"> <spring:message code="administrator.error" /> </p>
+		<p style="color:red"> <spring:message code="brotherhood.error" /> </p>
 </jstl:if>
 	<form:hidden path="id"/>
 	<form:hidden path="version" />

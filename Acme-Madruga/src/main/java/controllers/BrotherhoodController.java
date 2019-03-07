@@ -88,12 +88,12 @@ public class BrotherhoodController extends AbstractController {
 			} else {
 
 				result = new ModelAndView("brotherhood/create");
-				result.addObject("brotherhood", brotherhood);
+				result.addObject("registrationForm", registrationForm);
 			}
 		} catch (final Exception e) {
 			result = new ModelAndView("brotherhood/create");
 			result.addObject("exception", e);
-			result.addObject("brotherhood", brotherhood);
+			result.addObject("registrationForm", registrationForm);
 
 		}
 
