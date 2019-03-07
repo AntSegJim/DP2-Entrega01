@@ -36,9 +36,6 @@ public class BrotherhoodService {
 	private ActorService				actorService;
 
 	@Autowired
-	private PictureService				pictureService;
-
-	@Autowired
 	private CustomizableSystemService	customizableService;
 
 																;
@@ -220,6 +217,46 @@ public class BrotherhoodService {
 
 		}
 		return res;
+
+	}
+
+	public Brotherhood reconstruct(final Brotherhood brotherhood, final BindingResult binding) {
+		Brotherhood res;
+
+		if (brotherhood.getId() == 0) {
+			res = brotherhood;
+			final Authority ad = new Authority();
+			final UserAccount user = new UserAccount();
+			user.setAuthorities(new HashSet<Authority>());
+			ad.setAuthority(Authority.BROTHERHOOD);
+			user.getAuthorities().add(ad);
+			res.setUserAccount(user);
+			user.setUsername(brotherhood.getUserAccount().getUsername());
+			user.setPassword(brotherhood.getUserAccount().getPassword());
+			res.setPictures(new HashSet<Picture>());
+
+			this.validator.validate(res, binding);
+			return res;
+		} else {
+			res = this.brotherhoodRepo.findOne(brotherhood.getId());
+			final Brotherhood p = new Brotherhood();
+			p.setId(res.getId());
+			p.setVersion(res.getVersion());
+			p.setAddress(brotherhood.getAddress());
+			p.setEmail(brotherhood.getEmail());
+			p.setMiddleName(brotherhood.getMiddleName());
+			p.setName(brotherhood.getName());
+			p.setPhone(brotherhood.getPhone());
+			p.setPhoto(brotherhood.getPhoto());
+			p.setSurname(brotherhood.getSurname());
+			p.setUserAccount(res.getUserAccount());
+			p.setPictures(res.getPictures());
+			p.setEstablishmentDate(brotherhood.getEstablishmentDate());
+			p.setTitle(brotherhood.getTitle());
+
+			this.validator.validate(p, binding);
+			return p;
+		}
 
 	}
 

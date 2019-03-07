@@ -19,7 +19,6 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
-<p><spring:message code="profile.action.3" /></p>
 
 <security:authorize access="isAuthenticated()">
 <form:form  modelAttribute="actor" action="${action}">
@@ -33,30 +32,26 @@
 	<form:hidden path="version" />
 	
 	
-	<security:authorize access="hasRole('BROTHERHOOD')">
-	<form:hidden path="pictures" />
-	</security:authorize>
-	
 	<acme:textbox code="profile.action.3.name" path="name"/>
-	<br />
+	
 	<acme:textbox code="profile.action.3.middleName" path="middleName"/>
-	<br />
+	
 	<acme:textbox code="profile.action.3.surname" path="surname"/>
-	<br />
+	
 	<acme:textbox code="profile.action.3.email" path="email"/>	
-	<br />
+
 	<acme:textbox code="profile.action.3.photo" path="photo"/>
-	<br />
+
 	<acme:textbox code="profile.action.3.phone" path="phone"/>
-	<br />
+	
 	<acme:textbox code="profile.action.3.address" path="address"/>
-	<br />
+	
 	
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<acme:textbox code="profile.brotherhood.title" path="title"/>
-	<br />
+	
 	<acme:textbox code="profile.brotherhood.establishmentDate" path="establishmentDate"/>
-	<br />
+	
 	</security:authorize>
 	
 	<br />

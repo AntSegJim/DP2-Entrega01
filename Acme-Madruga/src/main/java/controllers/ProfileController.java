@@ -12,8 +12,6 @@ package controllers;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -142,24 +140,25 @@ public class ProfileController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit-brotherhood", method = RequestMethod.POST, params = "save")
-	public ModelAndView editBrotherhood(@Valid final Brotherhood brotherhood, final BindingResult binding) {
+	public ModelAndView editBrotherhood(final Brotherhood brotherhood, final BindingResult binding) {
 		ModelAndView result;
-
+		final Brotherhood brother = this.brotherhoodService.reconstruct(brotherhood, binding);
 		try {
 
 			if (!binding.hasErrors()) {
-				this.brotherhoodService.save(brotherhood);
+				this.brotherhoodService.save(brother);
 
 				result = new ModelAndView("redirect:personal-datas.do");
 			} else {
 				result = new ModelAndView("profile/editBrotherhood");
-				result.addObject("actor", brotherhood);
+				result.addObject("actor", brother);
+				result.addObject("exception", binding);
 			}
 		} catch (final Exception e) {
 			final Collection<Picture> pictures = this.pictureService.finaAll();
 			result = new ModelAndView("profile/editBrotherhood");
 			result.addObject("pictures", pictures);
-			result.addObject("actor", brotherhood);
+			result.addObject("actor", brother);
 			result.addObject("exception", e);
 
 		}
