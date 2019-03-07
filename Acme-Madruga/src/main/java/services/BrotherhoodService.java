@@ -192,6 +192,9 @@ public class BrotherhoodService {
 			res.setTitle(registrationForm.getTitle());
 			res.setEstablishmentDate(registrationForm.getEstablishmentDate());
 
+			Assert.isTrue(registrationForm.getPassword().equals(registrationForm.getUserAccount().getPassword()));
+			Assert.isTrue(registrationForm.getCheck() == true);
+
 			this.validator.validate(res, binding);
 
 		} else {

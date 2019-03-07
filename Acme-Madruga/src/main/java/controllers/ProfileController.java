@@ -152,7 +152,7 @@ public class ProfileController extends AbstractController {
 			} else {
 				result = new ModelAndView("profile/editBrotherhood");
 				result.addObject("actor", brother);
-				result.addObject("exception", binding);
+
 			}
 		} catch (final Exception e) {
 			final Collection<Picture> pictures = this.pictureService.finaAll();
