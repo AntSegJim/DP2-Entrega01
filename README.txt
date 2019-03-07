@@ -1,7 +1,7 @@
 En este README.txt, vamos a recoger los pasos que hay que seguir para incorporar el protocolo HTTPS a nuestros proyectos.
 
 1. Primero debemos abrir el apartado "Símbolo del sistema" de nuestro ordenador.
-2. Para crear el certificado de SSL, ejecutamos el comando: -genkeypair -alias "NOMBRE DEL ARCHIVO" -keyalg RSA -keystore "RUTA DONDE QUIERES GUARDAR EL ARCHIVO\NOMBRE DEL ARCHIVO.cert"
+2. Para crear el certificado de SSL, ejecutamos el comando: -genkeypair -alias "NOMBRE DEL ARCHIVO" -keyalg RSA -keystore "RUTA DONDE QUIERES GUARDAR EL ARCHIVO\NOMBRE DEL ARCHIVO".cert
 3. Al ejecutar este comando, nos pedirá una serie de datos que deberemos rellenar como la contraseña, nuestro nombre, el nombre de nuestra organización, etc. 
 4. Con estos pasos previos ya habremos generado nuestro certificado.
 5. Ahora deberemos ir a eclipse, en concreto al fichero server.xml el cual se encuentra dentro de la carpeta Servers
@@ -10,7 +10,7 @@ En este README.txt, vamos a recoger los pasos que hay que seguir para incorporar
                maxThreads="150" scheme="https" secure="true"
                clientAuth="false" sslProtocol="TLS" />
 7. Y añadir los siguientes campos:
-	keystoreFile="RUTA DONDE QUIERES GUARDAR EL ARCHIVO\NOMBRE DEL ARCHIVO.cert"
+	keystoreFile="RUTA DONDE HAS GUARDADO EL CERTIFICADO\NOMBRE DEL ARCHIVO".cert
 	keystorePass="CONTRASEÑA QUE PUSIMOS EN EL PASO 3"
 8. Por último, deberemos ir al fichero web.xml de nuestro fichero y añadir las siguientes lineas de código:
 	
@@ -25,3 +25,13 @@ En este README.txt, vamos a recoger los pasos que hay que seguir para incorporar
 	</security-constraint>
 9. Ahora deberemos ir a nuestro navegador y escribir la siguiente url: https://localhost:8443/"NOMBRE DE NUESTRO PROYECTO"
 10. Al pulsar al enter, nos saldra una pantalla intermedia donde nos dirá que nuestra conexión no es segura. Allí deberemos pulsar el boton "Add Exception..." y aceptar. Con ello ya tendremos acceso a nuestra página.
+
+-------------------------------------------
+
+ENROLMENT
+
+Si el estatus de un enrolment esta a 3, significa que la Brotherhood ha seleccionado otra posición para el member que ha enviado la petición de enrolment y ahora el miembro será quien decida si acepta la nueva posición ofrecida por la Brotherhood o la desestima.
+
+------------------------------------------
+
+
