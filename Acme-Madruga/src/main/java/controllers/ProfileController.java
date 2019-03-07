@@ -170,11 +170,26 @@ public class ProfileController extends AbstractController {
 	public ModelAndView edit() {
 		ModelAndView result;
 		Member member;
+		final MemberRegistrationForm formulario = new MemberRegistrationForm();
 		try {
 			member = this.memberService.findOne(this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId()).getId());
 			Assert.notNull(member);
+			formulario.setId(member.getId());
+			formulario.setVersion(member.getVersion());
+			formulario.setAddress(member.getAddress());
+			formulario.setEmail(member.getEmail());
+			formulario.setMiddleName(member.getMiddleName());
+			formulario.setName(member.getName());
+			formulario.setPhoto(member.getPhoto());
+			formulario.setPhone(member.getPhone());
+			formulario.setCheck(true);
+			formulario.setSurname(member.getSurname());
+			formulario.setPassword2(member.getUserAccount().getPassword());
+			final UserAccount userAccount = new UserAccount();
+			userAccount.setPassword(member.getUserAccount().getPassword());
+			member.setUserAccount(userAccount);
 			result = new ModelAndView("profile/editMember");
-			result.addObject("actor", member);
+			result.addObject("actor", formulario);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../");
 		}
@@ -193,7 +208,7 @@ public class ProfileController extends AbstractController {
 				result = new ModelAndView("redirect:personal-datas.do");
 			} else {
 				result = new ModelAndView("profile/editMember");
-				result.addObject("actor", member);
+				result.addObject("actor", memberRegistrationForm);
 			}
 		} catch (final Exception e) {
 			result = new ModelAndView("profile/editMember");
@@ -204,5 +219,4 @@ public class ProfileController extends AbstractController {
 		return result;
 
 	}
-
 }

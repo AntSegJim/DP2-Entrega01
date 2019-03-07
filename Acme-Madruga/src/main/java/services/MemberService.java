@@ -160,6 +160,7 @@ public class MemberService {
 			Assert.isTrue(memberRegistrationForm.getCheck() == true);
 			this.validator.validate(res, binding);
 		} else {
+			Assert.isTrue(memberRegistrationForm.getPassword2().equals(memberRegistrationForm.getUserAccount().getPassword()));
 			res = this.memberRepo.findOne(memberRegistrationForm.getId());
 			final Member p = new Member();
 			p.setId(res.getId());
@@ -172,7 +173,16 @@ public class MemberService {
 			p.setPhoto(memberRegistrationForm.getPhoto());
 			p.setRequests(res.getRequests());
 			p.setSurname(memberRegistrationForm.getSurname());
-			p.setUserAccount(memberRegistrationForm.getUserAccount());
+			if (memberRegistrationForm.getPassword2().equals("") || memberRegistrationForm.getPassword2() == null)
+				p.setUserAccount(res.getUserAccount());
+			else {
+				final UserAccount user = res.getUserAccount();
+				final Md5PasswordEncoder encoder;
+				encoder = new Md5PasswordEncoder();
+				final String hash = encoder.encodePassword(memberRegistrationForm.getPassword2(), null);
+				user.setPassword(hash);
+				p.setUserAccount(user);
+			}
 
 			this.validator.validate(p, binding);
 			res = p;

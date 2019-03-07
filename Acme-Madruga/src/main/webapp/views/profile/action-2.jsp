@@ -24,7 +24,7 @@
 <form:form  modelAttribute="actor" action="${action}">
 
 <jstl:if test="${not empty exception}">
-		<p style="color:red"> <spring:message code="profile.error" /> </p>
+		<p style="color:red"> <spring:message code="profile.member.error" /> </p>
 </jstl:if>
 
 <form:label path="name"><spring:message code="profile.action.3.changePersonalData" />:</form:label><br /><br />
@@ -46,6 +46,9 @@
 	
 	<acme:textbox code="profile.action.3.address" path="address"/>
 	
+	<acme:password code="profile.pass1" path="userAccount.password"/>
+	
+	<acme:password code="profile.pass2" path="password2"/>
 	
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<acme:textbox code="profile.brotherhood.title" path="title"/>

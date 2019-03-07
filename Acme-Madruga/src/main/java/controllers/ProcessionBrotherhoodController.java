@@ -110,9 +110,9 @@ public class ProcessionBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int processionId) {
 		ModelAndView result;
-		final Procession p = this.processionService.findOne(processionId);
-		final Collection<Procession> allMyProcession = this.processionService.getAllProcessionsByBrotherhood(this.brotherhoodService.brotherhoodUserAccount(LoginService.getPrincipal().getId()).getId());
 		try {
+			final Procession p = this.processionService.findOne(processionId);
+			final Collection<Procession> allMyProcession = this.processionService.getAllProcessionsByBrotherhood(this.brotherhoodService.brotherhoodUserAccount(LoginService.getPrincipal().getId()).getId());
 			Assert.isTrue(allMyProcession.contains(p));
 			this.processionService.delete(p);
 			result = new ModelAndView("redirect:list.do");
@@ -120,6 +120,7 @@ public class ProcessionBrotherhoodController extends AbstractController {
 		} catch (final Exception e) {
 			result = new ModelAndView("procession/list");
 			result.addObject("exception", e);
+			final Collection<Procession> allMyProcession = this.processionService.getAllProcessionsByBrotherhood(this.brotherhoodService.brotherhoodUserAccount(LoginService.getPrincipal().getId()).getId());
 			result.addObject("processions", allMyProcession);
 			return result;
 		}
