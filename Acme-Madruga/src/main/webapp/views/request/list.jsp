@@ -23,7 +23,7 @@
 <display:table pagesize="5" name="requests" id="row"
 requestURI="request/member/list.do" >
 
-<display:column class="color" titleKey="enrolment.status">
+<display:column sortable="true" class="color" titleKey="enrolment.status">
 
 <jstl:if test="${row.status eq 1 }">
 	<spring:message code="enrolment.status.pending" />
@@ -68,7 +68,7 @@ requestURI="request/member/list.do" >
 <display:table pagesize="5" name="requests" id="row"
 requestURI="request/brotherhood/list.do" >
 
-<display:column titleKey="enrolment.status">
+<display:column sortable="true" titleKey="enrolment.status">
 
 <jstl:if test="${row.status eq 1 }">
 	<spring:message code="enrolment.status.pending" />
