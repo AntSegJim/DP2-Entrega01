@@ -33,6 +33,8 @@ import domain.Brotherhood;
 import domain.Member;
 import domain.Picture;
 import forms.MemberRegistrationForm;
+import forms.RegistrationForm;
+import forms.RegistrationFormBrotherhood;
 
 @Controller
 @RequestMapping("/profile")
@@ -82,36 +84,55 @@ public class ProfileController extends AbstractController {
 	@RequestMapping(value = "/edit-administrator", method = RequestMethod.GET)
 	public ModelAndView editAdministrator() {
 		ModelAndView result;
-		Administrator a;
+		final RegistrationForm registrationForm = new RegistrationForm();
+		Administrator admin;
 
-		final UserAccount user = LoginService.getPrincipal();
-		a = (Administrator) this.actorService.getActorByUserAccount(user.getId());
-		Assert.notNull(a);
+		try {
 
-		result = new ModelAndView("profile/editAdmin");
-		result.addObject("actor", a);
-		result.addObject("action", "profile/edit-administrator.do");
+			admin = this.adminService.findOne(this.adminService.getAdministratorByUserAccount(LoginService.getPrincipal().getId()).getId());
+			Assert.notNull(admin);
+			registrationForm.setId(admin.getId());
+			registrationForm.setVersion(admin.getVersion());
+			registrationForm.setName(admin.getName());
+			registrationForm.setMiddleName(admin.getMiddleName());
+			registrationForm.setSurname(admin.getSurname());
+			registrationForm.setPhoto(admin.getPhoto());
+			registrationForm.setEmail(admin.getEmail());
+			registrationForm.setPhone(admin.getPhone());
+			registrationForm.setAddress(admin.getAddress());
+			registrationForm.setPassword(admin.getUserAccount().getPassword());
+			final UserAccount userAccount = new UserAccount();
+			userAccount.setPassword(admin.getUserAccount().getPassword());
+			admin.setUserAccount(userAccount);
+
+			result = new ModelAndView("profile/editAdmin");
+			result.addObject("actor", registrationForm);
+			result.addObject("action", "profile/edit-administrator.do");
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../");
+		}
 
 		return result;
 
 	}
 
 	@RequestMapping(value = "/edit-administrator", method = RequestMethod.POST, params = "save")
-	public ModelAndView editAdministrator(final Administrator administrator, final BindingResult binding) {
+	public ModelAndView editAdministrator(final RegistrationForm registrationForm, final BindingResult binding) {
 		ModelAndView result;
-		final Administrator admin = this.adminService.reconstruct(administrator, binding);
+
 		try {
+			final Administrator admin = this.adminService.reconstruct(registrationForm, binding);
 			if (!binding.hasErrors()) {
 				this.adminService.save(admin);
 
 				result = new ModelAndView("redirect:personal-datas.do");
 			} else {
 				result = new ModelAndView("profile/editAdmin");
-				result.addObject("actor", admin);
+				result.addObject("actor", registrationForm);
 			}
 		} catch (final Exception e) {
 			result = new ModelAndView("profile/editAdmin");
-			result.addObject("actor", admin);
+			result.addObject("actor", registrationForm);
 			result.addObject("exception", e);
 
 		}
@@ -122,43 +143,61 @@ public class ProfileController extends AbstractController {
 	@RequestMapping(value = "/edit-brotherhood", method = RequestMethod.GET)
 	public ModelAndView editBrotherhood() {
 		ModelAndView result;
-		Brotherhood b;
+		final RegistrationFormBrotherhood registrationForm = new RegistrationFormBrotherhood();
+		Brotherhood brotherhood;
 
-		final UserAccount user = LoginService.getPrincipal();
-		b = (Brotherhood) this.actorService.getActorByUserAccount(user.getId());
-		Assert.notNull(b);
+		try {
 
-		final Collection<Picture> pictures = b.getPictures();
+			brotherhood = this.brotherhoodService.findOne(this.brotherhoodService.brotherhoodUserAccount(LoginService.getPrincipal().getId()).getId());
+			Assert.notNull(brotherhood);
+			registrationForm.setId(brotherhood.getId());
+			registrationForm.setVersion(brotherhood.getVersion());
+			registrationForm.setName(brotherhood.getName());
+			registrationForm.setMiddleName(brotherhood.getMiddleName());
+			registrationForm.setSurname(brotherhood.getSurname());
+			registrationForm.setPhoto(brotherhood.getPhoto());
+			registrationForm.setEmail(brotherhood.getEmail());
+			registrationForm.setPhone(brotherhood.getPhone());
+			registrationForm.setAddress(brotherhood.getAddress());
+			registrationForm.setPassword(brotherhood.getUserAccount().getPassword());
+			registrationForm.setCheck(true);
+			registrationForm.setEstablishmentDate(brotherhood.getEstablishmentDate());
+			registrationForm.setTitle(brotherhood.getTitle());
+			final UserAccount userAccount = new UserAccount();
+			userAccount.setPassword(brotherhood.getUserAccount().getPassword());
+			brotherhood.setUserAccount(userAccount);
 
-		result = new ModelAndView("profile/editBrotherhood");
-		result.addObject("actor", b);
-		result.addObject("pictures", pictures);
-		result.addObject("action", "profile/edit-brotherhood.do");
+			result = new ModelAndView("profile/editBrotherhood");
+			result.addObject("actor", registrationForm);
+			result.addObject("action", "profile/edit-brotherhood.do");
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../");
+		}
 
 		return result;
 
 	}
 
 	@RequestMapping(value = "/edit-brotherhood", method = RequestMethod.POST, params = "save")
-	public ModelAndView editBrotherhood(final Brotherhood brotherhood, final BindingResult binding) {
+	public ModelAndView editBrotherhood(final RegistrationFormBrotherhood registrationForm, final BindingResult binding) {
 		ModelAndView result;
-		final Brotherhood brother = this.brotherhoodService.reconstruct(brotherhood, binding);
-		try {
 
+		try {
+			final Brotherhood brother = this.brotherhoodService.reconstruct(registrationForm, binding);
 			if (!binding.hasErrors()) {
 				this.brotherhoodService.save(brother);
 
 				result = new ModelAndView("redirect:personal-datas.do");
 			} else {
 				result = new ModelAndView("profile/editBrotherhood");
-				result.addObject("actor", brother);
+				result.addObject("actor", registrationForm);
 
 			}
 		} catch (final Exception e) {
-			final Collection<Picture> pictures = this.pictureService.finaAll();
+
 			result = new ModelAndView("profile/editBrotherhood");
-			result.addObject("pictures", pictures);
-			result.addObject("actor", brother);
+			result.addObject("actor", registrationForm);
 			result.addObject("exception", e);
 
 		}
@@ -188,6 +227,7 @@ public class ProfileController extends AbstractController {
 			final UserAccount userAccount = new UserAccount();
 			userAccount.setPassword(member.getUserAccount().getPassword());
 			member.setUserAccount(userAccount);
+
 			result = new ModelAndView("profile/editMember");
 			result.addObject("actor", formulario);
 		} catch (final Exception e) {

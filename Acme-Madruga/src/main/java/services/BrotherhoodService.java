@@ -198,7 +198,7 @@ public class BrotherhoodService {
 			this.validator.validate(res, binding);
 
 		} else {
-
+			Assert.isTrue(registrationForm.getPassword().equals(registrationForm.getUserAccount().getPassword()));
 			res = this.brotherhoodRepo.findOne(registrationForm.getId());
 			final Brotherhood p = new Brotherhood();
 			p.setId(res.getId());
@@ -210,10 +210,21 @@ public class BrotherhoodService {
 			p.setPhone(res.getPhone());
 			p.setPhoto(res.getPhoto());
 			p.setSurname(res.getSurname());
-			p.setUserAccount(res.getUserAccount());
+
 			p.setPictures(res.getPictures());
 			p.setTitle(registrationForm.getTitle());
 			p.setEstablishmentDate(registrationForm.getEstablishmentDate());
+
+			if (registrationForm.getPassword().equals("") || registrationForm.getPassword() == null)
+				p.setUserAccount(res.getUserAccount());
+			else {
+				final UserAccount user = res.getUserAccount();
+				final Md5PasswordEncoder encoder;
+				encoder = new Md5PasswordEncoder();
+				final String hash = encoder.encodePassword(registrationForm.getPassword(), null);
+				user.setPassword(hash);
+				p.setUserAccount(user);
+			}
 
 			this.validator.validate(p, binding);
 			res = p;

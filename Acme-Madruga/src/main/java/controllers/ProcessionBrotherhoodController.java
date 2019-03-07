@@ -32,7 +32,6 @@ public class ProcessionBrotherhoodController extends AbstractController {
 	public ModelAndView list() {
 		final ModelAndView result;
 		final Collection<Procession> allMyProcession = this.processionService.getAllProcessionsByBrotherhood(this.brotherhoodService.brotherhoodUserAccount(LoginService.getPrincipal().getId()).getId());
-
 		result = new ModelAndView("procession/list");
 		result.addObject("processions", allMyProcession);
 		return result;
