@@ -18,11 +18,11 @@
 
 <security:authorize access="hasRole('BROTHERHOOD')">
 
-<spring:message code="procession.title"/>: ${procession.title}<br>
-<spring:message code="procession.moment"/>: ${procession.moment}<br>
-<spring:message code="procession.description"/>: ${procession.description}<br>
-<spring:message code="procession.rows"/>: ${procession.maxRows}<br>
-<spring:message code="procession.columns"/>: ${procession.maxColumns}<br>
+<spring:message code="procession.title"/>:<jstl:out value=" ${procession.title}"></jstl:out><br>
+<spring:message code="procession.moment"/>: <jstl:out value="${procession.moment}"></jstl:out><br>
+<spring:message code="procession.description"/>: <jstl:out value="${procession.description}"></jstl:out><br>
+<spring:message code="procession.rows"/>: <jstl:out value="${procession.maxRows}"></jstl:out><br>
+<spring:message code="procession.columns"/>: <jstl:out value="${procession.maxColumns}"></jstl:out><br>
 <spring:message code="procession.draftMode"/>: 
 <jstl:if test="${procession.draftMode eq 1 }">
 <spring:message code="procession.draftMode.Yes"/>
