@@ -17,6 +17,7 @@ import security.LoginService;
 import services.BrotherhoodService;
 import services.ProcessionService;
 import services.RequestService;
+import domain.Brotherhood;
 import domain.Procession;
 import domain.Request;
 
@@ -149,6 +150,23 @@ public class RequestBrotherhoodController extends AbstractController {
 				result = new ModelAndView("redirect:../../procession/brotherhood/list.do");
 		}
 		return result;
+	}
 
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int requestId) {
+		ModelAndView result;
+		Request request;
+		try {
+			request = this.requestService.findOne(requestId);
+			Assert.notNull(request);
+			final Brotherhood b = this.brotherhoodService.brotherhoodUserAccount(LoginService.getPrincipal().getId());
+			final Collection<Procession> processions = this.processionService.getAllProcessionsByBrotherhood(b.getId());
+			Assert.isTrue(processions.contains(request.getProcession()));
+			result = new ModelAndView("request/show");
+			result.addObject("request", request);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:list.do");
+		}
+		return result;
 	}
 }

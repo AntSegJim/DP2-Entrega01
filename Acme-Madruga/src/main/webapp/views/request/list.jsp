@@ -44,6 +44,10 @@ requestURI="request/member/list.do" >
 <display:column class="color" property="procession.title" titleKey="request.procession" />
 
 <display:column class="color">
+<a href="request/member/show.do?requestId=${row.id}"><spring:message code="request.show" /></a>
+</display:column>
+
+<display:column class="color">
 	<jstl:if test="${row.status eq 1 }">
 		<a href="request/member/delete.do?requestId=${row.id}"><spring:message code="request.delete" /></a>
 	</jstl:if>
@@ -82,7 +86,9 @@ requestURI="request/brotherhood/list.do" >
 <display:column property="columna" titleKey="request.columna" />
 <display:column property="row" titleKey="request.row" />
 <display:column property="description" titleKey="request.description" />
-
+<display:column >
+<a href="request/brotherhood/show.do?requestId=${row.id}"><spring:message code="request.show" /></a>
+</display:column>
 <display:column>
 	<jstl:if test="${row.status eq 1 }">
 		<a href="request/brotherhood/edit.do?processionId=${row.procession.id}&requestId=${row.id}&status=0"><spring:message code="request.aceptar" /></a>
@@ -113,22 +119,22 @@ while (i < x.length) {
 	
 	if(estado.trim() === "Accepted" || estado.trim() === "Aceptada"){
 		var casilla = 0;
-		for (casilla ; casilla< 6; casilla++) {
+		for (casilla ; casilla< 7; casilla++) {
 			document.getElementsByClassName("color")[i+casilla].style.background='green';
 		}
 	}else if(estado.trim() === "Pending" || estado.trim() === "Pendiente"){
 		var casilla = 0;
-		for (casilla ; casilla< 6; casilla++) {
+		for (casilla ; casilla< 7; casilla++) {
 			document.getElementsByClassName("color")[i+casilla].style.background='grey';
 		}
 	}else{
 		var casilla = 0;
-		for (casilla ; casilla< 6; casilla++) {
+		for (casilla ; casilla< 7; casilla++) {
 			document.getElementsByClassName("color")[i+casilla].style.background='orange';
 		}
 	}
 	
-	i= i+6;
+	i= i+7;
 }
 
 </script>

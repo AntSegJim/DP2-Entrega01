@@ -104,4 +104,21 @@ public class RequestMemberController extends AbstractController {
 			return result;
 		}
 	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int requestId) {
+		ModelAndView result;
+		Request request;
+		try {
+			request = this.requestService.findOne(requestId);
+			Assert.notNull(request);
+			final Member m = this.memberService.getMemberByUserAccount(LoginService.getPrincipal().getId());
+			Assert.isTrue(m.getRequests().contains(request));
+			result = new ModelAndView("request/show");
+			result.addObject("request", request);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:list.do");
+		}
+		return result;
+	}
 }
