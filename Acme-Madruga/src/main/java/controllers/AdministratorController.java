@@ -161,6 +161,7 @@ public class AdministratorController extends AbstractController {
 		registrationForm.setMiddleName("");
 		registrationForm.setSurname("");
 		registrationForm.setPhoto("");
+		registrationForm.setPatternPhone(false);
 		registrationForm.setEmail("");
 		final String telephoneCode = this.customizableService.getTelephoneCode();
 		registrationForm.setPhone(telephoneCode + " ");

@@ -40,6 +40,7 @@ public class MemberController extends AbstractController {
 		member.setPhoto("");
 		member.setPhone(this.customizableSystemService.getTelephoneCode() + " ");
 		member.setCheck(false);
+		member.setPatternPhone(false);
 		member.setSurname("");
 		member.setPassword2("");
 		final UserAccount userAccount = new UserAccount();

@@ -44,6 +44,16 @@ public class RegistrationFormBrotherhood extends Actor {
 
 	private Date	establishmentDate;
 
+	private Boolean	patternPhone;
+
+
+	public Boolean getPatternPhone() {
+		return this.patternPhone;
+	}
+
+	public void setPatternPhone(final Boolean patternPhone) {
+		this.patternPhone = patternPhone;
+	}
 
 	@NotNull
 	@NotBlank
@@ -90,6 +100,7 @@ public class RegistrationFormBrotherhood extends Actor {
 		registrationForm.setTitle("");
 		registrationForm.setEstablishmentDate(new Date());
 		registrationForm.setCheck(false);
+		registrationForm.setPatternPhone(false);
 		registrationForm.setName("");
 		registrationForm.setMiddleName("");
 		registrationForm.setSurname("");

@@ -106,13 +106,6 @@ public class AdministratorService {
 			Assert.isTrue(a.getEmail().equals(admin.getEmail()));
 		}
 
-		if (admin.getPhone() != "" || admin.getPhone() != null) {
-			final String regexTelefono = "^\\+[1-9][0-9]{0,2}\\ \\([1-9][0-9]{0,2}\\)\\ [0-9]{4,}$|^\\+[1-9][0-9]{0,2}\\ [0-9]{4,}$|^[0-9]{4,}$";
-			final Pattern patternTelefono = Pattern.compile(regexTelefono);
-			final Matcher matcherTelefono = patternTelefono.matcher(admin.getPhone());
-			Assert.isTrue(matcherTelefono.find() == true, "AdminService.save -> Telefono inválido");
-		}
-
 		//NUEVO
 		Assert.isTrue(admin.getUserAccount().getUsername() != null && admin.getUserAccount().getUsername() != "", "Cuenta");
 		Assert.isTrue(admin.getUserAccount().getPassword() != null && admin.getUserAccount().getPassword() != "", "Cuenta");
@@ -149,6 +142,16 @@ public class AdministratorService {
 			res.setSurname(registrationForm.getSurname());
 			res.setUserAccount(registrationForm.getUserAccount());
 
+			if (res.getPhone().length() <= 5)
+				res.setPhone("");
+
+			if (registrationForm.getPatternPhone() == false) {
+				final String regexTelefono = "^\\+[0-9]{0,3}\\s\\([0-9]{0,3}\\)\\ [0-9]{4,}$|^\\+[1-9][0-9]{0,2}\\ [0-9]{4,}$|^[0-9]{4,}|^\\+[0-9]\\ $|^$|^\\+$";
+				final Pattern patternTelefono = Pattern.compile(regexTelefono);
+				final Matcher matcherTelefono = patternTelefono.matcher(res.getPhone());
+				Assert.isTrue(matcherTelefono.find() == true, "BrotherhoodService.save -> Telefono no valido");
+			}
+
 			this.validator.validate(res, binding);
 
 		} else {
@@ -173,6 +176,16 @@ public class AdministratorService {
 				final String hash = encoder.encodePassword(registrationForm.getPassword(), null);
 				user.setPassword(hash);
 				a.setUserAccount(user);
+			}
+
+			if (a.getPhone().length() <= 5)
+				a.setPhone("");
+
+			if (registrationForm.getPatternPhone() == false) {
+				final String regexTelefono = "^\\+[0-9]{0,3}\\s\\([0-9]{0,3}\\)\\ [0-9]{4,}$|^\\+[1-9][0-9]{0,2}\\ [0-9]{4,}$|^[0-9]{4,}|^\\+[0-9]\\ $|^$|^\\+$";
+				final Pattern patternTelefono = Pattern.compile(regexTelefono);
+				final Matcher matcherTelefono = patternTelefono.matcher(a.getPhone());
+				Assert.isTrue(matcherTelefono.find() == true, "BrotherhoodService.save -> Telefono no valido");
 			}
 
 			this.validator.validate(res, binding);

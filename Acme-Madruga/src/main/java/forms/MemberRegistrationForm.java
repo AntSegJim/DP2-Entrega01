@@ -24,6 +24,16 @@ public class MemberRegistrationForm extends Actor {
 	private String	password2;
 	private Boolean	check;
 
+	private Boolean	patternPhone;
+
+
+	public Boolean getPatternPhone() {
+		return this.patternPhone;
+	}
+
+	public void setPatternPhone(final Boolean patternPhone) {
+		this.patternPhone = patternPhone;
+	}
 
 	@Size(min = 5, max = 32)
 	public String getPassword2() {

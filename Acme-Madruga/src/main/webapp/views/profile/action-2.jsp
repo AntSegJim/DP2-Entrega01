@@ -30,7 +30,7 @@
 <form:label path="name"><spring:message code="profile.action.3.changePersonalData" />:</form:label><br /><br />
 	<form:hidden path="id"/>
 	<form:hidden path="version" />
-	
+	<form:hidden path = "patternPhone" />
 	
 	<acme:textbox code="profile.action.3.name" path="name"/>
 	
@@ -70,9 +70,34 @@
 	</security:authorize>
 	
 	<br />
-	<acme:submit name="save" code="profile.action.3.save"/>
+	<input type="submit" name="save" onclick=" return validar(); "
+	value="<spring:message code="profile.action.3.save" />" />
 	<acme:cancel url="profile/personal-datas.do" code="administrator.cancel"/>
 </form:form>
 
 </security:authorize>
 
+<script>
+function validar(){
+	return validar_phone();
+}
+
+ function validar_phone(){
+  var numeroTelefono=document.getElementById('phone');
+   var expresionRegular1=/^\+[0-9]{0,3}\ \([0-9]{0,3}\)\ [0-9]{4,}$|^\+[1-9][0-9]{0,2}\ [0-9]{4,}$|^[0-9]{4,}|^\+[0-9]\ $|^$|^\+$/gm;//<-- hay que cambiar el pattern
+ 
+
+	 if(!expresionRegular1.test(numeroTelefono.value)){
+	 var confirmarTelefono= confirm('Are you sure you want to register that phone number?');
+	 
+	 
+	 if(confirmarTelefono==true){
+	 
+		 document.getElementById('patternPhone').value=true;
+		 
+	 }
+ }
+	 return confirmarTelefono ;
+
+	}
+</script>
