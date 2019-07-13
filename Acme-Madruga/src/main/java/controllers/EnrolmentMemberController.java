@@ -92,6 +92,7 @@ public class EnrolmentMemberController {
 
 			enrolment = this.enrolmentService.findOne(idEnrolment);
 			Assert.notNull(enrolment);
+			Assert.isTrue(enrolment.getStatus() != 2);
 
 			result = new ModelAndView("enrolment/edit");
 			result.addObject("enrolment", enrolment);

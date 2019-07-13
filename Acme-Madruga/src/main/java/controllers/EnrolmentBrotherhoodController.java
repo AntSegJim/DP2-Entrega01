@@ -70,6 +70,7 @@ public class EnrolmentBrotherhoodController {
 			positions = this.positionService.findAll();
 
 			Assert.notNull(enrolment);
+			Assert.isTrue(enrolment.getStatus() == 0);
 
 			result = new ModelAndView("enrolment/edit");
 			result.addObject("enrolment", enrolment);

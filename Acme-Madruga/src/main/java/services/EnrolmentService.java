@@ -134,6 +134,7 @@ public class EnrolmentService {
 			} else if (user.getAuthorities().iterator().next().getAuthority().equals("BROTHERHOOD")) {
 				copy.setStatus(enrolment.getStatus());
 				copy.setPosition(enrolment.getPosition());
+
 			}
 
 			this.validator.validate(copy, binding);
