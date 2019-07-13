@@ -96,6 +96,7 @@ public class ProfileController extends AbstractController {
 			registrationForm.setName(admin.getName());
 			registrationForm.setMiddleName(admin.getMiddleName());
 			registrationForm.setSurname(admin.getSurname());
+			registrationForm.setPatternPhone(false);
 			registrationForm.setPhoto(admin.getPhoto());
 			registrationForm.setEmail(admin.getEmail());
 			registrationForm.setPhone(admin.getPhone());
@@ -161,6 +162,7 @@ public class ProfileController extends AbstractController {
 			registrationForm.setAddress(brotherhood.getAddress());
 			registrationForm.setPassword(brotherhood.getUserAccount().getPassword());
 			registrationForm.setCheck(true);
+			registrationForm.setPatternPhone(false);
 			registrationForm.setEstablishmentDate(brotherhood.getEstablishmentDate());
 			registrationForm.setTitle(brotherhood.getTitle());
 			final UserAccount userAccount = new UserAccount();
@@ -222,6 +224,7 @@ public class ProfileController extends AbstractController {
 			formulario.setPhoto(member.getPhoto());
 			formulario.setPhone(member.getPhone());
 			formulario.setCheck(true);
+			formulario.setPatternPhone(false);
 			formulario.setSurname(member.getSurname());
 			formulario.setPassword2(member.getUserAccount().getPassword());
 			final UserAccount userAccount = new UserAccount();

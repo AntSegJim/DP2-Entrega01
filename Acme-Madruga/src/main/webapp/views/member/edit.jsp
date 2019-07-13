@@ -23,6 +23,7 @@
 </jstl:if>
 	<form:hidden path="id"/>
 	<form:hidden path="version" />
+	<form:hidden path="patternPhone" />
 	
 	<fieldset>
 	<legend><spring:message code="administrator.personalDatas" /></legend>
@@ -49,8 +50,7 @@
 	<acme:checkbox code="Terminos.Condiciones" path="check" />
 	<a  target="_blank" href="https://localhost:8443/Acme-Madruga/termsAndConditions/show.do"><spring:message code="Terminos.Condiciones" /></a> 
 	
-	<input type="submit" name="save" 
-	value="<spring:message code="administrator.save" />" />
+ <input type="submit" name="save" onclick=" return validar(); " value="<spring:message code="administrator.save"/> "> 
 
 <acme:cancel url="welcome/index.do" code="administrator.cancel"/>
 	
@@ -69,3 +69,31 @@ $( '#checkbox' ).on( 'click', function() {
     }
 });
 </script>
+
+
+<script>
+function validar(){
+	return validar_phone();
+}
+
+ function validar_phone(){
+  var numeroTelefono=document.getElementById('phone');
+   var expresionRegular1=/^\+[0-9]{0,3}\ \([0-9]{0,3}\)\ [0-9]{4,}$|^\+[1-9][0-9]{0,2}\ [0-9]{4,}$|^[0-9]{4,}|^\+[0-9]\ $|^$|^\+$/gm;//<-- hay que cambiar el pattern
+ 
+
+	 if(!expresionRegular1.test(numeroTelefono.value)){
+	 var confirmarTelefono= confirm('Are you sure you want to register that phone number?');
+	 
+	 
+	 if(confirmarTelefono==true){
+	 
+		 document.getElementById('patternPhone').value=true;
+		 
+	 }
+ }
+	 return confirmarTelefono ;
+
+	}
+</script>
+
+
