@@ -70,3 +70,21 @@
 </form>
 </security:authorize>
 
+<security:authorize access="isAuthenticated()">
+	<button type="button" onclick="exportFunction()"><spring:message code="profile.edit.export" /></button>
+	<h2 id="exported"></h2>
+	<p id="json" style=""></p>
+	
+	<script type="text/javascript">
+	function exportFunction() {
+		$.ajax({
+			type:'GET',
+			url:'export/json.do',
+			success: function(res) {
+				document.getElementById("json").innerHTML =res;
+				document.getElementById("exported").innerHTML = "JSON";
+		    }
+		});
+	}
+</script>
+</security:authorize>
