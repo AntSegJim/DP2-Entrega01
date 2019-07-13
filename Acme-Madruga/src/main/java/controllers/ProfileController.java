@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -118,7 +119,7 @@ public class ProfileController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit-administrator", method = RequestMethod.POST, params = "save")
-	public ModelAndView editAdministrator(final RegistrationForm registrationForm, final BindingResult binding) {
+	public ModelAndView editAdministrator(@ModelAttribute("actor") final RegistrationForm registrationForm, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
@@ -182,7 +183,7 @@ public class ProfileController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit-brotherhood", method = RequestMethod.POST, params = "save")
-	public ModelAndView editBrotherhood(final RegistrationFormBrotherhood registrationForm, final BindingResult binding) {
+	public ModelAndView editBrotherhood(@ModelAttribute("actor") final RegistrationFormBrotherhood registrationForm, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
@@ -241,7 +242,7 @@ public class ProfileController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit-member", method = RequestMethod.POST, params = "save")
-	public ModelAndView editMember(final MemberRegistrationForm memberRegistrationForm, final BindingResult binding) {
+	public ModelAndView editMember(@ModelAttribute("actor") final MemberRegistrationForm memberRegistrationForm, final BindingResult binding) {
 		ModelAndView result;
 		Member member;
 		try {
