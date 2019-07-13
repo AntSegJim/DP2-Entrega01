@@ -59,7 +59,7 @@ public class MemberController extends AbstractController {
 			member = this.memberService.reconstruct(memberRegistrationForm, binding);
 			if (!binding.hasErrors()) {
 				this.memberService.save(member);
-				result = new ModelAndView("redirect:../../");
+				result = new ModelAndView("redirect:../");
 			} else {
 				result = new ModelAndView("member/create");
 				result.addObject("memberRegistrationForm", memberRegistrationForm);
