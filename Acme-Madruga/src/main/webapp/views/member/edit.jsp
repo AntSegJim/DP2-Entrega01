@@ -48,7 +48,6 @@
 	</fieldset>
 	<br />
 	<acme:checkbox code="Terminos.Condiciones" path="check" />
-	<a  target="_blank" href="https://localhost:8443/Acme-Madruga/termsAndConditions/show.do"><spring:message code="Terminos.Condiciones" /></a> 
 	
  <input type="submit" name="save" onclick=" return validar(); " value="<spring:message code="administrator.save"/> "> 
 
