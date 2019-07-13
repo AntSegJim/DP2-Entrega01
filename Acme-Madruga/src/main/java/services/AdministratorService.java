@@ -101,10 +101,10 @@ public class AdministratorService {
 
 		if (admin.getId() == 0)
 			Assert.isTrue(!emails.contains(admin.getEmail()));
-		else {
-			final Administrator a = this.adminRepo.findOne(admin.getId());
-			Assert.isTrue(a.getEmail().equals(admin.getEmail()));
-		}
+		//		else {
+		//			final Administrator a = this.adminRepo.findOne(admin.getId());
+		//			Assert.isTrue(a.getEmail().equals(admin.getEmail()));
+		//		}
 
 		//NUEVO
 		Assert.isTrue(admin.getUserAccount().getUsername() != null && admin.getUserAccount().getUsername() != "", "Cuenta");

@@ -86,16 +86,25 @@ public class MemberService {
 		final String regexEmail2 = "^[A-z0-9]+\\s*[A-z0-9\\s]*\\s\\<[A-z0-9]+\\@[A-z0-9]+\\.[A-z0-9.]+\\>";
 		final Pattern patternEmail2 = Pattern.compile(regexEmail2);
 		final Matcher matcherEmail2 = patternEmail2.matcher(r.getEmail());
-		Assert.isTrue(matcherEmail1.find() == true || matcherEmail2.find() == true, "CustomerService.save -> Correo inválido");
+
+		final String regexEmail3 = "^[A-z0-9]+\\@$";
+		final Pattern patternEmail3 = Pattern.compile(regexEmail3);
+		final Matcher matcherEmail3 = patternEmail3.matcher(r.getEmail());
+
+		final String regexEmail4 = "^[A-z0-9]+\\s*[A-z0-9\\s]*\\s\\<[A-z0-9]+\\@\\>$";
+		final Pattern patternEmail4 = Pattern.compile(regexEmail4);
+		final Matcher matcherEmail4 = patternEmail4.matcher(r.getEmail());
+
+		Assert.isTrue((matcherEmail1.matches() == true || matcherEmail2.matches() == true || matcherEmail3.matches() == true || matcherEmail4.matches() == true), "Email");
 
 		final List<String> emails = this.actorService.getEmails();
 
 		if (r.getId() == 0)
 			Assert.isTrue(!emails.contains(r.getEmail()));
-		else {
-			final Member a = this.memberRepo.findOne(r.getId());
-			Assert.isTrue(a.getEmail().equals(r.getEmail()));
-		}
+		//		else {
+		//			final Member a = this.memberRepo.findOne(r.getId());
+		//			Assert.isTrue(a.getEmail().equals(r.getEmail()));
+		//		}
 
 		//NUEVO
 		Assert.isTrue(r.getUserAccount().getUsername() != null && r.getUserAccount().getUsername() != "");
