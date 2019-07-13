@@ -88,14 +88,16 @@ public class MemberService {
 		final Matcher matcherEmail2 = patternEmail2.matcher(r.getEmail());
 		Assert.isTrue(matcherEmail1.find() == true || matcherEmail2.find() == true, "CustomerService.save -> Correo inválido");
 
+		Assert.isTrue((matcherEmail1.matches() == true || matcherEmail2.matches() == true), "Email");
+
 		final List<String> emails = this.actorService.getEmails();
 
 		if (r.getId() == 0)
 			Assert.isTrue(!emails.contains(r.getEmail()));
-		else {
-			final Member a = this.memberRepo.findOne(r.getId());
-			Assert.isTrue(a.getEmail().equals(r.getEmail()));
-		}
+		//		else {
+		//			final Member a = this.memberRepo.findOne(r.getId());
+		//			Assert.isTrue(a.getEmail().equals(r.getEmail()));
+		//		}
 
 		//NUEVO
 		Assert.isTrue(r.getUserAccount().getUsername() != null && r.getUserAccount().getUsername() != "");
@@ -170,15 +172,7 @@ public class MemberService {
 			final Pattern patternEmail2 = Pattern.compile(regexEmail2);
 			final Matcher matcherEmail2 = patternEmail2.matcher(res.getEmail());
 
-			final String regexEmail3 = "^[A-z0-9]+\\@$";
-			final Pattern patternEmail3 = Pattern.compile(regexEmail3);
-			final Matcher matcherEmail3 = patternEmail3.matcher(res.getEmail());
-
-			final String regexEmail4 = "^[A-z0-9]+\\s*[A-z0-9\\s]*\\s\\<[A-z0-9]+\\@\\>$";
-			final Pattern patternEmail4 = Pattern.compile(regexEmail4);
-			final Matcher matcherEmail4 = patternEmail4.matcher(res.getEmail());
-
-			if (!(matcherEmail1.matches() == true || matcherEmail2.matches() == true || matcherEmail3.matches() == true || matcherEmail4.matches() == true))
+			if (!(matcherEmail1.matches() == true || matcherEmail2.matches() == true))
 				binding.rejectValue("email", "PatternNoValido");
 
 			this.validator.validate(res, binding);
@@ -225,15 +219,7 @@ public class MemberService {
 			final Pattern patternEmail2 = Pattern.compile(regexEmail2);
 			final Matcher matcherEmail2 = patternEmail2.matcher(p.getEmail());
 
-			final String regexEmail3 = "^[A-z0-9]+\\@$";
-			final Pattern patternEmail3 = Pattern.compile(regexEmail3);
-			final Matcher matcherEmail3 = patternEmail3.matcher(p.getEmail());
-
-			final String regexEmail4 = "^[A-z0-9]+\\s*[A-z0-9\\s]*\\s\\<[A-z0-9]+\\@\\>$";
-			final Pattern patternEmail4 = Pattern.compile(regexEmail4);
-			final Matcher matcherEmail4 = patternEmail4.matcher(p.getEmail());
-
-			if (!(matcherEmail1.matches() == true || matcherEmail2.matches() == true || matcherEmail3.matches() == true || matcherEmail4.matches() == true))
+			if (!(matcherEmail1.matches() == true || matcherEmail2.matches() == true))
 				binding.rejectValue("email", "PatternNoValido");
 
 			this.validator.validate(p, binding);
