@@ -56,6 +56,7 @@ public class WelcomeController extends AbstractController {
 
 		request.getSession().setAttribute("urlBanner", urlBanner);
 		request.getSession().setAttribute("nameApp", nameApp);
+		request.getSession().setAttribute("termsAndConditions", "termsAndConditions/show.do");
 
 		result = new ModelAndView("welcome/index");
 		if (language.equals("en"))
