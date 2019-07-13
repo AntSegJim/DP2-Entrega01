@@ -16,31 +16,58 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<style type="text/css">
+.PENDING{
+  background-color: Grey ;
+}
+.ACCEPTED{
+  background-color: Green ;
+}
+.REJECTED{
+  background-color: Orange;
+}
+</style>
+
 <security:authorize access="hasRole('MEMBER')">
+
 
 <display:table pagesize="5" name="enrolments" id="row"
 requestURI="enrolment/member/list.do" >
 
-<display:column property="moment" titleKey="enrolment.moment" format="{0,date,dd-MM-yyyy HH:mm}">
+<jstl:choose>
+		<jstl:when test="${row.status == 0}">
+			<jstl:set var="css" value="PENDING"></jstl:set>
+		</jstl:when>
+	
+		<jstl:when test="${row.status == 1}">
+				<jstl:set var="css" value="ACCEPTED"></jstl:set>
+		</jstl:when>
+	
+		<jstl:when test="${row.status == 2}">
+				<jstl:set var="css" value="REJECTED"></jstl:set>
+		</jstl:when>
+	</jstl:choose>
+
+<display:column class="${css}" property="moment" titleKey="enrolment.moment" format="{0,date,dd-MM-yyyy HH:mm}">
 </display:column>
 
-<display:column titleKey="enrolment.brotherhood">
+<display:column class="${css}" titleKey="enrolment.brotherhood">
 <jstl:out value="${row.brotherhood.title}"></jstl:out>
 </display:column>
 
 <jstl:if test="${language eq 'en' }">
-<display:column titleKey="enrolment.position">
+<display:column class="${css}" titleKey="enrolment.position">
 <jstl:out value="${row.position.name}"></jstl:out>
 </display:column>
 </jstl:if>
 
 <jstl:if test="${language eq 'es' }">
-<display:column titleKey="enrolment.position">
+<display:column class="${css}" titleKey="enrolment.position">
 <jstl:out value="${row.position.spanishName}"></jstl:out>
 </display:column>
 </jstl:if>
 
-<display:column titleKey="enrolment.status">
+<display:column class="${css}" titleKey="enrolment.status">
 
 <jstl:if test="${row.status eq 0 }">
 	<spring:message code="enrolment.status.pending" />
@@ -60,7 +87,7 @@ requestURI="enrolment/member/list.do" >
 
 </display:column>
 
-<display:column>
+<display:column class="${css}">
 	<jstl:if test="${row.status eq 1 or row.status eq 0 or row.status eq 3}">
 		<a href="enrolment/member/edit.do?idEnrolment=${row.id}"><spring:message code="enrolment.edit" /></a>
 	</jstl:if>
